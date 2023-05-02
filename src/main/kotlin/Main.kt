@@ -9,7 +9,7 @@ import java.io.FileInputStream
 
 
 fun main(args: Array<String>) {
-    /* //Comment out to generate
+    //Comment out to generate
     val conf1 = DTFMUConf(
         "examples/Linear.fmu",
         0.5f,
@@ -48,7 +48,7 @@ fun main(args: Array<String>) {
         mutableMapOf()
     )
 
-    println(Json.encodeToString(recurse))*/
+    println(Json.encodeToString(recurse))//
 
     val conf = Json.decodeFromStream<DTComponent>(FileInputStream("examples/root.json"))
     conf.instantiate()
