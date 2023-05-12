@@ -61,6 +61,7 @@ public class DTManager {
 		this.name = name;
 		this.schema = schema;
 		this.availableTwins = new HashMap<String, DigitalTwin>();
+		this.internalClock = new Clock();
 		experimentalTwins = new HashMap<String, DigitalTwin>();
 		// New for DT Systems
 		this.availableTwinSystems = new HashMap<String, DigitalTwinSystem>();
@@ -95,13 +96,13 @@ public class DTManager {
 	}
 	
 	// New input for DT Systems
-	public void createDigitalTwinSystem(String systemName,List<String> twins, ComponentConfiguration config) {
+	public void createDigitalTwinSystem(String systemName,List<String> twins, ComponentConfiguration config, String coeFilename) {
 		Map<String,DigitalTwin> digitalTwins = new HashMap<String,DigitalTwin>();
 		for(String twin : twins){
 			DigitalTwin currentTwin = this.availableTwins.get(twin);
 			digitalTwins.put(twin,currentTwin);
 		}
-		DigitalTwinSystem dtSystem = new DigitalTwinSystem(digitalTwins,config);
+		DigitalTwinSystem dtSystem = new DigitalTwinSystem(digitalTwins,config, coeFilename);
 		this.availableTwinSystems.put(systemName, dtSystem);
 	}
 	
@@ -272,10 +273,38 @@ public class DTManager {
 		}
 	}
 	
-	// New for DT Systems
+	public void setClock(int value) {
+		this.internalClock.setClock(value);
+	}
+	
+	/***** New for DT Systems *****/
 	public void executeOperationOnSystem(String opName, List<?> arguments,String systemName) {
 		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
 		twinSystem.executeOperation(opName, arguments);
+	}
+	
+	public void setSystemAttributeValue(String attrName, Object val, String systemName) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		twinSystem.setAttributeValue(attrName, val);
+	}
+	
+	public void setSystemAttributeValue(String attrName, Object val, String systemName, String twinName) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		twinSystem.setAttributeValue(attrName, val, twinName);
+	}
+	
+	public Object getSystemAttributeValue(String attrName, String systemName) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		twinSystem.setClock(this.internalClock.getNow());
+		Object value = twinSystem.getAttributeValue(attrName);
+		return value;
+	}
+	
+	public Object getSystemAttributeValue(String attrName, String systemName, String twinName) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		twinSystem.setClock(this.internalClock.getNow());
+		Object value = twinSystem.getAttributeValue(attrName,twinName);
+		return value;
 	}
 	
 	/********** Specific to AAS  ************/

@@ -9,6 +9,8 @@ import org.eclipse.basyx.submodel.metamodel.map.submodelelement.operation.Operat
 
 public interface Endpoint {
 	public TwinConfiguration config = null;
+	
+	public int clock = 0;
 
 	public void registerOperation(String name, Operation op);
 
@@ -22,10 +24,19 @@ public interface Endpoint {
 	
 	public Object getAttributeValue(String variable);
 	
-	public void setAttributeValues(List<String> variables,List<Double> values);
+	public void setAttributeValues(List<String> variables,List<Object> values);
 	
-	public void setAttributeValue(String variable,double value);
+	public void setAttributeValue(String variable,Object value);
 	
 	public void executeOperation(String opName, List<?> arguments);
+
+	/***** Specific for MaestroEndpoint *****/
+	public Object getAttributeValue(String attrName, String twinName);
+
+	public void setAttributeValue(String attrName, Object val, String twinName);
+
+	public void setClock(int value);
+
+	public int getClock();
 	
 }

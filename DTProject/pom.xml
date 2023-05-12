@@ -82,5 +82,26 @@
 		    <artifactId>fmu-wrapper</artifactId>
 		    <version>LATEST</version>
 		</dependency>
+		<dependency>
+		  <groupId>org.into-cps.maestro</groupId>
+		  <artifactId>maestro</artifactId>
+		  <version>2.3.0</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.into-cps.maestro</groupId>
+		  <artifactId>maestro-webapi</artifactId>
+		  <version>2.3.0</version>
+		</dependency>	
+		<dependency>
+		  <groupId>com.opencsv</groupId>
+		  <artifactId>opencsv</artifactId>
+		  <version>5.7.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-log4j12</artifactId>
+		    <version>1.7.5</version>
+		</dependency>
 	</dependencies>
 </project>

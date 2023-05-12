@@ -10,4 +10,8 @@ public class Clock {
 	public int getNow() {
 		return this.now;
 	}
+	
+	public void setClock(int value) {
+		this.now = value;
+	}
 }

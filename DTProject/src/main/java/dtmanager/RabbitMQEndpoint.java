@@ -247,12 +247,12 @@ public class RabbitMQEndpoint implements Endpoint {
 	}
 
 	@Override
-	public void setAttributeValues(List<String> variables, List<Double> values) {
+	public void setAttributeValues(List<String> variables, List<Object> values) {
 		// TODO Auto-generated method stub
 		for(String var : variables) {
 			int index = variables.indexOf(var);
 			String routingKey = mapRoutingKey(var);
-			String message = Double.toString(values.get(index));
+			String message = String.valueOf(values.get(index));
 			try {
 				channel.basicPublish(exchange, routingKey, null, message.getBytes());
 			} catch (IOException e) {
@@ -263,9 +263,9 @@ public class RabbitMQEndpoint implements Endpoint {
 	}
 
 	@Override
-	public void setAttributeValue(String variable, double value) {
+	public void setAttributeValue(String variable, Object value) {
 		String routingKey = mapRoutingKey(variable);
-		String message = Double.toString(value);
+		String message = String.valueOf(value);
 		try {
 			channel.basicPublish(exchange, routingKey, null, message.getBytes());
 		} catch (IOException e) {
@@ -290,6 +290,30 @@ public class RabbitMQEndpoint implements Endpoint {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public Object getAttributeValue(String attrName, String twinName) {
+		// Not applicable
+		return null;
+	}
+
+	@Override
+	public void setAttributeValue(String attrName, Object val, String twinName) {
+		// Not applicable
+		
+	}
+
+	@Override
+	public void setClock(int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getClock() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

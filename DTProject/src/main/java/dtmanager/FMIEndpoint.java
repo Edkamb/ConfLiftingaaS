@@ -48,17 +48,17 @@ public class FMIEndpoint implements Endpoint {
 		return value;
 	}
 	
-	public void setAttributeValues(List<String> variables,List<Double> values) {
+	public void setAttributeValues(List<String> variables,List<Object> values) {
 		for(String var : variables) {
 			int index = variables.indexOf(var);
 			String mappedVariable = mapAlias(var);
-			simulation.write(mappedVariable).with(values.get(index));
+			simulation.write(mappedVariable).with(Double.valueOf(values.get(index).toString()));
 		}
 	}
 	
-	public void setAttributeValue(String variable,double value) {
+	public void setAttributeValue(String variable,Object value) {
 		String mappedVariable = mapAlias(variable);
-		simulation.write(mappedVariable).with(value);
+		simulation.write(mappedVariable).with(Double.valueOf(value.toString()));
 	}
 	
 	public void initializeSimulation(double startTime) {
@@ -73,13 +73,6 @@ public class FMIEndpoint implements Endpoint {
 		this.simulation.doStep(stepSize);
 	}
 	
-	public void reinitializeFilter(double stepSize, double initialHeatTemperature, double initialBoxTemperature) {
-		this.simulation.reset();
-		this.simulation.
-			write("initial_heat_temperature","initial_box_temperature").
-			with(initialHeatTemperature,initialBoxTemperature);
-			//this.doStep(stepSize);
-	}
 	
 	private String mapAlias(String in) {
 		String out = this.twinConfig.conf.getString("fmi.aliases." + in);
@@ -132,6 +125,30 @@ public class FMIEndpoint implements Endpoint {
 			this.initializeSimulation(startTime);
 		}
 		
+	}
+
+	@Override
+	public Object getAttributeValue(String attrName, String twinName) {
+		// Not applicable
+		return null;
+	}
+
+	@Override
+	public void setAttributeValue(String attrName, Object val, String twinName) {
+		// Not applicable
+		
+	}
+
+	@Override
+	public void setClock(int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getClock() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

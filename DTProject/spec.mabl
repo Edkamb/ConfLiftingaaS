@@ -1,0 +1,802 @@
+simulation 
+import BooleanLogic;
+import DataWriter;
+import DataWriterConfig;
+import FMI2;
+import FMI2Component;
+import Logger;
+import Math;
+import SimulationControl;
+{
+ 	int status = 0;
+	Math math = null;
+	Logger logger = null;
+	DataWriter dataWriter = null;
+	BooleanLogic booleanLogic = null;
+	@mapFmu(tank -> "{tank}");
+	FMI2 tank = null;
+	@mapInstance(tank1Instance -> "tank1Instance");
+	FMI2Component tank1Instance = null;
+	@mapInstance(tank3Instance -> "tank3Instance");
+	FMI2Component tank3Instance = null;
+	@mapInstance(tank2Instance -> "tank2Instance");
+	FMI2Component tank2Instance = null;
+	try 
+	{
+		math = load("Math");
+		if( ((math == null)) )
+		{
+				error "math IS NULL ";
+		}
+		logger = load("Logger");
+		if( ((logger == null)) )
+		{
+				error "logger IS NULL ";
+		}
+		dataWriter = load("DataWriter");
+		if( ((dataWriter == null)) )
+		{
+				error "dataWriter IS NULL ";
+		}
+		booleanLogic = load("BooleanLogic");
+		if( ((booleanLogic == null)) )
+		{
+				error "booleanLogic IS NULL ";
+		}
+		tank = load("FMI2", "{1f466342-1fac-4f0f-83ef-558cb55b9503}", "file:Linear.fmu");
+		if( ((tank == null)) )
+		{
+				error "tank IS NULL ";
+		}
+		tank1Instance = tank.instantiate("tank1Instance", false, false);
+		if( ((tank1Instance == null)) )
+		{
+				error "tank1Instance IS NULL ";
+		}
+		tank3Instance = tank.instantiate("tank3Instance", false, false);
+		if( ((tank3Instance == null)) )
+		{
+				error "tank3Instance IS NULL ";
+		}
+		tank2Instance = tank.instantiate("tank2Instance", false, false);
+		if( ((tank2Instance == null)) )
+		{
+				error "tank2Instance IS NULL ";
+		}
+		real STEP_SIZE = 0.5;
+		real START_TIME = 0.0;
+		real END_TIME = 100.0;
+		int FMI_OK = 0;
+		int FMI_DISCARD = 2;
+		int FMI_ERROR = 3;
+		int FMI_FATAL = 4;
+		BooleanLogic booleanLogic1;
+		try 
+		{
+			booleanLogic1 = load("BooleanLogic");
+			if( (booleanLogic1 == null) )
+			{
+					error "Failed load of: booleanLogic1";
+			}
+			int tank1instanceIntShare[1];
+			int tank1instanceIntIo[3];
+			int tank3instanceIntIo[3];
+			int tank2instanceIntShare[1];
+			int tank2instanceIntIo[3];
+			real tank2instanceRealIo[3];
+			uint tank2instanceUintVref[3];
+			real tank3instanceRealIo[3];
+			uint tank3instanceUintVref[3];
+			real tank1instanceRealIo[3];
+			uint tank1instanceUintVref[3];
+			real fixed_end_time = 0.0;
+			fixed_end_time = END_TIME;
+			status = tank1Instance.setupExperiment(true, 0.1, START_TIME, true, END_TIME);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_ERROR", tank1Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_FATAL", tank1Instance);
+					}
+					error "Failed to 'setupExperiment' on 'tank1Instance'";
+			}
+			status = tank3Instance.setupExperiment(true, 0.1, START_TIME, true, END_TIME);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_ERROR", tank3Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_FATAL", tank3Instance);
+					}
+					error "Failed to 'setupExperiment' on 'tank3Instance'";
+			}
+			status = tank2Instance.setupExperiment(true, 0.1, START_TIME, true, END_TIME);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_ERROR", tank2Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_FATAL", tank2Instance);
+					}
+					error "Failed to 'setupExperiment' on 'tank2Instance'";
+			}
+			tank1instanceUintVref[0] = 0;
+			tank1instanceRealIo[0] = 1.0;
+			status = tank1Instance.setReal(tank1instanceUintVref, 1, tank1instanceRealIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", tank1Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", tank1Instance);
+					}
+					error "Failed to 'setReal' on 'tank1Instance'";
+			}
+			tank3instanceUintVref[0] = 0;
+			tank3instanceRealIo[0] = 0.0;
+			status = tank3Instance.setReal(tank3instanceUintVref, 1, tank3instanceRealIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", tank3Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", tank3Instance);
+					}
+					error "Failed to 'setReal' on 'tank3Instance'";
+			}
+			tank2instanceUintVref[0] = 0;
+			tank2instanceRealIo[0] = 0.0;
+			status = tank2Instance.setReal(tank2instanceUintVref, 1, tank2instanceRealIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", tank2Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", tank2Instance);
+					}
+					error "Failed to 'setReal' on 'tank2Instance'";
+			}
+			status = tank1Instance.enterInitializationMode();
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_ERROR", tank1Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_FATAL", tank1Instance);
+					}
+					error "Failed to 'enterInitializationMode' on 'tank1Instance'";
+			}
+			status = tank3Instance.enterInitializationMode();
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_ERROR", tank3Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_FATAL", tank3Instance);
+					}
+					error "Failed to 'enterInitializationMode' on 'tank3Instance'";
+			}
+			status = tank2Instance.enterInitializationMode();
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_ERROR", tank2Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_FATAL", tank2Instance);
+					}
+					error "Failed to 'enterInitializationMode' on 'tank2Instance'";
+			}
+			tank2instanceUintVref[0] = 2;
+			status = tank2Instance.getInteger(tank2instanceUintVref, 1, tank2instanceIntIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", tank2Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", tank2Instance);
+					}
+					error "Failed to 'getInteger' on 'tank2Instance'";
+			}
+			tank2instanceIntShare[0] = tank2instanceIntIo[0];
+			tank3instanceUintVref[0] = 0;
+			tank3instanceIntIo[0] = tank2instanceIntShare[0];
+			status = tank3Instance.setInteger(tank3instanceUintVref, 1, tank3instanceIntIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", tank3Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", tank3Instance);
+					}
+					error "Failed to 'setInteger' on 'tank3Instance'";
+			}
+			tank1instanceUintVref[0] = 2;
+			status = tank1Instance.getInteger(tank1instanceUintVref, 1, tank1instanceIntIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", tank1Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", tank1Instance);
+					}
+					error "Failed to 'getInteger' on 'tank1Instance'";
+			}
+			tank1instanceIntShare[0] = tank1instanceIntIo[0];
+			tank2instanceUintVref[0] = 0;
+			tank2instanceIntIo[0] = tank1instanceIntShare[0];
+			status = tank2Instance.setInteger(tank2instanceUintVref, 1, tank2instanceIntIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", tank2Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", tank2Instance);
+					}
+					error "Failed to 'setInteger' on 'tank2Instance'";
+			}
+			status = tank1Instance.exitInitializationMode();
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_ERROR", tank1Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_FATAL", tank1Instance);
+					}
+					error "Failed to 'exitInitializationMode' on 'tank1Instance'";
+			}
+			status = tank3Instance.exitInitializationMode();
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_ERROR", tank3Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_FATAL", tank3Instance);
+					}
+					error "Failed to 'exitInitializationMode' on 'tank3Instance'";
+			}
+			status = tank2Instance.exitInitializationMode();
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_ERROR", tank2Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_FATAL", tank2Instance);
+					}
+					error "Failed to 'exitInitializationMode' on 'tank2Instance'";
+			}
+		}		finally 
+		{
+			if( (booleanLogic1 != null) )
+			{
+					unload(booleanLogic1);
+					booleanLogic1 = null;
+			}
+		}
+		BooleanLogic booleanLogic2;
+		DataWriter dataWriter1;
+		SimulationControl simulationControl;
+		try 
+		{
+			simulationControl = load("SimulationControl");
+			if( (simulationControl == null) )
+			{
+					error "Failed load of: simulationControl";
+			}
+			dataWriter1 = load("DataWriter");
+			if( (dataWriter1 == null) )
+			{
+					error "Failed load of: dataWriter1";
+			}
+			booleanLogic2 = load("BooleanLogic");
+			if( (booleanLogic2 == null) )
+			{
+					error "Failed load of: booleanLogic2";
+			}
+			bool tank2instanceCurrentTimeFullStep = true;
+			real tank2instanceCurrentTime = 0.0;
+			bool tank3instanceCurrentTimeFullStep = true;
+			real tank3instanceCurrentTime = 0.0;
+			bool tank1instanceCurrentTimeFullStep = true;
+			real tank1instanceCurrentTime = 0.0;
+			int tank3instanceIntShare[3];
+			real tank3instanceRealShare[2];
+			int tank1instanceIntShare[3];
+			real tank1instanceRealShare[2];
+			int tank2instanceIntShare[3];
+			real tank2instanceRealShare[2];
+			int tank2instanceIntIo[3];
+			real tank2instanceRealIo[3];
+			uint tank2instanceUintVref[3];
+			int tank3instanceIntIo[3];
+			real tank3instanceRealIo[3];
+			uint tank3instanceUintVref[3];
+			int tank1instanceIntIo[3];
+			real tank1instanceRealIo[3];
+			uint tank1instanceUintVref[3];
+			real jac_current_step_size = 0.0;
+			real jac_step_size = 0.0;
+			@TransferAs("START_TIME");
+			real jac_current_communication_point = 0.0;
+			real jac_end_time = 0.0;
+			jac_current_step_size = STEP_SIZE;
+			jac_step_size = STEP_SIZE;
+			jac_current_communication_point = START_TIME;
+			jac_end_time = END_TIME;
+			string datawriter_headers[15] = { "{tank}.tank1Instance.level" , "{tank}.tank1Instance.inPort" , "{tank}.tank1Instance.leak" , "{tank}.tank1Instance.der(level)" , "{tank}.tank1Instance.outPort" , "{tank}.tank3Instance.level" , "{tank}.tank3Instance.inPort" , "{tank}.tank3Instance.leak" , "{tank}.tank3Instance.der(level)" , "{tank}.tank3Instance.outPort" , "{tank}.tank2Instance.level" , "{tank}.tank2Instance.inPort" , "{tank}.tank2Instance.leak" , "{tank}.tank2Instance.der(level)" , "{tank}.tank2Instance.outPort" };
+			DataWriterConfig datawriter_configuration = dataWriter1.writeHeader(datawriter_headers);
+			tank1instanceUintVref[0] = 0;
+			tank1instanceUintVref[1] = 1;
+			status = tank1Instance.getReal(tank1instanceUintVref, 2, tank1instanceRealIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", tank1Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", tank1Instance);
+					}
+					error "Failed to 'getReal' on 'tank1Instance'";
+			}
+			tank1instanceUintVref[0] = 0;
+			tank1instanceUintVref[1] = 1;
+			tank1instanceUintVref[2] = 2;
+			status = tank1Instance.getInteger(tank1instanceUintVref, 3, tank1instanceIntIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", tank1Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", tank1Instance);
+					}
+					error "Failed to 'getInteger' on 'tank1Instance'";
+			}
+			tank3instanceUintVref[0] = 0;
+			tank3instanceUintVref[1] = 1;
+			status = tank3Instance.getReal(tank3instanceUintVref, 2, tank3instanceRealIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", tank3Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", tank3Instance);
+					}
+					error "Failed to 'getReal' on 'tank3Instance'";
+			}
+			tank3instanceUintVref[0] = 0;
+			tank3instanceUintVref[1] = 1;
+			tank3instanceUintVref[2] = 2;
+			status = tank3Instance.getInteger(tank3instanceUintVref, 3, tank3instanceIntIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", tank3Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", tank3Instance);
+					}
+					error "Failed to 'getInteger' on 'tank3Instance'";
+			}
+			tank2instanceUintVref[0] = 0;
+			tank2instanceUintVref[1] = 1;
+			status = tank2Instance.getReal(tank2instanceUintVref, 2, tank2instanceRealIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", tank2Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", tank2Instance);
+					}
+					error "Failed to 'getReal' on 'tank2Instance'";
+			}
+			tank2instanceUintVref[0] = 0;
+			tank2instanceUintVref[1] = 1;
+			tank2instanceUintVref[2] = 2;
+			status = tank2Instance.getInteger(tank2instanceUintVref, 3, tank2instanceIntIo);
+			if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+			{
+					if( (status == FMI_ERROR) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", tank2Instance);
+					}
+					if( (status == FMI_FATAL) )
+					{
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", tank2Instance);
+					}
+					error "Failed to 'getInteger' on 'tank2Instance'";
+			}
+			tank2instanceRealShare[0] = tank2instanceRealIo[0];
+			tank2instanceRealShare[1] = tank2instanceRealIo[1];
+			tank2instanceIntShare[0] = tank2instanceIntIo[0];
+			tank2instanceIntShare[1] = tank2instanceIntIo[1];
+			tank2instanceIntShare[2] = tank2instanceIntIo[2];
+			tank1instanceRealShare[0] = tank1instanceRealIo[0];
+			tank1instanceRealShare[1] = tank1instanceRealIo[1];
+			tank1instanceIntShare[0] = tank1instanceIntIo[0];
+			tank1instanceIntShare[1] = tank1instanceIntIo[1];
+			tank1instanceIntShare[2] = tank1instanceIntIo[2];
+			tank3instanceRealShare[0] = tank3instanceRealIo[0];
+			tank3instanceRealShare[1] = tank3instanceRealIo[1];
+			tank3instanceIntShare[0] = tank3instanceIntIo[0];
+			tank3instanceIntShare[1] = tank3instanceIntIo[1];
+			tank3instanceIntShare[2] = tank3instanceIntIo[2];
+			real fmu_communicationpoints[3];
+			dataWriter1.writeDataPoint(datawriter_configuration, jac_current_communication_point, tank1instanceRealShare[0], tank1instanceIntShare[0], tank1instanceIntShare[1], tank1instanceRealShare[1], tank1instanceIntShare[2], tank3instanceRealShare[0], tank3instanceIntShare[0], tank3instanceIntShare[1], tank3instanceRealShare[1], tank3instanceIntShare[2], tank2instanceRealShare[0], tank2instanceIntShare[0], tank2instanceIntShare[1], tank2instanceRealShare[1], tank2instanceIntShare[2]);
+			bool any_discards = false;
+			while( ((jac_current_communication_point + jac_current_step_size) < jac_end_time) )
+			{
+				bool tmp = simulationControl.stopRequested();
+				if( (tmp) )
+				{
+						error "Simulation stopped by user";
+				}
+				@Transfer();
+				tank3instanceUintVref[0] = 0;
+				tank3instanceIntIo[0] = tank2instanceIntShare[2];
+				status = tank3Instance.setInteger(tank3instanceUintVref, 1, tank3instanceIntIo);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", tank3Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", tank3Instance);
+						}
+						error "Failed to 'setInteger' on 'tank3Instance'";
+				}
+				tank2instanceUintVref[0] = 0;
+				tank2instanceIntIo[0] = tank1instanceIntShare[2];
+				status = tank2Instance.setInteger(tank2instanceUintVref, 1, tank2instanceIntIo);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", tank2Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", tank2Instance);
+						}
+						error "Failed to 'setInteger' on 'tank2Instance'";
+				}
+				any_discards = false;
+				status = tank1Instance.doStep(jac_current_communication_point, jac_current_step_size, false);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "DoStep failed on '%s' with status: FMI_ERROR", tank1Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "DoStep failed on '%s' with status: FMI_FATAL", tank1Instance);
+						}
+						error "Failed to 'doStep' on 'tank1Instance'";
+				}
+				if( (status != FMI_OK) )
+				{
+						if( (status == FMI_DISCARD) )
+						{
+								status = tank1Instance.getRealStatus(2, ref tank1instanceCurrentTime);
+								tank1instanceCurrentTimeFullStep = false;
+						}
+				}
+				else
+				{
+						tank1instanceCurrentTime = jac_current_communication_point + jac_current_step_size;
+						tank1instanceCurrentTimeFullStep = true;
+				}
+				fmu_communicationpoints[0] = tank1instanceCurrentTime;
+				if( (!tank1instanceCurrentTimeFullStep) )
+				{
+						logger.log(1, "## FMU: '%s' DISCARDED step at sim-time: %f for step-size: %f and proposed sim-time: %.15f", "tank1Instance", jac_current_communication_point, jac_current_step_size, tank1instanceCurrentTime);
+						any_discards = any_discards || !tank1instanceCurrentTimeFullStep;
+				}
+				status = tank3Instance.doStep(jac_current_communication_point, jac_current_step_size, false);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "DoStep failed on '%s' with status: FMI_ERROR", tank3Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "DoStep failed on '%s' with status: FMI_FATAL", tank3Instance);
+						}
+						error "Failed to 'doStep' on 'tank3Instance'";
+				}
+				if( (status != FMI_OK) )
+				{
+						if( (status == FMI_DISCARD) )
+						{
+								status = tank3Instance.getRealStatus(2, ref tank3instanceCurrentTime);
+								tank3instanceCurrentTimeFullStep = false;
+						}
+				}
+				else
+				{
+						tank3instanceCurrentTime = jac_current_communication_point + jac_current_step_size;
+						tank3instanceCurrentTimeFullStep = true;
+				}
+				fmu_communicationpoints[1] = tank3instanceCurrentTime;
+				if( (!tank3instanceCurrentTimeFullStep) )
+				{
+						logger.log(1, "## FMU: '%s' DISCARDED step at sim-time: %f for step-size: %f and proposed sim-time: %.15f", "tank3Instance", jac_current_communication_point, jac_current_step_size, tank3instanceCurrentTime);
+						any_discards = any_discards || !tank3instanceCurrentTimeFullStep;
+				}
+				status = tank2Instance.doStep(jac_current_communication_point, jac_current_step_size, false);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "DoStep failed on '%s' with status: FMI_ERROR", tank2Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "DoStep failed on '%s' with status: FMI_FATAL", tank2Instance);
+						}
+						error "Failed to 'doStep' on 'tank2Instance'";
+				}
+				if( (status != FMI_OK) )
+				{
+						if( (status == FMI_DISCARD) )
+						{
+								status = tank2Instance.getRealStatus(2, ref tank2instanceCurrentTime);
+								tank2instanceCurrentTimeFullStep = false;
+						}
+				}
+				else
+				{
+						tank2instanceCurrentTime = jac_current_communication_point + jac_current_step_size;
+						tank2instanceCurrentTimeFullStep = true;
+				}
+				fmu_communicationpoints[2] = tank2instanceCurrentTime;
+				if( (!tank2instanceCurrentTimeFullStep) )
+				{
+						logger.log(1, "## FMU: '%s' DISCARDED step at sim-time: %f for step-size: %f and proposed sim-time: %.15f", "tank2Instance", jac_current_communication_point, jac_current_step_size, tank2instanceCurrentTime);
+						any_discards = any_discards || !tank2instanceCurrentTimeFullStep;
+				}
+				tank2instanceUintVref[0] = 0;
+				tank2instanceUintVref[1] = 1;
+				status = tank2Instance.getReal(tank2instanceUintVref, 2, tank2instanceRealIo);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", tank2Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", tank2Instance);
+						}
+						error "Failed to 'getReal' on 'tank2Instance'";
+				}
+				tank2instanceUintVref[0] = 0;
+				tank2instanceUintVref[1] = 1;
+				tank2instanceUintVref[2] = 2;
+				status = tank2Instance.getInteger(tank2instanceUintVref, 3, tank2instanceIntIo);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", tank2Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", tank2Instance);
+						}
+						error "Failed to 'getInteger' on 'tank2Instance'";
+				}
+				tank1instanceUintVref[0] = 0;
+				tank1instanceUintVref[1] = 1;
+				status = tank1Instance.getReal(tank1instanceUintVref, 2, tank1instanceRealIo);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", tank1Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", tank1Instance);
+						}
+						error "Failed to 'getReal' on 'tank1Instance'";
+				}
+				tank1instanceUintVref[0] = 0;
+				tank1instanceUintVref[1] = 1;
+				tank1instanceUintVref[2] = 2;
+				status = tank1Instance.getInteger(tank1instanceUintVref, 3, tank1instanceIntIo);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", tank1Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", tank1Instance);
+						}
+						error "Failed to 'getInteger' on 'tank1Instance'";
+				}
+				tank3instanceUintVref[0] = 0;
+				tank3instanceUintVref[1] = 1;
+				status = tank3Instance.getReal(tank3instanceUintVref, 2, tank3instanceRealIo);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", tank3Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", tank3Instance);
+						}
+						error "Failed to 'getReal' on 'tank3Instance'";
+				}
+				tank3instanceUintVref[0] = 0;
+				tank3instanceUintVref[1] = 1;
+				tank3instanceUintVref[2] = 2;
+				status = tank3Instance.getInteger(tank3instanceUintVref, 3, tank3instanceIntIo);
+				if( ((status == FMI_ERROR) || (status == FMI_FATAL)) )
+				{
+						if( (status == FMI_ERROR) )
+						{
+								logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", tank3Instance);
+						}
+						if( (status == FMI_FATAL) )
+						{
+								logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", tank3Instance);
+						}
+						error "Failed to 'getInteger' on 'tank3Instance'";
+				}
+				tank2instanceRealShare[0] = tank2instanceRealIo[0];
+				tank2instanceRealShare[1] = tank2instanceRealIo[1];
+				tank2instanceIntShare[0] = tank2instanceIntIo[0];
+				tank2instanceIntShare[1] = tank2instanceIntIo[1];
+				tank2instanceIntShare[2] = tank2instanceIntIo[2];
+				tank1instanceRealShare[0] = tank1instanceRealIo[0];
+				tank1instanceRealShare[1] = tank1instanceRealIo[1];
+				tank1instanceIntShare[0] = tank1instanceIntIo[0];
+				tank1instanceIntShare[1] = tank1instanceIntIo[1];
+				tank1instanceIntShare[2] = tank1instanceIntIo[2];
+				tank3instanceRealShare[0] = tank3instanceRealIo[0];
+				tank3instanceRealShare[1] = tank3instanceRealIo[1];
+				tank3instanceIntShare[0] = tank3instanceIntIo[0];
+				tank3instanceIntShare[1] = tank3instanceIntIo[1];
+				tank3instanceIntShare[2] = tank3instanceIntIo[2];
+				if( (!any_discards) )
+				{
+						jac_current_communication_point = jac_current_communication_point + jac_current_step_size;
+						dataWriter1.writeDataPoint(datawriter_configuration, jac_current_communication_point, tank1instanceRealShare[0], tank1instanceIntShare[0], tank1instanceIntShare[1], tank1instanceRealShare[1], tank1instanceIntShare[2], tank3instanceRealShare[0], tank3instanceIntShare[0], tank3instanceIntShare[1], tank3instanceRealShare[1], tank3instanceIntShare[2], tank2instanceRealShare[0], tank2instanceIntShare[0], tank2instanceIntShare[1], tank2instanceRealShare[1], tank2instanceIntShare[2]);
+						jac_current_step_size = jac_step_size;
+				}
+			}
+			dataWriter1.close();
+		}		finally 
+		{
+			if( (simulationControl != null) )
+			{
+					unload(simulationControl);
+					simulationControl = null;
+			}
+			if( (dataWriter1 != null) )
+			{
+					unload(dataWriter1);
+					dataWriter1 = null;
+			}
+			if( (booleanLogic2 != null) )
+			{
+					unload(booleanLogic2);
+					booleanLogic2 = null;
+			}
+		}
+		tank1Instance.terminate();
+		tank3Instance.terminate();
+		tank2Instance.terminate();
+	}	finally 
+	{
+		if( ((tank1Instance != null)) )
+		{
+				tank.freeInstance(tank1Instance);
+				tank1Instance = null;
+		}
+		if( ((tank3Instance != null)) )
+		{
+				tank.freeInstance(tank3Instance);
+				tank3Instance = null;
+		}
+		if( ((tank2Instance != null)) )
+		{
+				tank.freeInstance(tank2Instance);
+				tank2Instance = null;
+		}
+		if( ((tank != null)) )
+		{
+				unload(tank);
+				tank = null;
+		}
+		if( ((math != null)) )
+		{
+				unload(math);
+				math = null;
+		}
+		if( ((logger != null)) )
+		{
+				unload(logger);
+				logger = null;
+		}
+		if( ((dataWriter != null)) )
+		{
+				unload(dataWriter);
+				dataWriter = null;
+		}
+		if( ((booleanLogic != null)) )
+		{
+				unload(booleanLogic);
+				booleanLogic = null;
+		}
+	}
+}
