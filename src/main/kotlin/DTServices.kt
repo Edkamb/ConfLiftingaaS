@@ -15,7 +15,7 @@ class DTConsistencyChecking(val dtm: DTManager) : DTService(){
 
     fun isInconsistent( external: Model ) : Boolean{
         val queryService = dtm.getService("Query") as DTQueryService
-        val res = queryService.query("SELECT ?x { ?x my:hasFMU ?y. ?y my:hasFile \"Linear.fmu\". ?x my:hasFMU ?z. ?z my:hasFile \"Linear.fmu\". FILTER (?z != ?y)}", external)
+        val res = queryService.query("SELECT ?x { ?x my:hasFMU ?y. ?y my:hasFile \"examples/Linear.fmu\". ?x my:hasFMU ?z. ?z my:hasFile \"examples/Linear.fmu\". FILTER (?z != ?y)}", external)
         return (res != null && res.hasNext())
     }
 }
@@ -23,7 +23,7 @@ class DTConsistencyChecking(val dtm: DTManager) : DTService(){
 class DTReflectService(var dtm: DTManager) : DTService() {
     fun getAllLinears(external: Model) : List<DTFMUConcreteObject> {
         val consistencyService = dtm.getService("Consistency") as DTConsistencyChecking
-        if(consistencyService.isInconsistent(external)) return emptyList()
+        if(consistencyService.isInconsistent(external)) println("WARNING: Lifted configuration has known constraint violation")//return emptyList()
 
         val queryService = dtm.getService("Query") as DTQueryService
         val res = queryService.query("SELECT ?x { ?x a my:LinearFmu } ", external, true)
