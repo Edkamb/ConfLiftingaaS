@@ -2,6 +2,7 @@ import kotlinx.serialization.*
 import kotlinx.serialization.Transient
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import org.apache.jena.rdf.model.ModelFactory
 import org.javafmi.wrapper.Simulation
 import java.io.File
 import java.io.FileInputStream
@@ -9,7 +10,7 @@ import java.io.FileInputStream
 
 
 fun main(args: Array<String>) {
-    //Comment out to generate
+    /* //Comment out to generate
     val conf1 = DTFMUConf(
         "examples/Linear.fmu",
         0.5f,
@@ -48,12 +49,22 @@ fun main(args: Array<String>) {
         mutableMapOf()
     )
 
-    println(Json.encodeToString(recurse))//
-
+    println(Json.encodeToString(recurse))*/
+/*
     val conf = Json.decodeFromStream<DTComponent>(FileInputStream("examples/root.json"))
     conf.instantiate()
     println("Start validation")
     conf.validate()
     println("End validation")
     println(Json.encodeToString(conf))
+*/
+    val dtm = DTManager()
+    dtm.registerAs("Lifting", DTLiftingService(dtm))
+    dtm.registerAs("Query", DTQueryService(dtm))
+    dtm.registerAs("Consistency", DTConsistencyChecking(dtm))
+    dtm.registerAs("Retrieve", DTReflectService(dtm))
+    dtm.load("examples/root.json")
+    println((dtm.getService("Consistency") as DTConsistencyChecking).isValid())
+    println((dtm.getService("Consistency") as DTConsistencyChecking).isInconsistent(ModelFactory.createDefaultModel()))
+    println((dtm.getService("Retrieve") as DTReflectService).getAllLinears(ModelFactory.createDefaultModel().read("examples/domain.ttl","TTL")).size)
 }
