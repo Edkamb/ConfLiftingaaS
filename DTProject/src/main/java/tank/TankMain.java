@@ -59,22 +59,23 @@ public class TankMain {
 		System.out.println(levelTank2);
 		System.out.println(levelTank3);
 		
-		Object tank3Level = dtManager.getSystemAttributeValue("{tank}.tank3Instance.level", "TankSystem");
+		Object tank3Level = dtManager.getSystemAttributeValue("{tank}.tank3.level", "TankSystem");
 		System.out.println(tank3Level.toString());
 		tank3Level = dtManager.getSystemAttributeValue("Level", "TankSystem","tank3");
 		System.out.println(tank3Level.toString());
-		dtManager.setSystemAttributeValue("{tank}.tank1Instance.level", 3.0, "TankSystem");
-		dtManager.setSystemAttributeValue("{tank}.tank2Instance.level", 10.0, "TankSystem");
-		//dtManager.setSystemAttributeValue("{tank}.tank3Instance.level", 45.0, "TankSystem");
+		dtManager.setSystemAttributeValue("{tank}.tank1.level", 3.0, "TankSystem");
+		dtManager.setSystemAttributeValue("{tank}.tank2.level", 10.0, "TankSystem");
+		//dtManager.setSystemAttributeValue("{tank}.tank3.level", 45.0, "TankSystem");
 		dtManager.setSystemAttributeValue("Level", 35.0, "TankSystem","tank3");
+		dtManager.setSystemAttributeValue("Level", 2.0, "TankSystem","tank1");
 		
 		dtManager.executeOperationOnSystem("doStep", null, "TankSystem");
-		tank3Level = dtManager.getSystemAttributeValue("{tank}.tank3Instance.level", "TankSystem");
+		tank3Level = dtManager.getSystemAttributeValue("{tank}.tank3.level", "TankSystem");
 		System.out.println(tank3Level.toString());
-		tank3Level = dtManager.getSystemAttributeValue("Level", "TankSystem","tank3");
+		tank3Level = dtManager.getSystemAttributeValue("Level", "TankSystem","tank3"); //This is the right method
 		System.out.println(tank3Level.toString());
 		
-		Object tank2Level = dtManager.getSystemAttributeValue("Level", "TankSystem","tank2");
+		Object tank2Level = dtManager.getSystemAttributeValue("Level", "TankSystem","tank2"); //This is the right method
 		System.out.println(tank2Level.toString());
 		
 		

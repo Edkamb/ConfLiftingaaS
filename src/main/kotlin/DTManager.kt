@@ -11,7 +11,7 @@ class DTManager() {
     }
 
     fun load(s: String) {
-        val conf = Json.decodeFromStream<DTComponent>(FileInputStream("examples/root.json"))
+        val conf = Json.decodeFromStream<DTComponent>(FileInputStream(s))// Edit Santiago
         conf.instantiate()
         dts.add(conf)
     }

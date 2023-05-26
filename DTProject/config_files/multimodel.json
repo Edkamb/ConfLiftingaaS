@@ -1,27 +1,27 @@
 {
     "aliases": {
-        "tank1": "{tank}.tank1Instance",
-        "tank2": "{tank}.tank2Instance",
-        "tank3": "{tank}.tank3Instance",
+        "tank1": "{tank}.tank1",
+        "tank2": "{tank}.tank2",
+        "tank3": "{tank}.tank3",
         "Level": "level"
     },
     "fmus": {"{tank}": "fmus/Linear.fmu"},
     "logVariables": {
-        "{tank}.tank2Instance": [
+        "{tank}.tank3": [
             "level",
             "inPort",
             "outPort",
             "leak",
             "der(level)"
         ],
-        "{tank}.tank1Instance": [
+        "{tank}.tank2": [
             "level",
             "inPort",
             "outPort",
             "leak",
             "der(level)"
         ],
-        "{tank}.tank3Instance": [
+        "{tank}.tank1": [
             "level",
             "inPort",
             "outPort",
@@ -30,13 +30,13 @@
         ]
     },
     "parameters": {
-        "{tank}.tank1Instance.level": 3,
-        "{tank}.tank2Instance.level": 10,
-        "{tank}.tank3Instance.level": 35
+        "{tank}.tank2.level": 10,
+        "{tank}.tank1.level": 2,
+        "{tank}.tank3.level": 35
     },
     "connections": {
-        "{tank}.tank1Instance.outPort": ["{tank}.tank2Instance.inPort"],
-        "{tank}.tank2Instance.outPort": ["{tank}.tank3Instance.inPort"]
+        "{tank}.tank1.outPort": ["{tank}.tank2.inPort"],
+        "{tank}.tank2.outPort": ["{tank}.tank3.inPort"]
     },
     "algorithm": {
         "size": 0.5,

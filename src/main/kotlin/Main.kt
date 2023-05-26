@@ -3,8 +3,10 @@ import kotlinx.serialization.Transient
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.apache.jena.rdf.model.ModelFactory
+import org.apache.jena.rdf.model.*
 import org.javafmi.wrapper.Simulation
 import java.io.File
+import java.io.FileWriter
 import java.io.FileInputStream
 
 
@@ -63,8 +65,13 @@ fun main(args: Array<String>) {
     dtm.registerAs("Query", DTQueryService(dtm))
     dtm.registerAs("Consistency", DTConsistencyChecking(dtm))
     dtm.registerAs("Retrieve", DTReflectService(dtm))
-    dtm.load("examples/root.json")
+    //dtm.load("examples/root.json")
+	dtm.load("examples/tanks.json") // Edit Santiago
+	//Edit Santiago
+	val ontologyFilename = "domain_generated.ttl";
+	val graphModel = (dtm.getService("Lifting") as DTLiftingService).getModel()
+    graphModel.write(FileWriter("examples/" + ontologyFilename),"TTL")
     println((dtm.getService("Consistency") as DTConsistencyChecking).isValid())
     println((dtm.getService("Consistency") as DTConsistencyChecking).isInconsistent(ModelFactory.createDefaultModel()))
-    println((dtm.getService("Retrieve") as DTReflectService).getAllLinears(ModelFactory.createDefaultModel().read("examples/domain.ttl","TTL")).size)
+    println((dtm.getService("Retrieve") as DTReflectService).getAllLinears(ModelFactory.createDefaultModel().read("examples/domain.ttl","TTL")).size) //Reflected against another model provided by the user
 }

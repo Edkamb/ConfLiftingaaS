@@ -19,7 +19,8 @@ import java.io.FileInputStream
 sealed class DTFMUObject {
     abstract fun instantiate()
     abstract fun validate() : Boolean
-    abstract fun hasPort(inName: String) : Boolean
+    abstract fun hasAlias(inName: String) : Boolean
+	abstract fun hasConnection(inName: String) : Boolean //Edit Santiago
     abstract fun getURI() : Resource
     abstract fun getByUri(id: String): DTFMUConcreteObject?
 }
@@ -40,7 +41,11 @@ data class DTFMUReference(val conf_path : String) : DTFMUObject() {
         return true
     }
 
-    override fun hasPort(inName: String): Boolean {
+    override fun hasAlias(inName: String): Boolean {
+        return false
+    }
+	//Edit Santiago
+	override fun hasConnection(inName: String): Boolean {
         return false
     }
 
@@ -56,8 +61,9 @@ data class DTFMUReference(val conf_path : String) : DTFMUObject() {
 @Serializable
 @SerialName("configuration")
 data class DTFMUConf(var file_path: String,
-                     var step_site: Float,
                      var descriptor : String,
+					 var instance_name : String,
+					 //var connections: Map<String, Array<String>>,
                      var aliases : MutableMap<String, String>,
                      @Transient var sim : Simulation? = null
 ) : DTFMUConcreteObject() {
@@ -89,22 +95,29 @@ data class DTFMUConf(var file_path: String,
         for(kv in aliases){
             val inName = kv.key
             if(!sim!!.modelDescription.modelVariablesNames.contains(inName))
-                throw Exception("Validation error. FMU port $inName not found in ${sim!!.modelDescription.modelName} to bind to ${kv.key}")
+                throw Exception("Validation error. FMU alias $inName not found in ${sim!!.modelDescription.modelName} to bind to ${kv.key}")
         }
         return true
     }
-    override fun hasPort(inName: String): Boolean {
+    override fun hasAlias(inName: String): Boolean {
         return aliases.values.contains(inName)
     }
+	
+	//Edit Santiago
+	override fun hasConnection(inName: String): Boolean {
+		return false
+    }
+	
     override fun getByUri(id: String): DTFMUConcreteObject? {
         return if(uri.uri == id) this else null
     }
 }
 
+//Edit Santiago
 @Serializable
 @SerialName("component")
 data class DTComponent( var fmus : MutableMap<String, DTFMUObject>,
-                        var connections: Map<String, String>,
+                        var connections: Map<String, Array<String>>, //Edit Santiago
                         var aliases : MutableMap<String, String>): DTFMUConcreteObject() {
     @Transient
     val uri = getFreshURI()
@@ -112,17 +125,26 @@ data class DTComponent( var fmus : MutableMap<String, DTFMUObject>,
     override fun liftInto(m: Model) {
         for(fmu in fmus){
             val trip = ResourceFactory.createStatement(uri,
-                                                                  ResourceFactory.createProperty("$prefix#hasFMU") as Property,
-                                                                  fmu.value.getURI())
+                                                       ResourceFactory.createProperty("$prefix#hasFMU") as Property,
+                                                       fmu.value.getURI())
             m.add(trip)
             (fmu.value as DTFMUConcreteObject).liftInto(m)
         }
 
         for(alias in aliases){
             val trip = ResourceFactory.createStatement(uri,
-                ResourceFactory.createProperty("$prefix#hasPort") as Property,
+                ResourceFactory.createProperty("$prefix#hasAlias") as Property,
                 ResourceFactory.createResource(alias.value) )
             m.add(trip)
+        }
+		//Edit Santiago
+		for(connection in connections){
+			for (connectionVal in connection.value){
+	            val trip = ResourceFactory.createStatement(uri,
+	                ResourceFactory.createProperty("$prefix#hasConnection") as Property,
+	                ResourceFactory.createResource(connectionVal) )
+	            m.add(trip)
+			}
         }
     }
 
@@ -148,23 +170,64 @@ data class DTComponent( var fmus : MutableMap<String, DTFMUObject>,
         for (kv in fmus) {
             kv.value.validate()
         }
+		//Edit Santiago
         for( kv in aliases ){
             val split = kv.key.split(".")
+            if(split.size != 2){
+				//throw Exception("Validation error. Alias-reference ${kv.key} does not have the form X.Y")
+				println("Validation warning. Alias-reference ${kv.key} does not have the form X.Y")
+				
+				if(!fmus.containsKey(kv.key)){
+					//throw Exception("Validation error. Alias-reference ${kv.key} contains an unknown component $subName")
+					println("Validation warning. Alias-reference ${kv.key} is an unknown component")
+				}
+				
+			} else {
+				val subName = split[0]
+	            if(!fmus.containsKey(subName)){
+					//throw Exception("Validation error. Alias-reference ${kv.key} contains an unknown component $subName")
+					println("Validation warning. Alias-reference ${kv.key} contains an unknown component $subName")
+				}
+	
+	            val inName = split[1]
+	            if(!fmus[subName]!!.hasAlias(inName)){
+	                //throw Exception("Validation error. Alias-reference ${kv.key} contains an unknown port $inName")
+					println("Validation warning. Alias-reference ${kv.key} contains an unknown port $inName")
+				}
+			}
+                
+          
+        }
+		//Edit Santiago
+		for( kv in connections){
+            val split = kv.key.split(".")
             if(split.size != 2)
-                throw Exception("Validation error. Alias-reference ${kv.key} does not have the form X.Y")
+                throw Exception("Validation error. Connection-reference ${kv.key} does not have the form X.Y")
             val subName = split[0]
-            if(!fmus.containsKey(subName)) throw Exception("Validation error. Alias-reference ${kv.key} contains an unknown component $subName")
+            if(!fmus.containsKey(subName)) throw Exception("Validation error. Connection-reference ${kv.key} contains an unknown component $subName")
 
             val inName = split[1]
-            if(!fmus[subName]!!.hasPort(inName))
-                throw Exception("Validation error. Alias-reference ${kv.key} contains an unknown port $inName")
+            if(!fmus[subName]!!.hasAlias(inName))
+                throw Exception("Validation error. Connection-reference ${kv.key} contains an unknown connection $inName")
 
         }
+		
         return true
     }
 
-    override fun hasPort(inName: String): Boolean {
+    override fun hasAlias(inName: String): Boolean {
         return aliases.values.contains(inName)
+    }
+	
+	//Edit Santiago
+	override fun hasConnection(inName: String): Boolean {
+		var flag = false
+		for (connection in connections){
+			for (connectionVal in connection.value){
+				if (connectionVal == inName) flag = true
+			}
+		}
+        return flag
     }
 
     override fun getByUri(id: String): DTFMUConcreteObject? {

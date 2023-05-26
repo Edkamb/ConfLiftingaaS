@@ -12,6 +12,6 @@ my:hasFile rdf:type owl:DatatypeProperty ;
 my:LinearFmu rdf:type owl:Class ;
            owl:equivalentClass [ rdf:type owl:Restriction ;
                                  owl:onProperty my:hasFile ;
-                                 owl:hasValue "examples/Linear.fmu"
+                                 owl:hasValue "DTProject/fmus/Linear.fmu"
                                ] .
 

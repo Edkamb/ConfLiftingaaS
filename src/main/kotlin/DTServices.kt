@@ -15,8 +15,9 @@ class DTConsistencyChecking(val dtm: DTManager) : DTService(){
 
     fun isInconsistent( external: Model ) : Boolean{
         val queryService = dtm.getService("Query") as DTQueryService
-        val res = queryService.query("SELECT ?x { ?x my:hasFMU ?y. ?y my:hasFile \"examples/Linear.fmu\". ?x my:hasFMU ?z. ?z my:hasFile \"examples/Linear.fmu\". FILTER (?z != ?y)}", external)
-        return (res != null && res.hasNext())
+        //val res = queryService.query("SELECT ?x { ?x my:hasFMU ?y. ?y my:hasFile \"examples/Linear.fmu\". ?x my:hasFMU ?z. ?z my:hasFile \"examples/Linear.fmu\". FILTER (?z != ?y)}", external)
+        val res = queryService.query("SELECT ?x { ?x my:hasFMU ?y. ?y my:hasFile \"DTProject/fmus/Linear.fmu\". ?x my:hasFMU ?z. ?z my:hasFile \"DTProject/fmus/Linear.fmu\". FILTER (?z != ?y)}", external) //Edit Santiago
+		return (res != null && res.hasNext())
     }
 }
 
