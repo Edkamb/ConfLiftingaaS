@@ -207,6 +207,8 @@ data class DTComponent( var fmus : MutableMap<String, DTFMUObject>,
             if(!fmus.containsKey(subName)) throw Exception("Validation error. Connection-reference ${kv.key} contains an unknown component $subName")
 
             val inName = split[1]
+			//println(inName)
+			//println(fmus[subName])
             if(!fmus[subName]!!.hasAlias(inName))
                 throw Exception("Validation error. Connection-reference ${kv.key} contains an unknown connection $inName")
 

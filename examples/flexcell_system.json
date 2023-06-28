@@ -1,0 +1,69 @@
+{
+  "fmus": {
+    "component1": {
+      "type": "component",
+      "fmus": {
+        "fmi1": {
+          "type": "configuration",
+          "file_path": "DTProject/fmus/kukalbriiwa_model.fmu",
+          "descriptor": "internal",
+          "instance_name": "{kuka}.kuka",
+          "aliases": {
+            "target_X": "target_X",
+            "target_Y": "target_Y",
+            "target_Z": "target_Z",
+            "motion_time": "motion_time"
+          }
+        },
+        "fmi2": {
+          "type": "configuration",
+          "file_path": "DTProject/fmus/ur5e_model.fmu",
+          "descriptor": "internal",
+          "instance_name": "{ur5e}.ur5e",
+          "aliases": {
+            "target_X": "target_X",
+            "target_Y": "target_Y",
+            "target_Z": "target_Z",
+            "motion_time": "motion_time"
+          }
+        },
+        "fmi3": {
+          "type": "configuration",
+          "file_path": "DTProject/fmus/rabbit2.1.5-16_SG.fmu",
+          "descriptor": "internal",
+          "instance_name": "{rabbitmq}.rabbitmq",
+          "aliases": {
+            "target_X_ur5e": "target_X_ur5e",
+            "target_Y_ur5e": "target_Y_ur5e",
+            "target_Z_ur5e": "target_Z_ur5e",
+            "motion_time_ur5e": "motion_time_ur5e",
+            "target_X_kuka": "target_X_kuka",
+            "target_Y_kuka": "target_Y_kuka",
+            "target_Z_kuka": "target_Z_kuka",
+            "motion_time_kuka": "motion_time_kuka"
+          }
+        }
+      },
+      "connections": {
+        "fmi3.target_Z_kuka": ["fmi1.target_Z"],
+        "fmi3.target_X_ur5e": ["fmi2.target_X"],
+        "fmi3.target_Y_ur5e": ["fmi2.target_Y"],
+        "fmi3.target_Y_kuka": ["fmi1.target_Y"],
+        "fmi3.target_Z_ur5e": ["fmi2.target_Z"],
+        "fmi3.target_X_kuka": ["fmi1.target_X"],
+        "fmi3.motion_time_ur5e": ["fmi2.motion_time"],
+        "fmi3.motion_time_kuka": ["fmi1.motion_time"]
+      },
+      "aliases": {
+        "fmi1": "{kuka}.kuka",
+        "fmi2": "{ur5e}.ur5e",
+        "fmi3": "{rabbitmq}.rabbitmq",
+        "kuka": "{kuka}.kuka",
+        "ur5e": "{ur5e}.ur5e",
+        "rabbitmq": "{rabbitmq}.rabbitmq"
+      }
+    }
+  },
+  "connections": {},
+  "aliases": {}
+}
