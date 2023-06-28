@@ -1,0 +1,219 @@
+2023-06-27T17:13:09,285 INFO  - logAll OK rabbitmq 'command_move_kuka command_move_kuka 28 0 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'command_move_ur5e command_move_ur5e 27 0 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.communicationtimeout config.communicationtimeout 5 60 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.exchangename config.exchangename 9 fmi_digital_twin 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.exchangetype config.exchangetype 10 direct 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.healthdata.exchangename config.healthdata.exchangename 11 fmi_digital_twin_sh 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.healthdata.exchangetype config.healthdata.exchangetype 12 direct 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.hostname config.hostname 0 localhost 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.lookahead config.lookahead 8 1 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.maxage config.maxage 7 1000 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.password config.password 3 guest 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.port config.port 1 5672 1'
+2023-06-27T17:13:09,287 INFO  - logAll OK rabbitmq 'config.precision config.precision 6 10 1'
+2023-06-27T17:13:09,288 INFO  - logAll OK rabbitmq 'config.queueupperbound config.queueupperbound 17 100 1'
+2023-06-27T17:13:09,288 INFO  - logAll OK rabbitmq 'config.routingkey config.routingkey 4 data.to_cosim 1'
+2023-06-27T17:13:09,288 INFO  - logAll OK rabbitmq 'config.routingkey.from_cosim config.routingkey.from_cosim 13 data.from_cosim 1'
+2023-06-27T17:13:09,288 INFO  - logAll OK rabbitmq 'config.ssl config.ssl 16 0 1'
+2023-06-27T17:13:09,288 INFO  - logAll OK rabbitmq 'config.username config.username 2 guest 1'
+2023-06-27T17:13:09,288 INFO  - logAll OK rabbitmq 'motion_time_kuka motion_time_kuka 30 0.000000 1'
+2023-06-27T17:13:09,288 INFO  - logAll OK rabbitmq 'motion_time_ur5e motion_time_ur5e 29 0.000000 1'
+2023-06-27T17:13:09,289 INFO  - logAll OK rabbitmq 'target_X_kuka target_X_kuka 24 0 1'
+2023-06-27T17:13:09,290 INFO  - logAll OK rabbitmq 'target_X_ur5e target_X_ur5e 21 0 1'
+2023-06-27T17:13:09,290 INFO  - logAll OK rabbitmq 'target_Y_kuka target_Y_kuka 25 0 1'
+2023-06-27T17:13:09,290 INFO  - logAll OK rabbitmq 'target_Y_ur5e target_Y_ur5e 22 0 1'
+2023-06-27T17:13:09,290 INFO  - logAll OK rabbitmq 'target_Z_kuka target_Z_kuka 26 0 1'
+2023-06-27T17:13:09,290 INFO  - logAll OK rabbitmq 'target_Z_ur5e target_Z_ur5e 23 0 1'
+2023-06-27T17:13:09,299 INFO  - logAll OK rabbitmq Using Tool:  'RabbitMQ digital twin generator'
+2023-06-27T17:13:09,299 WARN  - logWarn Warning rabbitmq The seqno output is NOT present with. 
+2023-06-27T17:13:09,300 WARN  - logWarn Warning rabbitmq The enable send input is NOT present with. 
+2023-06-27T17:13:09,314 INFO  - logAll OK rabbitmq Setting string ref 0 = localhost
+2023-06-27T17:13:09,315 INFO  - logAll OK rabbitmq Setting integer ref 1 = 5672
+2023-06-27T17:13:09,316 INFO  - logAll OK rabbitmq Setting string ref 2 = guest
+2023-06-27T17:13:09,316 INFO  - logAll OK rabbitmq Setting string ref 3 = guest
+2023-06-27T17:13:09,316 INFO  - logAll OK rabbitmq Setting string ref 4 = data.to_cosim
+2023-06-27T17:13:09,316 INFO  - logAll OK rabbitmq Setting integer ref 5 = 60
+2023-06-27T17:13:09,317 INFO  - logAll OK rabbitmq Setting integer ref 6 = 10
+2023-06-27T17:13:09,317 INFO  - logAll OK rabbitmq Setting integer ref 7 = 1000
+2023-06-27T17:13:09,318 INFO  - logAll OK rabbitmq Setting integer ref 8 = 1
+2023-06-27T17:13:09,318 INFO  - logAll OK rabbitmq Setting string ref 9 = fmi_digital_twin
+2023-06-27T17:13:09,319 INFO  - logAll OK rabbitmq Setting string ref 10 = direct
+2023-06-27T17:13:09,319 INFO  - logAll OK rabbitmq Setting string ref 11 = fmi_digital_twin_sh
+2023-06-27T17:13:09,319 INFO  - logAll OK rabbitmq Setting string ref 12 = direct
+2023-06-27T17:13:09,319 INFO  - logAll OK rabbitmq Setting string ref 13 = data.from_cosim
+2023-06-27T17:13:09,321 INFO  - logAll OK rabbitmq Setting boolean ref 16 = 0
+2023-06-27T17:13:09,321 INFO  - logAll OK rabbitmq Setting integer ref 17 = 100
+2023-06-27T17:13:09,322 INFO  - logAll OK rabbitmq Preparing initialization. Looking Up configuration parameters
+2023-06-27T17:13:09,323 INFO  - logAll OK rabbitmq Preparing initialization. Hostname='localhost', Port='5672', Username='guest', routingkey='data.to_cosim', communication timeout 60 s, precision 10000000000 (10), SSL 0
+2023-06-27T17:13:09,372 INFO  - logAll OK rabbitmq Sending RabbitMQ ready message
+2023-06-27T17:13:09,375 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:09.374', '{"time": "2023-06-27T17:13:09.374+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}'
+2023-06-27T17:13:09,375 INFO  - logOk OK rabbitmq Initialization OK
+2023-06-27T17:13:09,376 INFO  - logAll OK rabbitmq Initialization completed with: Hostname='localhost', Port='5672', Username='guest', routingkey='data.to_cosim', starttimestamp='2023-06-27 17:13:09.374', communication timeout 60 s
+2023-06-27T17:13:09,884 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:09.875', '{"time": "2023-06-27T17:13:09.875+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878789876951049'
+2023-06-27T17:13:09,885 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:09.875', '{"time": "2023-06-27T17:13:09.875+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878789885457920'
+2023-06-27T17:13:10,190 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:10,190 INFO  - logAll OK rabbitmq Step time 0.500000 s converted time 500.000000 ms
+2023-06-27T17:13:10,190 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:10.190+00:00"}
+2023-06-27T17:13:10,191 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:10,192 INFO  - logAll OK rabbitmq Step reached target time 500 [ms]
+2023-06-27T17:13:10,192 INFO  - logAll OK rabbitmq ************ Exit 1 FmuContainer::step ***************
+2023-06-27T17:13:10,327 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:10,327 INFO  - logAll OK rabbitmq Step time 1.000000 s converted time 1000.000000 ms
+2023-06-27T17:13:10,327 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:10.327+00:00"}
+2023-06-27T17:13:10,327 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:10,329 INFO  - logAll OK rabbitmq Step reached target time 1000 [ms]
+2023-06-27T17:13:10,330 INFO  - logAll OK rabbitmq ************ Exit 1 FmuContainer::step ***************
+2023-06-27T17:13:10,383 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:10.377', '{"time": "2023-06-27T17:13:10.377+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878790383154245'
+2023-06-27T17:13:10,384 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:10.377', '{"time": "2023-06-27T17:13:10.377+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878790383967468'
+2023-06-27T17:13:10,493 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:10,493 INFO  - logAll OK rabbitmq Step time 1.500000 s converted time 1500.000000 ms
+2023-06-27T17:13:10,494 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:10.493+00:00"}
+2023-06-27T17:13:10,494 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:10,500 INFO  - logAll OK rabbitmq Step reached target time 1500 [ms]
+2023-06-27T17:13:10,500 INFO  - logAll OK rabbitmq ************ Exit 1 FmuContainer::step ***************
+2023-06-27T17:13:10,726 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:10,726 INFO  - logAll OK rabbitmq Step time 2.000000 s converted time 2000.000000 ms
+2023-06-27T17:13:10,726 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:10.726+00:00"}
+2023-06-27T17:13:10,726 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:10,727 INFO  - logAll OK rabbitmq Step reached target time 2000 [ms]
+2023-06-27T17:13:10,727 INFO  - logAll OK rabbitmq ************ Exit 1 FmuContainer::step ***************
+2023-06-27T17:13:10,884 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:10.882', '{"time": "2023-06-27T17:13:10.882+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878790883907692'
+2023-06-27T17:13:10,884 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:10.882', '{"time": "2023-06-27T17:13:10.882+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878790884546188'
+2023-06-27T17:13:10,910 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:10,911 INFO  - logAll OK rabbitmq Step time 2.500000 s converted time 2500.000000 ms
+2023-06-27T17:13:10,918 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:10.911+00:00"}
+2023-06-27T17:13:10,919 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:10,920 INFO  - logAll OK rabbitmq Step reached target time 2500 [ms]
+2023-06-27T17:13:10,920 INFO  - logAll OK rabbitmq ************ Exit 1 FmuContainer::step ***************
+2023-06-27T17:13:11,170 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:11,171 INFO  - logAll OK rabbitmq Step time 3.000000 s converted time 3000.000000 ms
+2023-06-27T17:13:11,171 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:11.171+00:00"}
+2023-06-27T17:13:11,172 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:11,386 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:11.383', '{"time": "2023-06-27T17:13:11.383+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878791386011247'
+2023-06-27T17:13:11,387 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:11.383', '{"time": "2023-06-27T17:13:11.383+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878791387081079'
+2023-06-27T17:13:11,387 INFO  - logAll OK rabbitmq Step reached target time 3000 [ms]
+2023-06-27T17:13:11,388 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:11,600 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:11,600 INFO  - logAll OK rabbitmq Step time 3.500000 s converted time 3500.000000 ms
+2023-06-27T17:13:11,600 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:11.600+00:00"}
+2023-06-27T17:13:11,600 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:11,890 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:11.886', '{"time": "2023-06-27T17:13:11.886+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878791888905123'
+2023-06-27T17:13:11,890 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:11.886', '{"time": "2023-06-27T17:13:11.886+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878791890707483'
+2023-06-27T17:13:11,891 INFO  - logAll OK rabbitmq Step reached target time 3500 [ms]
+2023-06-27T17:13:11,891 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:12,065 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:12,071 INFO  - logAll OK rabbitmq Step time 4.000000 s converted time 4000.000000 ms
+2023-06-27T17:13:12,072 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:12.071+00:00"}
+2023-06-27T17:13:12,072 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:12,393 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:12.389', '{"time": "2023-06-27T17:13:12.389+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878792392028368'
+2023-06-27T17:13:12,403 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:12.389', '{"time": "2023-06-27T17:13:12.389+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878792393377590'
+2023-06-27T17:13:12,404 INFO  - logAll OK rabbitmq Step reached target time 4000 [ms]
+2023-06-27T17:13:12,404 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:12,559 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:12,559 INFO  - logAll OK rabbitmq Step time 4.500000 s converted time 4500.000000 ms
+2023-06-27T17:13:12,560 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:12.559+00:00"}
+2023-06-27T17:13:12,560 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:12,906 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:12.903', '{"time": "2023-06-27T17:13:12.903+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878792905957051'
+2023-06-27T17:13:12,907 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:12.903', '{"time": "2023-06-27T17:13:12.903+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878792906922480'
+2023-06-27T17:13:12,907 INFO  - logAll OK rabbitmq Step reached target time 4500 [ms]
+2023-06-27T17:13:12,908 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:12,941 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:12.939', '{"time": "2023-06-27T17:13:12.939+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878792941329753'
+2023-06-27T17:13:12,942 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:12.939', '{"time": "2023-06-27T17:13:12.939+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878792942325882'
+2023-06-27T17:13:13,061 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:13,061 INFO  - logAll OK rabbitmq Step time 5.000000 s converted time 5000.000000 ms
+2023-06-27T17:13:13,062 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:13.062+00:00"}
+2023-06-27T17:13:13,062 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:13,409 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:13.406', '{"time": "2023-06-27T17:13:13.406+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878793408889209'
+2023-06-27T17:13:13,410 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:13.406', '{"time": "2023-06-27T17:13:13.406+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878793409841471'
+2023-06-27T17:13:13,410 INFO  - logAll OK rabbitmq Step reached target time 5000 [ms]
+2023-06-27T17:13:13,410 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:13,450 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:13.447', '{"time": "2023-06-27T17:13:13.447+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878793449656412'
+2023-06-27T17:13:13,450 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:13.447', '{"time": "2023-06-27T17:13:13.447+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878793450537655'
+2023-06-27T17:13:13,601 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:13,602 INFO  - logAll OK rabbitmq Step time 5.500000 s converted time 5500.000000 ms
+2023-06-27T17:13:13,602 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:13.602+00:00"}
+2023-06-27T17:13:13,602 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:13,912 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:13.909', '{"time": "2023-06-27T17:13:13.909+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878793911904863'
+2023-06-27T17:13:13,912 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:13.909', '{"time": "2023-06-27T17:13:13.909+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878793912667683'
+2023-06-27T17:13:13,913 INFO  - logAll OK rabbitmq Step reached target time 5500 [ms]
+2023-06-27T17:13:13,913 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:13,958 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:13.956', '{"time": "2023-06-27T17:13:13.956+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878793958310478'
+2023-06-27T17:13:13,959 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:13.956', '{"time": "2023-06-27T17:13:13.956+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878793958915508'
+2023-06-27T17:13:14,025 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:14,025 INFO  - logAll OK rabbitmq Step time 6.000000 s converted time 6000.000000 ms
+2023-06-27T17:13:14,025 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:14.025+00:00"}
+2023-06-27T17:13:14,025 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:14,414 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:14.411', '{"time": "2023-06-27T17:13:14.411+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878794414316685'
+2023-06-27T17:13:14,415 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:14.411', '{"time": "2023-06-27T17:13:14.411+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878794415382850'
+2023-06-27T17:13:14,416 INFO  - logAll OK rabbitmq Step reached target time 6000 [ms]
+2023-06-27T17:13:14,416 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:14,459 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:14.457', '{"time": "2023-06-27T17:13:14.457+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878794459624512'
+2023-06-27T17:13:14,460 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:14.457', '{"time": "2023-06-27T17:13:14.457+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878794460059753'
+2023-06-27T17:13:14,564 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:14,564 INFO  - logAll OK rabbitmq Step time 6.500000 s converted time 6500.000000 ms
+2023-06-27T17:13:14,564 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:14.564+00:00"}
+2023-06-27T17:13:14,564 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:14,918 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:14.913', '{"time": "2023-06-27T17:13:14.913+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878794915983420'
+2023-06-27T17:13:14,919 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:14.913', '{"time": "2023-06-27T17:13:14.913+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878794918788050'
+2023-06-27T17:13:14,920 INFO  - logAll OK rabbitmq Step reached target time 6500 [ms]
+2023-06-27T17:13:14,920 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:14,964 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:14.961', '{"time": "2023-06-27T17:13:14.961+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878794963725650'
+2023-06-27T17:13:14,964 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:14.961', '{"time": "2023-06-27T17:13:14.961+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878794964519076'
+2023-06-27T17:13:15,057 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:15,057 INFO  - logAll OK rabbitmq Step time 7.000000 s converted time 7000.000000 ms
+2023-06-27T17:13:15,057 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:15.057+00:00"}
+2023-06-27T17:13:15,057 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:15,419 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:15.415', '{"time": "2023-06-27T17:13:15.415+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878795418601384'
+2023-06-27T17:13:15,419 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:15.415', '{"time": "2023-06-27T17:13:15.415+02:00", "target_X_ur5e": 3, "target_Y_ur5e": 18, "target_Z_ur5e": 2, "target_X_kuka": 8, "target_Y_kuka": 7, "target_Z_kuka": 4, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878795419563812'
+2023-06-27T17:13:15,420 INFO  - logAll OK rabbitmq Step reached target time 7000 [ms]
+2023-06-27T17:13:15,420 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:15,468 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:15.463', '{"time": "2023-06-27T17:13:15.463+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878795467295388'
+2023-06-27T17:13:15,468 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:15.463', '{"time": "2023-06-27T17:13:15.463+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878795468276258'
+2023-06-27T17:13:15,592 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:15,593 INFO  - logAll OK rabbitmq Step time 7.500000 s converted time 7500.000000 ms
+2023-06-27T17:13:15,593 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:15.593+00:00"}
+2023-06-27T17:13:15,593 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:15,921 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:15.917', '{"time": "2023-06-27T17:13:15.917+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878795920416408'
+2023-06-27T17:13:15,921 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:15.917', '{"time": "2023-06-27T17:13:15.917+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878795921380781'
+2023-06-27T17:13:15,922 INFO  - logAll OK rabbitmq Step reached target time 7500 [ms]
+2023-06-27T17:13:15,922 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:15,968 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:15.965', '{"time": "2023-06-27T17:13:15.965+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878795968370135'
+2023-06-27T17:13:15,969 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:15.965', '{"time": "2023-06-27T17:13:15.965+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878795968963995'
+2023-06-27T17:13:16,101 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:16,101 INFO  - logAll OK rabbitmq Step time 8.000000 s converted time 8000.000000 ms
+2023-06-27T17:13:16,101 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:16.101+00:00"}
+2023-06-27T17:13:16,102 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:16,423 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:16.419', '{"time": "2023-06-27T17:13:16.419+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878796423154211'
+2023-06-27T17:13:16,424 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:16.419', '{"time": "2023-06-27T17:13:16.419+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878796423954412'
+2023-06-27T17:13:16,424 INFO  - logAll OK rabbitmq Step reached target time 8000 [ms]
+2023-06-27T17:13:16,424 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:16,472 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:16.467', '{"time": "2023-06-27T17:13:16.467+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878796471908220'
+2023-06-27T17:13:16,472 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:16.467', '{"time": "2023-06-27T17:13:16.467+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878796472278487'
+2023-06-27T17:13:16,585 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:16,586 INFO  - logAll OK rabbitmq Step time 8.500000 s converted time 8500.000000 ms
+2023-06-27T17:13:16,586 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:16.586+00:00"}
+2023-06-27T17:13:16,588 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:16,927 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:16.923', '{"time": "2023-06-27T17:13:16.923+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878796925671164'
+2023-06-27T17:13:16,927 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:16.923', '{"time": "2023-06-27T17:13:16.923+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878796927584770'
+2023-06-27T17:13:16,929 INFO  - logAll OK rabbitmq Step reached target time 8500 [ms]
+2023-06-27T17:13:16,929 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:16,975 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:16.971', '{"time": "2023-06-27T17:13:16.971+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878796974754257'
+2023-06-27T17:13:16,975 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:16.971', '{"time": "2023-06-27T17:13:16.971+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 21, "target_Z_ur5e": 4, "target_X_kuka": 4, "target_Y_kuka": 4, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878796975441368'
+2023-06-27T17:13:17,111 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:17,111 INFO  - logAll OK rabbitmq Step time 9.000000 s converted time 9000.000000 ms
+2023-06-27T17:13:17,111 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:17.111+00:00"}
+2023-06-27T17:13:17,111 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:17,428 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:17.426', '{"time": "2023-06-27T17:13:17.426+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878797427666894'
+2023-06-27T17:13:17,428 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:17.426', '{"time": "2023-06-27T17:13:17.426+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878797428633801'
+2023-06-27T17:13:17,429 INFO  - logAll OK rabbitmq Step reached target time 9000 [ms]
+2023-06-27T17:13:17,429 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:17,648 INFO  - logAll OK rabbitmq ************ Enter FmuContainer::step ***************
+2023-06-27T17:13:17,648 INFO  - logAll OK rabbitmq Step time 9.500000 s converted time 9500.000000 ms
+2023-06-27T17:13:17,648 INFO  - logAll OK rabbitmq Sending to rabbitmq: COSIM TIME: {"simAtTime":"2023-06-27T15:13:17.648+00:00"}
+2023-06-27T17:13:17,648 INFO  - logAll OK rabbitmq Send enabled on this step, for message 
+2023-06-27T17:13:17,930 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:17.927', '{"time": "2023-06-27T17:13:17.927+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878797929616538'
+2023-06-27T17:13:17,932 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:17.927', '{"time": "2023-06-27T17:13:17.927+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878797931719560'
+2023-06-27T17:13:17,932 INFO  - logAll OK rabbitmq Step reached target time 9500 [ms]
+2023-06-27T17:13:17,932 INFO  - logAll OK rabbitmq ************ Exit 2 FmuContainer::step ***************
+2023-06-27T17:13:18,431 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:18.429', '{"time": "2023-06-27T17:13:18.429+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878798430861608'
+2023-06-27T17:13:18,432 INFO  - logOk OK rabbitmq Got data '2023-06-27 17:13:18.429', '{"time": "2023-06-27T17:13:18.429+02:00", "target_X_ur5e": 0, "target_Y_ur5e": 20, "target_Z_ur5e": 3, "target_X_kuka": 6, "target_Y_kuka": 6, "target_Z_kuka": 2, "command_move_ur5e": true, "command_move_kuka": true, "motion_time_ur5e": 2.0, "motion_time_kuka": 2.0}', '1687878798431767918'

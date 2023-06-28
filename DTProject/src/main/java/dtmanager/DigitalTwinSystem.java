@@ -13,13 +13,15 @@ public class DigitalTwinSystem {
 	ComponentConfiguration config;
 	String coeFilename;
 	Endpoint endpoint;
+	String systemName;
 	
-	public DigitalTwinSystem(Map<String,DigitalTwin> twins,ComponentConfiguration config, String coeFilename) {
+	public DigitalTwinSystem(String systemName, Map<String,DigitalTwin> twins,ComponentConfiguration config, String coeFilename) {
 		this.digitalTwins = twins;
 		this.config = config;
 		this.coeFilename = coeFilename;
+		this.systemName = systemName;
 		//this.endpoint = new MaestroEndpoint("spec.mabl","results_cosim"); //with mabl
-		this.endpoint = new MaestroEndpoint(this.config,this.coeFilename,"results_cosim"); //with json config
+		this.endpoint = new MaestroEndpoint(this.config,this.coeFilename,"results_cosim_"+this.systemName); //with json config
 		this.setConnections();
 	}
 	
@@ -60,6 +62,16 @@ public class DigitalTwinSystem {
 	public Object getAttributeValues(List<String> attrNames) {
 		return this.endpoint.getAttributeValues(attrNames);
 	}
+	
+	public Object getAttributeValue(String attrName, int entry) {
+		return this.endpoint.getAttributeValue(attrName, entry);
+	}
+	
+	public Object getAttributeValue(String attrName, int entry, String twinName) {
+		return this.endpoint.getAttributeValue(attrName, entry, twinName);
+	}
+	
+	
 	
 	private void setConnections() {
 		String input = "";

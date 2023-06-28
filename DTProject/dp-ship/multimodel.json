@@ -1,0 +1,123 @@
+{
+    "aliases": {
+        "osom": "{OSOM}.osom",
+        "thmpc": "{ThMPC}.thmpc",
+        "dpcontroller": "{DPController}.dpcontroller",
+        "nlpobserver": "{NLPobserver}.nlpobserver",
+        "referencegenerator": "{ReferenceGenerator}.referencegenerator"
+    },
+    "fmus": {
+      "{DPController}": "dp-ship/DPController.fmu",
+      "{NLPobserver}": "dp-ship/NLPobserver.fmu",
+      "{OSOM}": "dp-ship/OSOM.fmu",
+      "{ReferenceGenerator}": "dp-ship/ReferenceGenerator.fmu",
+      "{ThMPC}": "dp-ship/ThMPC.fmu"
+    },
+    "logVariables": {
+        "{OSOM}.osom": [
+            "Thrust_d[1]",
+            "Thrust_d[2]",
+            "Thrust_d[3]",
+            "input[1]",
+            "input[2]",
+            "q[1]",
+            "q[2]",
+            "q[3]"
+        ],
+        "{ThMPC}.thmpc": [
+            "F1c",
+            "F2c",
+            "F3ci",
+            "alpha1",
+            "alpha2",
+            "Fxg",
+            "Fyg",
+            "Mzg",
+            "refx",
+            "refy",
+            "refMz"
+        ],
+        "{DPController}.dpcontroller": [
+            "x",
+            "y",
+            "psi",
+            "dx",
+            "dy",
+            "dpsi",
+            "x_ref",
+            "y_ref",
+            "psi_ref",
+            "dx_ref",
+            "dy_ref",
+            "dpsi_ref",
+            "Controlx",
+            "Controly",
+            "ControlMz"
+        ],
+        "{ReferenceGenerator}.referencegenerator": [
+            "x_ref",
+            "y_ref",
+            "psi_ref",
+            "dx_ref",
+            "dy_ref",
+            "dpsi_ref"
+        ],
+        "{NLPobserver}.nlpobserver": [
+            "y_hat[1]",
+            "y_hat[2]",
+            "y_hat[3]",
+            "v_hat[1]",
+            "v_hat[2]",
+            "v_hat[3]",
+            "y[1]",
+            "y[2]",
+            "y[3]",
+            "tau[1]",
+            "tau[2]",
+            "tau[3]"
+        ]
+    },
+    "parameters": {
+
+    },
+    "connections": {
+      "{OSOM}.osom.Thrust_d[1]":["{ThMPC}.thmpc.F1c"],
+      "{OSOM}.osom.Thrust_d[2]":["{ThMPC}.thmpc.F2c"],
+      "{OSOM}.osom.Thrust_d[3]":["{ThMPC}.thmpc.F3ci"],
+
+      "{OSOM}.osom.input[1]"   :["{ThMPC}.thmpc.alpha1"],
+      "{OSOM}.osom.input[2]"   :["{ThMPC}.thmpc.alpha2"],
+
+      "{DPController}.dpcontroller.x"  :["{NLPobserver}.nlpobserver.y_hat[1]"],
+      "{DPController}.dpcontroller.y"  :["{NLPobserver}.nlpobserver.y_hat[2]"],
+      "{DPController}.dpcontroller.psi":["{NLPobserver}.nlpobserver.y_hat[3]"],
+
+      "{DPController}.dpcontroller.dx" :["{NLPobserver}.nlpobserver.v_hat[1]"],
+      "{DPController}.dpcontroller.dy" :["{NLPobserver}.nlpobserver.v_hat[2]"],
+      "{DPController}.dpcontroller.dpsi":["{NLPobserver}.nlpobserver.v_hat[3]"],
+
+      "{DPController}.dpcontroller.x_ref":["{ReferenceGenerator}.referencegenerator.x_ref"],
+      "{DPController}.dpcontroller.y_ref":["{ReferenceGenerator}.referencegenerator.y_ref"],
+      "{DPController}.dpcontroller.psi_ref":["{ReferenceGenerator}.referencegenerator.psi_ref"],
+
+      "{DPController}.dpcontroller.dx_ref" : ["{ReferenceGenerator}.referencegenerator.dx_ref"],
+      "{DPController}.dpcontroller.dy_ref" : ["{ReferenceGenerator}.referencegenerator.dy_ref"],
+      "{DPController}.dpcontroller.dpsi_ref":["{ReferenceGenerator}.referencegenerator.dpsi_ref"],
+
+      "{NLPobserver}.nlpobserver.y[1]":["{OSOM}.osom.q[1]"],
+      "{NLPobserver}.nlpobserver.y[2]":["{OSOM}.osom.q[2]"],
+      "{NLPobserver}.nlpobserver.y[3]":["{OSOM}.osom.q[3]"],
+
+      "{NLPobserver}.nlpobserver.tau[1]":["{ThMPC}.thmpc.Fxg"],
+      "{NLPobserver}.nlpobserver.tau[2]":["{ThMPC}.thmpc.Fyg"],
+      "{NLPobserver}.nlpobserver.tau[3]":["{ThMPC}.thmpc.Mzg"],
+
+      "{ThMPC}.thmpc.refx"      :["{DPController}.dpcontroller.Controlx"],
+      "{ThMPC}.thmpc.refy"      :["{DPController}.dpcontroller.Controly"],
+      "{ThMPC}.thmpc.refMz"     :["{DPController}.dpcontroller.ControlMz"],
+    },
+    "algorithm": {
+        "size": 0.1,
+        "type": "fixed-step"
+    }
+}

@@ -44,6 +44,9 @@ public class DTManager {
     // New input for DT Systems
     public Map<String, DigitalTwinSystem> availableTwinSystems;
     
+    // New input for several schemas
+    public List<TwinSchema> schemas;
+    public Map<String,TwinSchema> twinToSchemaMapping;
     
     /***** Specific to AAS ******/
     VABConnectionManager vabConnectionManagerVABServer;
@@ -74,9 +77,49 @@ public class DTManager {
 		aasServerURL = "http://" + SERVER + ":" + String.valueOf(AAS_PORT) + "/" + CONTEXT_PATH;
 	}
 	
+	public DTManager(String name, List<TwinSchema> schemas) {
+		this.name = name;
+		this.schemas = schemas;
+		this.availableTwins = new HashMap<String, DigitalTwin>();
+		this.internalClock = new Clock();
+		experimentalTwins = new HashMap<String, DigitalTwin>();
+		// New for DT Systems
+		this.availableTwinSystems = new HashMap<String, DigitalTwinSystem>();
+		this.twinToSchemaMapping = new HashMap<String, TwinSchema>();
+		
+		
+		/****** Specific to AAS ******/
+		REGISTRYPATH = "http://" + SERVER + ":" + String.valueOf(REGISTRY_PORT) + "/registry/api/v1/registry";
+		registry = new AASRegistryProxy(REGISTRYPATH);
+		aasManager = new ConnectedAssetAdministrationShellManager(registry);
+		aasServerURL = "http://" + SERVER + ":" + String.valueOf(AAS_PORT) + "/" + CONTEXT_PATH;
+	}
+	
 	public void createDigitalTwin(String name,TwinConfiguration config) {
 		DigitalTwin twin = new DigitalTwin(name,config);
 		this.availableTwins.put(name, twin);
+		
+		/***** Specific to AAS *****/
+		/*Asset asset = new Asset(name + "Asset", new CustomId("urn:dtexamples.into-cps." + name + "Asset"), AssetKind.INSTANCE);
+		AssetAdministrationShell aas = new AssetAdministrationShell(name, new CustomId("urn:dtexamples.into-cps." + name), asset);
+		Submodel operationalDataSubmodel = new Submodel("OperationalDataSubmodel", new CustomId("urn:dtexamples.into-cps." + name + ".OperationalDataSubmodel"));
+		List<Operation> operations = this.schema.getOperationsAASX();
+		for (Operation op : operations) {
+			operationalDataSubmodel.addSubmodelElement(op);
+		}
+		List<Property> properties = this.schema.getAttributesAASX();
+		for (Property prop : properties) {
+			operationalDataSubmodel.addSubmodelElement(prop);
+		}
+		ConnectedAssetAdministrationShell cAAS = this.uploadAAS2Server(aas, null, operationalDataSubmodel);
+		dtAASMap.put(name, cAAS);*/
+		
+	}
+	
+	public void createDigitalTwin(String name,TwinConfiguration config, TwinSchema schema) {
+		DigitalTwin twin = new DigitalTwin(name,config);
+		this.availableTwins.put(name, twin);
+		this.twinToSchemaMapping.put(name, schema);
 		
 		/***** Specific to AAS *****/
 		/*Asset asset = new Asset(name + "Asset", new CustomId("urn:dtexamples.into-cps." + name + "Asset"), AssetKind.INSTANCE);
@@ -102,7 +145,7 @@ public class DTManager {
 			DigitalTwin currentTwin = this.availableTwins.get(twin);
 			digitalTwins.put(twin,currentTwin);
 		}
-		DigitalTwinSystem dtSystem = new DigitalTwinSystem(digitalTwins,config, coeFilename);
+		DigitalTwinSystem dtSystem = new DigitalTwinSystem(systemName,digitalTwins,config, coeFilename);
 		this.availableTwinSystems.put(systemName, dtSystem);
 	}
 	
@@ -293,10 +336,46 @@ public class DTManager {
 		twinSystem.setAttributeValue(attrName, val, twinName);
 	}
 	
+	public void setSystemAttributeValues(List<String> attrNames, List<Object> values, String systemName) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		twinSystem.setAttributeValues(attrNames, values);
+	}
+	
+	public void setSystemAttributeValuesAt(List<String> attrNames, List<Object> values, String systemName, Clock time) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		twinSystem.setClock(time.getNow());
+		twinSystem.setAttributeValues(attrNames, values);
+	}
+	
 	public Object getSystemAttributeValue(String attrName, String systemName) {
 		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
 		twinSystem.setClock(this.internalClock.getNow());
 		Object value = twinSystem.getAttributeValue(attrName);
+		return value;
+	}
+	
+	public void setSystemAttributeValueAt(String attrName, Object val, String systemName, String twinName, Clock time) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		twinSystem.setClock(time.getNow());
+		twinSystem.setAttributeValue(attrName, val, twinName);
+	}
+	
+	public Object getSystemAttributeValueAt(String attrName, String systemName, Clock time) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		twinSystem.setClock(time.getNow());
+		Object value = twinSystem.getAttributeValue(attrName);
+		return value;
+	}
+	
+	public Object getSystemAttributeValueAt(String attrName, String systemName, int entry) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		Object value = twinSystem.getAttributeValue(attrName,entry);
+		return value;
+	}
+	
+	public Object getSystemAttributeValueAt(String attrName, String systemName, String twinName, int entry) {
+		DigitalTwinSystem twinSystem = this.availableTwinSystems.get(systemName);
+		Object value = twinSystem.getAttributeValue(attrName, entry, twinName) ;
 		return value;
 	}
 	

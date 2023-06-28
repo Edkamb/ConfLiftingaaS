@@ -315,5 +315,17 @@ public class RabbitMQEndpoint implements Endpoint {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public Object getAttributeValue(String attrName, int entry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object getAttributeValue(String attrName, int entry, String twinName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

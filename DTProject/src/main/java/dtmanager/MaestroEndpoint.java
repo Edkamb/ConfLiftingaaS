@@ -2,8 +2,10 @@ package dtmanager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 import org.eclipse.basyx.submodel.metamodel.connected.submodelelement.dataelement.ConnectedProperty;
 import org.eclipse.basyx.submodel.metamodel.connected.submodelelement.operation.ConnectedOperation;
@@ -15,6 +17,10 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DeliverCallback;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigRenderOptions;
@@ -25,6 +31,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MaestroEndpoint implements Endpoint {
 	private double stepSize = 0.0;
@@ -44,6 +53,25 @@ public class MaestroEndpoint implements Endpoint {
 	private int clock = 1;
 	private String lastCommand = "simulate";
 	
+	//RabbitMQ
+	boolean rabbitMQEnabled = false;
+	boolean flagSend = false;
+	String ip;
+	int port;
+	String username;
+	String password;
+	String exchange;
+	String type;
+	String vhost;
+	String routingKey;
+	ConnectionFactory factory;
+	Connection conn;
+	Channel channel;
+	DeliverCallback deliverCallback;
+	
+	public MaestroEndpoint() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public MaestroEndpoint(ComponentConfiguration config,String coeFilename, String outputFile)
 	{
@@ -57,6 +85,56 @@ public class MaestroEndpoint implements Endpoint {
 		this.stepSize = this.systemConfig.conf.getDouble("algorithm.size");
 		//this.finalTime = this.systemConfig.conf.getDouble("endTime");
 		//this.startTime = this.systemConfig.conf.getDouble("startTime");
+		
+		/***** If RabbitMQFMU is enabled *****/
+		if (this.systemConfig.conf.hasPath("rabbitmq")) {
+			System.out.println("RabbitMQ enabled");
+			this.rabbitMQEnabled = true;
+			this.ip = this.systemConfig.conf.getString("rabbitmq.ip");
+			this.port = this.systemConfig.conf.getInt("rabbitmq.port");
+			this.username = this.systemConfig.conf.getString("rabbitmq.username");
+			this.password = this.systemConfig.conf.getString("rabbitmq.password");
+			this.exchange = this.systemConfig.conf.getString("rabbitmq.exchange");
+			this.type = this.systemConfig.conf.getString("rabbitmq.type");
+			this.vhost = this.systemConfig.conf.getString("rabbitmq.vhost");
+			this.routingKey = this.systemConfig.conf.getString("rabbitmq.routing_key");
+			
+			this.deliverCallback = (consumerTag, delivery) -> {
+				String message = new String(delivery.getBody(), "UTF-8");
+				String keyStart = "waiting for input data for simulation";
+				if (message.contains(keyStart)) {
+					this.flagSend = true;
+				}
+	      	};
+			
+			this.factory = new ConnectionFactory();
+			if (this.password.equals("")){
+				
+			}else {
+				this.factory.setUsername(this.username);
+				this.factory.setPassword(this.password);
+			}
+			//this.factory.setVirtualHost(this.vhost);
+			this.factory.setHost(this.ip);
+			this.factory.setPort(this.port);
+
+			try {
+				this.conn = this.factory.newConnection();
+			} catch (IOException | TimeoutException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			try {
+				this.channel = this.conn.createChannel();
+			} catch (IOException e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			}
+			
+		}
+		
 	}
 
 	@Override
@@ -165,81 +243,118 @@ public class MaestroEndpoint implements Endpoint {
 	
 	@Override
 	public void setAttributeValues(List<String> variables, List<Object> values) {
-		// On the multimodel.json file
-		for (String var : variables) {
-			int index = variables.indexOf(var);
-			this.setAttributeValue(var, values.get(index));
+		if(this.rabbitMQEnabled) {
+			Map<String,String> body = new HashMap<String,String>();
+			String ts = ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT);
+			body.put("time", ts);
+			for (int i=0; i<variables.size();i++) {				
+				body.put(variables.get(i), values.get(i).toString());				
+			}
+			JSONObject bodyJSON = new JSONObject(body);
+			String bodyMessage = bodyJSON.toString();
+			this.rawSend(bodyMessage);	
+		}else {
+			// On the multimodel.json file
+			for (String var : variables) {
+				int index = variables.indexOf(var);
+				this.setAttributeValue(var, values.get(index));
+			}
 		}
+		
+		
+		
 	}
 
 	@Override
 	public void setAttributeValue(String variable, Object value) {
-		// On the multimodel.json file
-		String fileString = this.systemConfig.conf.root().render(ConfigRenderOptions.concise().setFormatted(true).setJson(true));
-		JSONObject completeJsonObject = new JSONObject(fileString);
-		if (variable.equals("step_size") || variable.equals("stepSize")) {
-			JSONObject innerjsonObject = new JSONObject(fileString).getJSONObject("algorithm");
-			innerjsonObject.put("size",value);
-			completeJsonObject.put("algorithm", innerjsonObject);
-			try (FileWriter file = new FileWriter(this.simulationFilename)) 
-	        {
-	            file.write(completeJsonObject.toString(4));
-	            file.close();
-	        } catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		if(this.rabbitMQEnabled) {
+			Map<String,String> body = new HashMap<String,String>();
+			String ts = ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT);
+			body.put("time", ts);
+			body.put(variable, value.toString());
+			JSONObject bodyJSON = new JSONObject(body);
+			String bodyMessage = bodyJSON.toString();
+			this.rawSend(bodyMessage);
 		}else {
-			JSONObject innerjsonObject = new JSONObject(fileString).getJSONObject("parameters");
-			innerjsonObject.put(variable,value);
-			completeJsonObject.put("parameters", innerjsonObject);
-			try (FileWriter file = new FileWriter(this.simulationFilename)) 
-	        {
-	            file.write(completeJsonObject.toString(4));
-	            file.close();
-	            
-	        } catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			// On the multimodel.json file
+			String fileString = this.systemConfig.conf.root().render(ConfigRenderOptions.concise().setFormatted(true).setJson(true));
+			JSONObject completeJsonObject = new JSONObject(fileString);
+			if (variable.equals("step_size") || variable.equals("stepSize")) {
+				JSONObject innerjsonObject = new JSONObject(fileString).getJSONObject("algorithm");
+				innerjsonObject.put("size",value);
+				completeJsonObject.put("algorithm", innerjsonObject);
+				try (FileWriter file = new FileWriter(this.simulationFilename)) 
+		        {
+		            file.write(completeJsonObject.toString(4));
+		            file.close();
+		        } catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				JSONObject innerjsonObject = new JSONObject(fileString).getJSONObject("parameters");
+				innerjsonObject.put(variable,value);
+				completeJsonObject.put("parameters", innerjsonObject);
+				try (FileWriter file = new FileWriter(this.simulationFilename)) 
+		        {
+		            file.write(completeJsonObject.toString(4));
+		            file.close();
+		            
+		        } catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			this.systemConfig = new ComponentConfiguration(this.simulationFilename);
 		}
-		this.systemConfig = new ComponentConfiguration(this.simulationFilename);
+		
 	}
 	
 	public void setAttributeValue(String variable, Object value, String twinName) {
-		// On the multimodel.json file
-		String twinRaw = mapAlias(twinName);
-		String varRaw = mapAlias(variable);
-		String composedRaw = twinRaw + "." + varRaw;
-		String fileString = this.systemConfig.conf.root().render(ConfigRenderOptions.concise().setFormatted(true).setJson(true));
-		JSONObject completeJsonObject = new JSONObject(fileString);
-		if (variable.equals("step_size") || variable.equals("stepSize")) {
-			JSONObject innerjsonObject = new JSONObject(fileString).getJSONObject("algorithm");
-			innerjsonObject.put("size",value);
-			completeJsonObject.put("algorithm", innerjsonObject);
-			try (FileWriter file = new FileWriter(this.simulationFilename)) 
-	        {
-	            file.write(completeJsonObject.toString(4));
-	            file.close();
-	        } catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		if(this.rabbitMQEnabled) {
+			Map<String,String> body = new HashMap<String,String>();
+			String ts = ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT);
+			body.put("time", ts);
+			body.put(variable, value.toString());
+			JSONObject bodyJSON = new JSONObject(body);
+			String bodyMessage = bodyJSON.toString();
+			this.rawSend(bodyMessage);
+			
 		}else {
-			JSONObject innerjsonObject = new JSONObject(fileString).getJSONObject("parameters");
-			innerjsonObject.put(composedRaw,value);
-			completeJsonObject.put("parameters", innerjsonObject);
-			try (FileWriter file = new FileWriter(this.simulationFilename)) 
-	        {
-	            file.write(completeJsonObject.toString(4));
-	            file.close();
-	            
-	        } catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			// On the multimodel.json file
+			String twinRaw = mapAlias(twinName);
+			String varRaw = mapAlias(variable);
+			String composedRaw = twinRaw + "." + varRaw;
+			String fileString = this.systemConfig.conf.root().render(ConfigRenderOptions.concise().setFormatted(true).setJson(true));
+			JSONObject completeJsonObject = new JSONObject(fileString);
+			if (variable.equals("step_size") || variable.equals("stepSize")) {
+				JSONObject innerjsonObject = new JSONObject(fileString).getJSONObject("algorithm");
+				innerjsonObject.put("size",value);
+				completeJsonObject.put("algorithm", innerjsonObject);
+				try (FileWriter file = new FileWriter(this.simulationFilename)) 
+		        {
+		            file.write(completeJsonObject.toString(4));
+		            file.close();
+		        } catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				JSONObject innerjsonObject = new JSONObject(fileString).getJSONObject("parameters");
+				innerjsonObject.put(composedRaw,value);
+				completeJsonObject.put("parameters", innerjsonObject);
+				try (FileWriter file = new FileWriter(this.simulationFilename)) 
+		        {
+		            file.write(completeJsonObject.toString(4));
+		            file.close();
+		            
+		        } catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			this.systemConfig = new ComponentConfiguration(this.simulationFilename);
 		}
-		this.systemConfig = new ComponentConfiguration(this.simulationFilename);
 	}
 	
 	public void simulate() {
@@ -355,8 +470,26 @@ public class MaestroEndpoint implements Endpoint {
 	}
 	
 	private String mapAlias(String in) {
-		String out = this.systemConfig.conf.getString("aliases." + in);
+		String out = "";
+		try {
+			out = this.systemConfig.conf.getString("aliases." + in);
+		}catch(Exception e) {
+			out = in;
+		}
+		
 		return out;
+	}
+	
+	/***** RabbitMQFMU support *****/
+	public void rawSend(String message) {
+		if (this.flagSend == true) {
+			try {
+				this.channel.basicPublish(this.exchange, this.routingKey, null, message.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

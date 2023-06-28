@@ -98,6 +98,12 @@ public class TankMain {
 			}, 1000, 1000);
 				
 	});
+		
+	/*public void deviationChecking(String variable, DigitalTwin twin1, DigitalTwin twin2, float threshold) {
+		if (DTManager.getAttributeValue(variable,twin1) > threshold* DTManager.getAttributeValue(variable,twin2)) {
+			System.out.println("Level of tank 1 (physical) higher than expected");
+		}
+	}*/
 	//eventThread.start();
 		
 		/*dtManager.registerAttributes("tank1",

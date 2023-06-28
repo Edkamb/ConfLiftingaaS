@@ -32,6 +32,11 @@ public interface Endpoint {
 
 	/***** Specific for MaestroEndpoint *****/
 	public Object getAttributeValue(String attrName, String twinName);
+	
+	public Object getAttributeValue(String attrName, int entry);
+	
+	public Object getAttributeValue(String attrName, int entry, String twinName);
+	/***** End Specific for MaestroEndpoint *****/
 
 	public void setAttributeValue(String attrName, Object val, String twinName);
 
