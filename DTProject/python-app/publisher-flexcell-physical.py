@@ -2,9 +2,11 @@
 from robots_flexcell import robots
 import kukalbrinterface
 import urinterface.robot_connection as urconn
+import paho.mqtt.client as mqtt
 import socket
 import numpy as np
 from pathlib import Path
+import ur5e_mqtt_publisher
 
 import pika
 import json
@@ -14,18 +16,25 @@ import time
 ur_robot_model = robots.UR5e_RL()
 kuka_robot_model = robots.KukaLBR_RL()
 use_real_robots = True
+mqtt_enabled = True
 
+#ur5e_mqtt_publisher.UR5eMQTTPublisher("test_results/ur5e_actual.csv")
 if use_real_robots:
-    kuka_robot = kukalbrinterface.RobotConnection("192.168.1.3")
+    # Kuka
+    kuka_robot = kukalbrinterface.RobotConnection("192.168.1.3",enabled_mqtt=mqtt_enabled)
     #kuka_robot.set_speed(0.01)
+    # UR5e
     ur5e_ip = "192.168.1.2"
     ur5e_dashboard_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     ur5e_controller_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
     ur5e_robot = urconn.RobotConnection(ur5e_ip,controller_socket=ur5e_controller_socket,dashboard_socket=ur5e_dashboard_socket) # Establish dashboard connection (port 29999) and controller connection (port 30002)
     f_name = "ur5e_actual.csv"
     filename = Path("test_results") / Path(f_name)
     config_file =  Path("resources") / Path("record_configuration.xml")
     ur5e_robot.start_recording(filename=filename, overwrite=True, frequency=50, config_file=config_file)
+    if mqtt_enabled:
+        ur5e_mqtt_pub = ur5e_mqtt_publisher.UR5eMQTTPublisher(filename)
 
 #### Robots ####
 def compute_ur_q(X,Y,Z):

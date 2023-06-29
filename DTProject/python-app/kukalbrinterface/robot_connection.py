@@ -2,11 +2,13 @@ import tcpnonblock
 import os
 import zmq
 import numpy as np
-import time
+import paho.mqtt.client as mqtt
+import csv
 
 # Requires Java server connection running in the Kuka Robot controller
 class RobotConnection:
-    def __init__(self,ip_addr,enabled_zmq=False,port_zmq="5557",threaded=True,filename="joint_position_data.csv"):
+    def __init__(self,ip_addr,enabled_zmq=False,port_zmq="5557",threaded=True,filename="joint_position_data.csv",
+                 enabled_mqtt=False,addr_mqtt="127.0.0.1",port_mqtt=1883,mqtt_topic="kuka/actual/",mqtt_username="",mqtt_password=""):
         self.ip_addr = ip_addr
         self.threaded = threaded
         self.port_zmq = port_zmq
@@ -16,13 +18,24 @@ class RobotConnection:
             self.context = zmq.Context()
             self.socket_zmq = self.context.socket(zmq.PUB)
             self.socket_zmq.bind("tcp://*:" + port_zmq)
+        self.enabled_mqtt = enabled_mqtt
+        self.addr_mqtt = addr_mqtt
+        self.port_mqtt = port_mqtt
+        self.mqtt_username = mqtt_username
+        self.mqtt_password = mqtt_password
+        self.mqtt_topic = mqtt_topic
+        if self.enabled_mqtt:
+            self.mqtt_client = mqtt.Client()
+            if (self.mqtt_username != ""):
+                self.mqtt_client.username_pw_set(self.mqtt_username,password=self.mqtt_password)
+            self.mqtt_client.connect(self.addr_mqtt,self.port_mqtt,60)
         self.client = tcpnonblock.TCPSocketClient(threaded=True)
 
         @self.client.on_open
         def on_open():
             print("Connected to Robot Server")
             self.client.send("Client connected\n")
-
+        
         @self.client.on_close
         def on_close():
             print("Disconnected from Robot Server")
@@ -45,20 +58,25 @@ class RobotConnection:
                 try:
                     splt_msg = str(msg).split(",")
                     if len(splt_msg) > 5:
+                        if self.enabled_mqtt:
+                            topic_list = self._get_topic_list(filename)
+                            for j in range(len(topic_list)):
+                                self._publish_on_topic(self.mqtt_topic,topic_list[j],msg[j])
                         positions = splt_msg[1:8]
                         for i in range(len(positions)):
                             if self.enabled_zmq:
                                 self.socket_zmq.send_string(f"actual_q_{i} {positions[i]}")
+                            
                 except Exception as e:
                     pass
             except Exception as exc:
                 pass
-
+        
         self._connect()
 
     def _connect(self):
         self.client.connect(self.ip_addr, 30001)
-
+    
     def _close(self):
         self.client.send("Client disconnected\n")
         try:
@@ -69,6 +87,16 @@ class RobotConnection:
         if self.enabled_zmq:
             self.socket_zmq.send_string("stop stop")
             self.socket_zmq.close()
+
+    def _publish_on_topic(self,topic_prefix,topic_suffix,value):
+        self.mqtt_client.publish(topic_prefix+topic_suffix,value)
+
+    def _get_topic_list(self,filename,delim=","):
+        with open(filename) as csv_file:
+            csv_reader = csv.DictReader(csv_file,delimiter=delim)
+            dict_from_csv = dict(list(csv_reader)[0])
+            topic_list = list(dict_from_csv.keys())
+            return topic_list
 
     def close(self):
         self._close()
@@ -113,7 +141,4 @@ class RobotConnection:
             q_string = q_string.replace(".","")
         self.client.send("movecirc(" + q_string + ")\n")
 
-    def set_speed(self,value):
-        self.client.send("activatejointrelspeed(true)\n")
-        time.sleep(0.2)
-        self.client.send("setupjointrelspeed(" + str(value) + ")\n")
+        
