@@ -2,6 +2,7 @@ package dtmanager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,17 +44,9 @@ public class RabbitMQEndpoint implements Endpoint {
 	Channel channel;
 	DeliverCallback deliverCallback;
 	TwinConfiguration twinConfig;
-	List<Property> registeredAttributes;
+	Map<String,Object> registeredAttributes;
 	List<Operation> registeredOperations;
-	List<ConnectedProperty> registeredConnectedAttributes;
-	List<ConnectedOperation> registeredConnectedOperations;
-	
-	/*** Specific to AAS***/
-	ConnectedAssetAdministrationShellManager manager;
-	ModelUrn incubatorURN;
-	ConnectedAssetAdministrationShell connectedIncubator;
-	VABRegistryProxy registryProxy = new VABRegistryProxy("http://localhost:4001/dtframework/directory/");
-	VABConnectionManager vabConnectionManager = new VABConnectionManager(registryProxy, new HTTPConnectorFactory());
+
 	
 	
 	public RabbitMQEndpoint(TwinConfiguration config) {
@@ -66,19 +59,16 @@ public class RabbitMQEndpoint implements Endpoint {
 		this.type = config.conf.getString("rabbitmq.type");
 		this.vhost = config.conf.getString("rabbitmq.vhost");
 		
-		this.registeredAttributes = new ArrayList<Property>();
+		this.registeredAttributes = new HashMap<String,Object>();
 		this.registeredOperations = new ArrayList<Operation>();
-		this.registeredConnectedAttributes = new ArrayList<ConnectedProperty>();
-		this.registeredConnectedOperations = new ArrayList<ConnectedOperation>();
 		
 		this.deliverCallback = (consumerTag, delivery) -> {
-			for (Property tmpProp : this.registeredAttributes) {
+			for (Map.Entry<String, Object> entry : this.registeredAttributes.entrySet()) {
 				final String message = new String(delivery.getBody(), "UTF-8");
 		        JSONObject jsonMessage = new JSONObject(message);
-		        String alias = mapAlias(tmpProp.getIdShort());
+		        String alias = mapAlias(entry.getKey());
 		        Object value = jsonMessage.getJSONObject("fields").get(alias);
-		        //double temperature = jsonMessage.getJSONObject("fields").getDouble("average_temperature");
-		        tmpProp.setValue(value);
+		        entry.setValue(value);
 			}
       	};
 		
@@ -117,94 +107,41 @@ public class RabbitMQEndpoint implements Endpoint {
 	}
 	
 	public void registerOperation(String twinName,Operation op){
-		String opName = op.getIdShort();
-		String queue = twinName + ":" +opName + ":queue";
 		this.registeredOperations.add(op);
-		try {
-			channel.queueDeclare(queue, false, true, false, null);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	}
-	
-	public void registerAttribute(String twinName,Property prop){
-		String propName = prop.getIdShort();
-		String queue = twinName + ":" + propName + ":queue";
-		this.registeredAttributes.add(prop);
-		try {
-			channel.queueDeclare(queue, false, true, false, null);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			String routingKey = mapRoutingKey(propName);
-			channel.queueBind(queue, exchange, routingKey);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		this.deliverCallback = (consumerTag, delivery) -> {
-			for (Property tmpProp : this.registeredAttributes) {
-				try {
-					final String message = new String(delivery.getBody(), "UTF-8");
-			        JSONObject jsonMessage = new JSONObject(message);
-			        String alias = mapAlias(tmpProp.getIdShort());
-			        Object value = jsonMessage.getJSONObject("fields").get(alias);
-			        prop.setValue(value);
-				} catch (Exception e) {
-				}
-			}
-      	};
-      	
-      	try {
-      		channel.basicConsume(queue, true, this.deliverCallback, consumerTag -> {});
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-	
-	public void registerConnectedOperation(String twinName,ConnectedOperation op){
 		String opName = op.getIdShort();
 		String queue = twinName + ":" +opName + ":queue";
-		this.registeredConnectedOperations.add(op);
 		try {
 			channel.queueDeclare(queue, false, true, false, null);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
 	
-	public void registerConnectedAttribute(String twinName,ConnectedProperty prop){
-		String propName = prop.getIdShort();
-		String queue = twinName + ":" + propName + ":queue";
-		this.registeredConnectedAttributes.add(prop);
+	public void registerAttribute(String name, Object obj) {
+		this.registeredAttributes.put(name,obj);
+	
+		String queue = name + ":queue";
 		try {
 			channel.queueDeclare(queue, false, true, false, null);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
-			String routingKey = mapRoutingKey(propName);
+			String routingKey = mapRoutingKey(name);
 			channel.queueBind(queue, exchange, routingKey);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
 		this.deliverCallback = (consumerTag, delivery) -> {
-			for (ConnectedProperty tmpProp : this.registeredConnectedAttributes) {
+			for (Map.Entry<String, Object> entry : this.registeredAttributes.entrySet()) {
 				try {
 					final String message = new String(delivery.getBody(), "UTF-8");
 			        JSONObject jsonMessage = new JSONObject(message);
-			        String alias = mapAlias(tmpProp.getIdShort());
+			        String alias = mapAlias(entry.getKey());
 			        Object value = jsonMessage.getJSONObject("fields").get(alias);
-			        //double temperature = jsonMessage.getJSONObject("fields").getDouble("average_temperature");
-			        prop.setValue(value);
+			        entry.setValue(value);
 				} catch (Exception e) {
 				}
 			}
@@ -212,7 +149,6 @@ public class RabbitMQEndpoint implements Endpoint {
       	
       	try {
       		channel.basicConsume(queue, true, this.deliverCallback, consumerTag -> {});
-			//channel.basicConsume("incubator_queue", true, localDeliverCallback, consumerTag -> {});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -236,40 +172,35 @@ public class RabbitMQEndpoint implements Endpoint {
 
 	@Override
 	public List<Object> getAttributeValues(List<String> variables) {
-		// Not valid for this asynchronous method
-		return null;
+		List<Object> values = new ArrayList<Object>();
+		for(String var : variables) {
+			Object value = this.getAttributeValue(var);
+			values.add(value);
+		}
+		return values;
 	}
 
 	@Override
 	public Object getAttributeValue(String variable) {
-		// Not valid for this asynchronous method
-		return null;
+		return this.registeredAttributes.get(variable);
 	}
 
 	@Override
 	public void setAttributeValues(List<String> variables, List<Object> values) {
-		// TODO Auto-generated method stub
 		for(String var : variables) {
 			int index = variables.indexOf(var);
-			String routingKey = mapRoutingKey(var);
-			String message = String.valueOf(values.get(index));
-			try {
-				channel.basicPublish(exchange, routingKey, null, message.getBytes());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			this.setAttributeValue(var, values.get(index));
 		}
 	}
 
 	@Override
 	public void setAttributeValue(String variable, Object value) {
+		this.registeredAttributes.put(variable, value);
 		String routingKey = mapRoutingKey(variable);
 		String message = String.valueOf(value);
 		try {
 			channel.basicPublish(exchange, routingKey, null, message.getBytes());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

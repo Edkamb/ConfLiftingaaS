@@ -23,6 +23,8 @@ public class FMIEndpoint implements Endpoint {
 	private String fmuPath;
 	
 	public Simulation simulation;
+	Map<String,Object> registeredAttributes;
+	private ArrayList<Operation> registeredOperations;
 	
 	@SuppressWarnings("static-access")
 	public FMIEndpoint(TwinConfiguration config) {
@@ -30,6 +32,9 @@ public class FMIEndpoint implements Endpoint {
 		this.fmuPath = config.conf.getString("fmi.file_path");
 		this.stepSize = config.conf.getDouble("fmi.step_size");
 		simulation = new Simulation(this.fmuPath);
+		
+		this.registeredAttributes = new HashMap<String,Object>();		
+		this.registeredOperations = new ArrayList<Operation>();
 	}
 	
 	public List<Object> getAttributeValues(List<String> variables) {
@@ -81,26 +86,12 @@ public class FMIEndpoint implements Endpoint {
 
 	@Override
 	public void registerOperation(String name, Operation op) {
-		// Not valid for this synchronous method
-		
+		this.registeredOperations.add(op);		
 	}
 
 	@Override
-	public void registerConnectedOperation(String name, ConnectedOperation op) {
-		// Not valid for this synchronous method
-		
-	}
-
-	@Override
-	public void registerAttribute(String name, Property prop) {
-		// Not valid for this synchronous method
-		
-	}
-
-	@Override
-	public void registerConnectedAttribute(String name, ConnectedProperty prop) {
-		// Not valid for this synchronous method
-		
+	public void registerAttribute(String name, Object obj) {
+		this.registeredAttributes.put(name,obj);
 	}
 
 	@Override

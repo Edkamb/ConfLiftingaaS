@@ -88,7 +88,7 @@ public class MaestroEndpoint implements Endpoint {
 		
 		/***** If RabbitMQFMU is enabled *****/
 		if (this.systemConfig.conf.hasPath("rabbitmq")) {
-			System.out.println("RabbitMQ enabled");
+			//System.out.println("RabbitMQ enabled");
 			this.rabbitMQEnabled = true;
 			this.ip = this.systemConfig.conf.getString("rabbitmq.ip");
 			this.port = this.systemConfig.conf.getInt("rabbitmq.port");
@@ -143,17 +143,7 @@ public class MaestroEndpoint implements Endpoint {
 	}
 
 	@Override
-	public void registerConnectedOperation(String name, ConnectedOperation op) {
-		//Not relevant
-	}
-
-	@Override
-	public void registerAttribute(String name, Property prop) {
-		//Not relevant
-	}
-
-	@Override
-	public void registerConnectedAttribute(String name, ConnectedProperty prop) {
+	public void registerAttribute(String name, Object obj) {
 		//Not relevant
 	}
 

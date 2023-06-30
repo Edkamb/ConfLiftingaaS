@@ -34,10 +34,6 @@ import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 public class DTManager {
 	String name;
 	public TwinSchema schema;
-	@Deprecated
-    DigitalTwin actual;
-	@Deprecated
-    Map<String, DigitalTwin> experimentalTwins;
     public Map<String, DigitalTwin> availableTwins;
     Clock internalClock;
     
@@ -47,95 +43,55 @@ public class DTManager {
     // New input for several schemas
     public List<TwinSchema> schemas;
     public Map<String,TwinSchema> twinToSchemaMapping;
-    
-    /***** Specific to AAS ******/
-    VABConnectionManager vabConnectionManagerVABServer;
-    private static final String SERVER = "localhost";
-	private static final int AAS_PORT = 4001;
-	private static final int REGISTRY_PORT = 4000;
-	private static final String CONTEXT_PATH = "dtframework";
-	ConnectedAssetAdministrationShellManager aasManager;
-	String aasServerURL;
-	String REGISTRYPATH;
-	AASRegistryProxy registry;
-	private Map<String, ConnectedAssetAdministrationShell> dtAASMap = new HashMap<String, ConnectedAssetAdministrationShell>();
+
     
 	public DTManager(String name, TwinSchema schema) {
 		this.name = name;
 		this.schema = schema;
 		this.availableTwins = new HashMap<String, DigitalTwin>();
 		this.internalClock = new Clock();
-		experimentalTwins = new HashMap<String, DigitalTwin>();
 		// New for DT Systems
 		this.availableTwinSystems = new HashMap<String, DigitalTwinSystem>();
-		
-		
-		/****** Specific to AAS ******/
-		REGISTRYPATH = "http://" + SERVER + ":" + String.valueOf(REGISTRY_PORT) + "/registry/api/v1/registry";
-		registry = new AASRegistryProxy(REGISTRYPATH);
-		aasManager = new ConnectedAssetAdministrationShellManager(registry);
-		aasServerURL = "http://" + SERVER + ":" + String.valueOf(AAS_PORT) + "/" + CONTEXT_PATH;
 	}
 	
 	public DTManager(String name, List<TwinSchema> schemas) {
 		this.name = name;
 		this.schemas = schemas;
+		this.schema = schemas.get(0);
 		this.availableTwins = new HashMap<String, DigitalTwin>();
 		this.internalClock = new Clock();
-		experimentalTwins = new HashMap<String, DigitalTwin>();
 		// New for DT Systems
 		this.availableTwinSystems = new HashMap<String, DigitalTwinSystem>();
 		this.twinToSchemaMapping = new HashMap<String, TwinSchema>();
-		
-		
-		/****** Specific to AAS ******/
-		REGISTRYPATH = "http://" + SERVER + ":" + String.valueOf(REGISTRY_PORT) + "/registry/api/v1/registry";
-		registry = new AASRegistryProxy(REGISTRYPATH);
-		aasManager = new ConnectedAssetAdministrationShellManager(registry);
-		aasServerURL = "http://" + SERVER + ":" + String.valueOf(AAS_PORT) + "/" + CONTEXT_PATH;
 	}
 	
 	public void createDigitalTwin(String name,TwinConfiguration config) {
 		DigitalTwin twin = new DigitalTwin(name,config);
+		TwinSchema tmpSchema = null;
+		try {
+			tmpSchema = (TwinSchema) this.schema.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		twin.registerAttributes(tmpSchema.getAttributes());
+		twin.registerOperations(tmpSchema.getOperations());
 		this.availableTwins.put(name, twin);
-		
-		/***** Specific to AAS *****/
-		/*Asset asset = new Asset(name + "Asset", new CustomId("urn:dtexamples.into-cps." + name + "Asset"), AssetKind.INSTANCE);
-		AssetAdministrationShell aas = new AssetAdministrationShell(name, new CustomId("urn:dtexamples.into-cps." + name), asset);
-		Submodel operationalDataSubmodel = new Submodel("OperationalDataSubmodel", new CustomId("urn:dtexamples.into-cps." + name + ".OperationalDataSubmodel"));
-		List<Operation> operations = this.schema.getOperationsAASX();
-		for (Operation op : operations) {
-			operationalDataSubmodel.addSubmodelElement(op);
-		}
-		List<Property> properties = this.schema.getAttributesAASX();
-		for (Property prop : properties) {
-			operationalDataSubmodel.addSubmodelElement(prop);
-		}
-		ConnectedAssetAdministrationShell cAAS = this.uploadAAS2Server(aas, null, operationalDataSubmodel);
-		dtAASMap.put(name, cAAS);*/
-		
 	}
 	
 	public void createDigitalTwin(String name,TwinConfiguration config, TwinSchema schema) {
 		DigitalTwin twin = new DigitalTwin(name,config);
+		TwinSchema tmpSchema = null;
+		try {
+			tmpSchema = (TwinSchema) schema.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		twin.registerAttributes(tmpSchema.getAttributes());
+		twin.registerOperations(tmpSchema.getOperations());
 		this.availableTwins.put(name, twin);
 		this.twinToSchemaMapping.put(name, schema);
-		
-		/***** Specific to AAS *****/
-		/*Asset asset = new Asset(name + "Asset", new CustomId("urn:dtexamples.into-cps." + name + "Asset"), AssetKind.INSTANCE);
-		AssetAdministrationShell aas = new AssetAdministrationShell(name, new CustomId("urn:dtexamples.into-cps." + name), asset);
-		Submodel operationalDataSubmodel = new Submodel("OperationalDataSubmodel", new CustomId("urn:dtexamples.into-cps." + name + ".OperationalDataSubmodel"));
-		List<Operation> operations = this.schema.getOperationsAASX();
-		for (Operation op : operations) {
-			operationalDataSubmodel.addSubmodelElement(op);
-		}
-		List<Property> properties = this.schema.getAttributesAASX();
-		for (Property prop : properties) {
-			operationalDataSubmodel.addSubmodelElement(prop);
-		}
-		ConnectedAssetAdministrationShell cAAS = this.uploadAAS2Server(aas, null, operationalDataSubmodel);
-		dtAASMap.put(name, cAAS);*/
-		
 	}
 	
 	// New input for DT Systems
@@ -148,21 +104,7 @@ public class DTManager {
 		DigitalTwinSystem dtSystem = new DigitalTwinSystem(systemName,digitalTwins,config, coeFilename);
 		this.availableTwinSystems.put(systemName, dtSystem);
 	}
-	
-	@Deprecated
-	public DigitalTwin createActualTwin(String name,TwinConfiguration config) {
-		DigitalTwin twin = new DigitalTwin(name,config);
-		this.actual = twin;
-		return this.actual;
-	}
-	
-	@Deprecated
-	public DigitalTwin createExperimentalTwin(String name,TwinConfiguration config) {
-		DigitalTwin twin = new DigitalTwin(name,config); 
-		experimentalTwins.put(name,twin);
-		return twin;
-	}
-	
+
 	void deleteTwin(String name){
 		this.availableTwins.remove(name);
 	}
@@ -174,7 +116,7 @@ public class DTManager {
 		
 		DigitalTwin to = this.availableTwins.get(nameTo);
 		DigitalTwin from = this.availableTwins.get(nameFrom);
-		for(ConnectedProperty att : this.schema.getAttributes()){
+		for(Property att : this.schema.getAttributes()){
 			copyAttributeValue(to, att.getIdShort(), from, att.getIdShort());
 		}
 		from.setTime(time);
@@ -267,40 +209,12 @@ public class DTManager {
 	
 	public void registerOperations(String twinName, List<Operation> operations) {
 		DigitalTwin twin = this.availableTwins.get(twinName);
-		/***** Missing validation of the arg operations to the existing operations ******/
-		
-		ConnectedAssetAdministrationShell cAAS = this.dtAASMap.get(twinName);
-		ISubmodel submodel = cAAS.getSubmodels().get("OperationalDataSubmodel");
-		Map<String,IOperation> operationsAAS = submodel.getOperations();
-		List<ConnectedOperation> operationsList = new ArrayList<ConnectedOperation>();
-		for (Map.Entry<String, IOperation> entry : operationsAAS.entrySet()) {
-			IOperation op = entry.getValue();
-			operationsList.add( (ConnectedOperation) op);
-		}
-		
-		//twin.registerOperations(operationsList);
-		twin.registerConnectedOperations(operationsList);
-		
-		/***** Specific to AAS ******/
-		
-		
+		twin.registerOperations(operations);
 	}
 	
 	public void registerAttributes(String twinName, List<Property> attributes) {
 		DigitalTwin twin = this.availableTwins.get(twinName);
-		/***** Missing validation of the arg attributes to the existing attributes ******/
-		
-		ConnectedAssetAdministrationShell cAAS = this.dtAASMap.get(twinName);
-		ISubmodel submodel = cAAS.getSubmodels().get("OperationalDataSubmodel");
-		Map<String,IProperty> properties = submodel.getProperties();
-		List<ConnectedProperty> propertiesList = new ArrayList<ConnectedProperty>();
-		for (Map.Entry<String, IProperty> entry : properties.entrySet()) {
-		    IProperty property = entry.getValue();
-		    propertiesList.add((ConnectedProperty) property);
-		}
-		//twin.registerAttributes(propertiesList);
-		twin.registerConnectedAttributes(propertiesList);
-		
+		twin.registerAttributes(attributes);	
 	}
 	
 	
@@ -388,17 +302,4 @@ public class DTManager {
 		Object value = twinSystem.getAttributeValue(attrName,twinName);
 		return value;
 	}
-	
-	/********** Specific to AAS  ************/
-	private ConnectedAssetAdministrationShell uploadAAS2Server(IAssetAdministrationShell iAAS, ISubmodel technicalDataSubmodel,
-			ISubmodel operationalDataSubmodel) {
-		// Creation/update of AASs in BaSyx server
-		aasManager.createAAS((AssetAdministrationShell) iAAS, aasServerURL);
-		//aasManager.createSubmodel(iAAS.getIdentification(), (Submodel) technicalDataSubmodel);
-		aasManager.createSubmodel(iAAS.getIdentification(), (Submodel) operationalDataSubmodel);
-		
-		ConnectedAssetAdministrationShell cAAS = aasManager.retrieveAAS(iAAS.getIdentification());
-		return cAAS;
-	}
-
 }

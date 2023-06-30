@@ -40,8 +40,6 @@ public interface DigitalTwinInterface {
 	public void setAttributeValueAt(String attrName, Object val, Timestamp at);
 	
 	// specific to discrete-time events
-	// PHM: arguments should be a Dict instead, allows validation
-
 	public Object executeOperation(String opName, List<?> arguments);
 	
 	@Deprecated

@@ -3,15 +3,20 @@ package dtmanager;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.text.RandomStringGenerator;
 import org.eclipse.basyx.submodel.metamodel.connected.submodelelement.dataelement.ConnectedProperty;
 import org.eclipse.basyx.submodel.metamodel.connected.submodelelement.operation.ConnectedOperation;
 import org.eclipse.basyx.submodel.metamodel.map.submodelelement.dataelement.property.Property;
 import org.eclipse.basyx.submodel.metamodel.map.submodelelement.operation.Operation;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttClientPersistence;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -31,7 +36,7 @@ public class MQTTEndpoint implements Endpoint {
 	MqttCallback mqttCallback;
 	
 	// Schema
-	List<Property> registeredAttributes;
+	Map<String,Object> registeredAttributes;
 	List<Operation> registeredOperations;
 	
 	public MQTTEndpoint(TwinConfiguration config) {
@@ -41,23 +46,28 @@ public class MQTTEndpoint implements Endpoint {
 		this.username = config.conf.getString("mqtt.username");
 		this.password = config.conf.getString("mqtt.password");
 		this.topic = config.conf.getString("mqtt.topic");
+		String broker = "tcp://" + ip + ":" + String.valueOf(port);
 
-		this.registeredAttributes = new ArrayList<Property>();
+		this.registeredAttributes = new HashMap<String,Object>();		
 		this.registeredOperations = new ArrayList<Operation>();
 		try {
-			this.mqttClient = new MqttClient(this.ip,this.topic.replace("/", ""));
+			RandomStringGenerator generator = new RandomStringGenerator.Builder()
+				     .withinRange('a', 'z').build();
+			String randomLetters = generator.generate(20);
+			this.mqttClient = new MqttClient(broker,randomLetters, null);
 		} catch (MqttException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         MqttConnectOptions connOpts = new MqttConnectOptions();
-        connOpts.setCleanSession(true);
+        //connOpts.setCleanSession(true);
         if (!this.username.equals("")) {
         	connOpts.setUserName(this.username);
         	connOpts.setPassword(this.password.toCharArray());
         }
         try {
-			mqttClient.connect(connOpts);
+        	mqttClient.connectWithResult(connOpts);
+        	//token.waitForCompletion();
 			mqttClient.subscribe(this.topic + "#"); //This registers all the attributes
 		} catch (MqttSecurityException e) {
 			// TODO Auto-generated catch block
@@ -91,50 +101,45 @@ public class MQTTEndpoint implements Endpoint {
 	}
 	
 	private void processOncomingMessage(String topic, MqttMessage mqttMessage) {
-		for (Property tmpProp : this.registeredAttributes) {
-			String message = "";
-			try {
-				message = new String(mqttMessage.getPayload(), "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        JSONObject jsonMessage = new JSONObject(message);
-	        String alias = mapAlias(tmpProp.getIdShort());
-	        Object value = jsonMessage.getJSONObject("fields").get(alias);
-	        tmpProp.setValue(value);
+		String message = "";
+		String[] topicVar = topic.split("/");
+		String variable = topicVar[topicVar.length-1];
+		try {
+			message = new String(mqttMessage.getPayload(), "UTF-8");
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		//System.out.println(variable);
+		//System.out.println(message);
+		this.registeredAttributes.put(variable, message);
+		String alias = mapAlias(variable);
+		this.registeredAttributes.put(alias, message);
 	}
 	
 	@Override
 	public void registerOperation(String name, Operation op) {
 		// TODO Auto-generated method stub
-		
+		this.registeredOperations.add(op);
 	}
 	@Override
-	public void registerConnectedOperation(String name, ConnectedOperation op) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void registerAttribute(String name, Property prop) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void registerConnectedAttribute(String name, ConnectedProperty prop) {
-		// TODO Auto-generated method stub
-		
+	public void registerAttribute(String name, Object obj) {
+		this.registeredAttributes.put(name,obj);
 	}
 	@Override
 	public List<Object> getAttributeValues(List<String> variables) {
-		// Not valid for this asynchronous method
-		return null;
+		List<Object> values = new ArrayList<Object>();
+		for(String var : variables) {
+			int index = variables.indexOf(var);
+			Object value = this.getAttributeValue(var);
+			values.add(value);
+		}
+		return values;
 	}
 	@Override
 	public Object getAttributeValue(String variable) {
-		// Not valid for this asynchronous method
-		return null;
+		return this.registeredAttributes.get(variable);
 	}
 	@Override
 	public void setAttributeValues(List<String> variables, List<Object> values) {
@@ -148,6 +153,7 @@ public class MQTTEndpoint implements Endpoint {
 	public void setAttributeValue(String variable, Object value) {
 		String topic = this.topic + variable;
 		String content = String.valueOf(value);
+		this.registeredAttributes.put(variable, value);		
 		MqttMessage message = new MqttMessage(content.getBytes());
 		try {
 			this.mqttClient.publish(topic, message);

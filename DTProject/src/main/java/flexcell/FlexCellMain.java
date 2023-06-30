@@ -2,6 +2,8 @@ package flexcell;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import dtmanager.ComponentConfiguration;
 import dtmanager.DTManager;
@@ -15,6 +17,7 @@ public class FlexCellMain {
 	public static void main(String[] args) {
 		TwinSchema kukaSchema = new TwinSchema(folderPrefix+"kuka.aasx","Kuka_LBR_iiwa7_AAS");
 		TwinSchema ur5eSchema = new TwinSchema(folderPrefix+"ur5e.aasx","UR5e_AAS");
+		
 		TwinConfiguration kukaModelConfig = new TwinConfiguration(folderPrefix+"kuka_experimental.conf");
 		TwinConfiguration ur5eModelConfig = new TwinConfiguration(folderPrefix+"ur5e_experimental.conf");
 		TwinConfiguration kukaActualConfig = new TwinConfiguration(folderPrefix+"kuka_actual.conf");
@@ -30,6 +33,12 @@ public class FlexCellMain {
 		dtManager.createDigitalTwin("ur5e_experimental",ur5eModelConfig,ur5eSchema);
 		dtManager.createDigitalTwin("kuka_actual",kukaActualConfig,kukaSchema);
 		dtManager.createDigitalTwin("ur5e_actual",ur5eActualConfig,ur5eSchema);
+		
+		/***** TEST *****/
+		/*System.out.println(dtManager.getAttributeValue("Current_Joint_Position_5", "ur5e_actual"));
+		dtManager.setAttributeValue("Current_Joint_Position_5", 2.0, "ur5e_actual");
+		System.out.println(dtManager.getAttributeValue("Current_Joint_Position_5", "ur5e_actual"));*/
+		/***** END TEST *****/
 		
 		List<String> dtsFlexcellSystem = new ArrayList<String>();
 		dtsFlexcellSystem.add("kuka_experimental");
@@ -68,7 +77,7 @@ public class FlexCellMain {
 		dtManager.setSystemAttributeValue("target_Z", 3, "FlexcellSystem","kuka_experimental");*/
 		
 		
-		Object kukaActualQ5 = dtManager.getSystemAttributeValueAt("actual_q5", "FlexcellSystem","kuka_experimental",2);
+		/*Object kukaActualQ5 = dtManager.getSystemAttributeValueAt("actual_q5", "FlexcellSystem","kuka_experimental",2);
 		Object kukaActualX = dtManager.getSystemAttributeValueAt("actual_X", "FlexcellSystem","kuka_experimental",2);
 		Object kukaActualY = dtManager.getSystemAttributeValueAt("actual_Y", "FlexcellSystem","kuka_experimental",2);
 		Object kukaActualZ = dtManager.getSystemAttributeValueAt("actual_Z", "FlexcellSystem","kuka_experimental",2);
@@ -97,7 +106,40 @@ public class FlexCellMain {
 		System.out.println(kukaActualZ.toString());
 		System.out.println(ur5eActualX.toString());
 		System.out.println(ur5eActualY.toString());
-		System.out.println(ur5eActualZ.toString());
+		System.out.println(ur5eActualZ.toString());*/
+		
+		
+		Object value = dtManager.getAttributeValue("actual_q_5", "ur5e_actual");
+		System.out.println("UR5e actual_q_5 (actual): " + value);
+		Object ur5eExperimentalQ = dtManager.getSystemAttributeValueAt("actual_q5", "FlexcellSystem","ur5e_experimental",10);
+		System.out.println("UR5e actual_q_5 (experimental): " + ur5eExperimentalQ);
+		value = dtManager.getAttributeValue("actual_q_0", "ur5e_actual");
+		ur5eExperimentalQ = dtManager.getSystemAttributeValueAt("actual_q0", "FlexcellSystem","ur5e_experimental",10);
+		System.out.println("UR5e actual_q_0 (actual): " + value);
+		System.out.println("UR5e actual_q_0 (experimental): " + ur5eExperimentalQ);
+		
+		/*
+
+		Thread eventThread = new Thread(() -> {
+			new Timer().scheduleAtFixedRate(new TimerTask() {
+				public void run() {
+					try {
+						Object value = dtManager.getAttributeValue("actual_q_5", "ur5e_actual");
+						System.out.println("UR5e actual_q_5 (actual): " + value);
+						Object ur5eExperimentalQ = dtManager.getSystemAttributeValueAt("actual_q5", "FlexcellSystem","ur5e_experimental",10);
+						System.out.println("UR5e actual_q_5 (experimental): " + ur5eExperimentalQ);
+						value = dtManager.getAttributeValue("actual_q_0", "ur5e_actual");
+						ur5eExperimentalQ = dtManager.getSystemAttributeValueAt("actual_q0", "FlexcellSystem","ur5e_experimental",10);
+						System.out.println("UR5e actual_q_0 (actual): " + value);
+						System.out.println("UR5e actual_q_0 (experimental): " + ur5eExperimentalQ);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}, 1000, 1000);
+		});
+		eventThread.setDaemon(true);
+		eventThread.start();*/
 	}
 
 }

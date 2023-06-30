@@ -54,5 +54,15 @@
     "algorithm": {
         "size": 0.5,
         "type": "fixed-step"
+    },
+    "rabbitmq": {
+      "ip" : "localhost",
+      "port" : 5672,
+      "username" : "",
+      "password" : "",
+      "exchange" : "fmi_digital_twin",
+      "type" : "topic",
+      "vhost" : "/",
+      "routing_key": "data.from_cosim"
     }
 }

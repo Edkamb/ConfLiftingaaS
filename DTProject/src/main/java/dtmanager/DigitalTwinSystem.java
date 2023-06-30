@@ -44,15 +44,19 @@ public class DigitalTwinSystem {
 	}
 	
 	public void setAttributeValue(String attrName, Object val, String twinName) {
+		this.digitalTwins.get(twinName).attributes.put(attrName, val);
 		this.endpoint.setAttributeValue(attrName, val, twinName);
 	}
 	
 	public Object getAttributeValue(String attrName) {
-		return this.endpoint.getAttributeValue(attrName);
+		Object value = this.endpoint.getAttributeValue(attrName);
+		return value;
 	}
 	
 	public Object getAttributeValue(String attrName, String twinName) {
-		return this.endpoint.getAttributeValue(attrName, twinName);
+		Object value = this.endpoint.getAttributeValue(attrName, twinName);
+		this.digitalTwins.get(twinName).attributes.put(attrName, value);
+		return value;
 	}
 	
 	public void setAttributeValues(List<String> attrNames, List<Object> values) {
@@ -68,7 +72,9 @@ public class DigitalTwinSystem {
 	}
 	
 	public Object getAttributeValue(String attrName, int entry, String twinName) {
-		return this.endpoint.getAttributeValue(attrName, entry, twinName);
+		Object value = this.endpoint.getAttributeValue(attrName, entry, twinName);
+		this.digitalTwins.get(twinName).attributes.put(attrName, value);
+		return value;
 	}
 	
 	
@@ -89,7 +95,12 @@ public class DigitalTwinSystem {
 	}
 	
 	private String mapAlias(String in) {
-		String out = this.config.conf.getString("fmi.connections.aliases." + in);
+		String out = "";
+		try {
+			out = this.config.conf.getString("aliases." + in);
+		}catch(Exception e) {
+			out = in;
+		}
 		return out;
 	}
 	

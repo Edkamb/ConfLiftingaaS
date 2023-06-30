@@ -1,5 +1,6 @@
 package dtmanager;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.basyx.submodel.metamodel.connected.submodelelement.dataelement.ConnectedProperty;
@@ -14,12 +15,8 @@ public interface Endpoint {
 
 	public void registerOperation(String name, Operation op);
 
-	public void registerConnectedOperation(String name, ConnectedOperation op);
+	public void registerAttribute(String name, Object obj);
 
-	public void registerAttribute(String name, Property prop);
-
-	public void registerConnectedAttribute(String name, ConnectedProperty prop);
-	
 	public List<Object> getAttributeValues(List<String> variables);
 	
 	public Object getAttributeValue(String variable);

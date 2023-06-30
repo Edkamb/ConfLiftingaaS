@@ -92,15 +92,15 @@ import SimulationControl;
 			{
 					error "Failed load of: booleanLogic1";
 			}
-			real ur5e_1RealIo[82];
 			real kuka_1RealIo[94];
-			real rabbitmq_1RealShare[2];
-			real rabbitmq_1RealIo[26];
 			int kuka_1IntIo[94];
 			uint kuka_1UintVref[94];
 			int ur5e_1IntIo[82];
-			uint ur5e_1UintVref[82];
 			int rabbitmq_1IntShare[6];
+			real ur5e_1RealIo[82];
+			uint ur5e_1UintVref[82];
+			real rabbitmq_1RealShare[2];
+			real rabbitmq_1RealIo[26];
 			bool rabbitmq_1BoolIo[26];
 			int rabbitmq_1IntIo[26];
 			string rabbitmq_1StringIo[26];
@@ -425,6 +425,36 @@ import SimulationControl;
 					}
 					error "Failed to 'enterInitializationMode' on 'rabbitmq_1'";
 			}
+			rabbitmq_1UintVref[0] = 29;
+			status = rabbitmq_1.getReal(rabbitmq_1UintVref, 1, rabbitmq_1RealIo);
+			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			{
+					if( ((status == FMI_ERROR)) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", rabbitmq_1);
+					}
+					if( ((status == FMI_FATAL)) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", rabbitmq_1);
+					}
+					error "Failed to 'getReal' on 'rabbitmq_1'";
+			}
+			rabbitmq_1RealShare[0] = rabbitmq_1RealIo[0];
+			ur5e_1UintVref[0] = 18;
+			ur5e_1RealIo[0] = rabbitmq_1RealShare[0];
+			status = ur5e_1.setReal(ur5e_1UintVref, 1, ur5e_1RealIo);
+			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			{
+					if( ((status == FMI_ERROR)) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", ur5e_1);
+					}
+					if( ((status == FMI_FATAL)) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", ur5e_1);
+					}
+					error "Failed to 'setReal' on 'ur5e_1'";
+			}
 			rabbitmq_1UintVref[0] = 22;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
 			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
@@ -455,66 +485,6 @@ import SimulationControl;
 					}
 					error "Failed to 'setInteger' on 'ur5e_1'";
 			}
-			rabbitmq_1UintVref[0] = 26;
-			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
-			{
-					if( ((status == FMI_ERROR)) )
-					{
-							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
-					}
-					if( ((status == FMI_FATAL)) )
-					{
-							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
-					}
-					error "Failed to 'getInteger' on 'rabbitmq_1'";
-			}
-			rabbitmq_1IntShare[1] = rabbitmq_1IntIo[0];
-			kuka_1UintVref[0] = 24;
-			kuka_1IntIo[0] = rabbitmq_1IntShare[1];
-			status = kuka_1.setInteger(kuka_1UintVref, 1, kuka_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
-			{
-					if( ((status == FMI_ERROR)) )
-					{
-							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", kuka_1);
-					}
-					if( ((status == FMI_FATAL)) )
-					{
-							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
-					}
-					error "Failed to 'setInteger' on 'kuka_1'";
-			}
-			rabbitmq_1UintVref[0] = 25;
-			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
-			{
-					if( ((status == FMI_ERROR)) )
-					{
-							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
-					}
-					if( ((status == FMI_FATAL)) )
-					{
-							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
-					}
-					error "Failed to 'getInteger' on 'rabbitmq_1'";
-			}
-			rabbitmq_1IntShare[2] = rabbitmq_1IntIo[0];
-			kuka_1UintVref[0] = 23;
-			kuka_1IntIo[0] = rabbitmq_1IntShare[2];
-			status = kuka_1.setInteger(kuka_1UintVref, 1, kuka_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
-			{
-					if( ((status == FMI_ERROR)) )
-					{
-							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", kuka_1);
-					}
-					if( ((status == FMI_FATAL)) )
-					{
-							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
-					}
-					error "Failed to 'setInteger' on 'kuka_1'";
-			}
 			rabbitmq_1UintVref[0] = 23;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
 			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
@@ -529,9 +499,9 @@ import SimulationControl;
 					}
 					error "Failed to 'getInteger' on 'rabbitmq_1'";
 			}
-			rabbitmq_1IntShare[3] = rabbitmq_1IntIo[0];
+			rabbitmq_1IntShare[1] = rabbitmq_1IntIo[0];
 			ur5e_1UintVref[0] = 21;
-			ur5e_1IntIo[0] = rabbitmq_1IntShare[3];
+			ur5e_1IntIo[0] = rabbitmq_1IntShare[1];
 			status = ur5e_1.setInteger(ur5e_1UintVref, 1, ur5e_1IntIo);
 			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
 			{
@@ -559,9 +529,9 @@ import SimulationControl;
 					}
 					error "Failed to 'getInteger' on 'rabbitmq_1'";
 			}
-			rabbitmq_1IntShare[4] = rabbitmq_1IntIo[0];
+			rabbitmq_1IntShare[2] = rabbitmq_1IntIo[0];
 			ur5e_1UintVref[0] = 19;
-			ur5e_1IntIo[0] = rabbitmq_1IntShare[4];
+			ur5e_1IntIo[0] = rabbitmq_1IntShare[2];
 			status = ur5e_1.setInteger(ur5e_1UintVref, 1, ur5e_1IntIo);
 			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
 			{
@@ -575,65 +545,65 @@ import SimulationControl;
 					}
 					error "Failed to 'setInteger' on 'ur5e_1'";
 			}
-			rabbitmq_1UintVref[0] = 30;
-			status = rabbitmq_1.getReal(rabbitmq_1UintVref, 1, rabbitmq_1RealIo);
+			rabbitmq_1UintVref[0] = 26;
+			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
 			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
 			{
 					if( ((status == FMI_ERROR)) )
 					{
-							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", rabbitmq_1);
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
 					if( ((status == FMI_FATAL)) )
 					{
-							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", rabbitmq_1);
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
-					error "Failed to 'getReal' on 'rabbitmq_1'";
+					error "Failed to 'getInteger' on 'rabbitmq_1'";
 			}
-			rabbitmq_1RealShare[0] = rabbitmq_1RealIo[0];
-			kuka_1UintVref[0] = 21;
-			kuka_1RealIo[0] = rabbitmq_1RealShare[0];
-			status = kuka_1.setReal(kuka_1UintVref, 1, kuka_1RealIo);
+			rabbitmq_1IntShare[3] = rabbitmq_1IntIo[0];
+			kuka_1UintVref[0] = 24;
+			kuka_1IntIo[0] = rabbitmq_1IntShare[3];
+			status = kuka_1.setInteger(kuka_1UintVref, 1, kuka_1IntIo);
 			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
 			{
 					if( ((status == FMI_ERROR)) )
 					{
-							logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", kuka_1);
+							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
 					if( ((status == FMI_FATAL)) )
 					{
-							logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", kuka_1);
+							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
-					error "Failed to 'setReal' on 'kuka_1'";
+					error "Failed to 'setInteger' on 'kuka_1'";
 			}
-			rabbitmq_1UintVref[0] = 29;
-			status = rabbitmq_1.getReal(rabbitmq_1UintVref, 1, rabbitmq_1RealIo);
+			rabbitmq_1UintVref[0] = 25;
+			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
 			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
 			{
 					if( ((status == FMI_ERROR)) )
 					{
-							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", rabbitmq_1);
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
 					if( ((status == FMI_FATAL)) )
 					{
-							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", rabbitmq_1);
+							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
-					error "Failed to 'getReal' on 'rabbitmq_1'";
+					error "Failed to 'getInteger' on 'rabbitmq_1'";
 			}
-			rabbitmq_1RealShare[1] = rabbitmq_1RealIo[0];
-			ur5e_1UintVref[0] = 18;
-			ur5e_1RealIo[0] = rabbitmq_1RealShare[1];
-			status = ur5e_1.setReal(ur5e_1UintVref, 1, ur5e_1RealIo);
+			rabbitmq_1IntShare[4] = rabbitmq_1IntIo[0];
+			kuka_1UintVref[0] = 23;
+			kuka_1IntIo[0] = rabbitmq_1IntShare[4];
+			status = kuka_1.setInteger(kuka_1UintVref, 1, kuka_1IntIo);
 			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
 			{
 					if( ((status == FMI_ERROR)) )
 					{
-							logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", ur5e_1);
+							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
 					if( ((status == FMI_FATAL)) )
 					{
-							logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", ur5e_1);
+							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
-					error "Failed to 'setReal' on 'ur5e_1'";
+					error "Failed to 'setInteger' on 'kuka_1'";
 			}
 			rabbitmq_1UintVref[0] = 24;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
@@ -664,6 +634,36 @@ import SimulationControl;
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
 					error "Failed to 'setInteger' on 'kuka_1'";
+			}
+			rabbitmq_1UintVref[0] = 30;
+			status = rabbitmq_1.getReal(rabbitmq_1UintVref, 1, rabbitmq_1RealIo);
+			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			{
+					if( ((status == FMI_ERROR)) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", rabbitmq_1);
+					}
+					if( ((status == FMI_FATAL)) )
+					{
+							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", rabbitmq_1);
+					}
+					error "Failed to 'getReal' on 'rabbitmq_1'";
+			}
+			rabbitmq_1RealShare[1] = rabbitmq_1RealIo[0];
+			kuka_1UintVref[0] = 21;
+			kuka_1RealIo[0] = rabbitmq_1RealShare[1];
+			status = kuka_1.setReal(kuka_1UintVref, 1, kuka_1RealIo);
+			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			{
+					if( ((status == FMI_ERROR)) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", kuka_1);
+					}
+					if( ((status == FMI_FATAL)) )
+					{
+							logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", kuka_1);
+					}
+					error "Failed to 'setReal' on 'kuka_1'";
 			}
 			status = ur5e_1.exitInitializationMode();
 			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )

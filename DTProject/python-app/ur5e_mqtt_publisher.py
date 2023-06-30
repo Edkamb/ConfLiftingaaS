@@ -41,9 +41,9 @@ class UR5eMQTTPublisher():
         for i in range(len(topic_list)):
             self.publish_on_topic(topic_list[i],final_line[i])
 
-'''if __name__ == '__main__':
+if __name__ == '__main__':
     f_name = "ur5e_actual.csv"
     filename = Path("test_results") / Path(f_name)
     config_file =  Path("resources") / Path("record_configuration.xml")
     ur5e_mqtt_pub = UR5eMQTTPublisher(filename)
-    ur5e_mqtt_pub.mqtt_client.loop_forever()'''
+    ur5e_mqtt_pub.mqtt_client.loop_forever()
