@@ -28,52 +28,52 @@ import SimulationControl;
 	try 
 	{
 		math = load("Math");
-		if( (((math == null))) )
+		if( (((((((((((((((((((((((((math == null))))))))))))))))))))))))) )
 		{
 				error "math IS NULL ";
 		}
 		logger = load("Logger");
-		if( (((logger == null))) )
+		if( (((((((((((((((((((((((((logger == null))))))))))))))))))))))))) )
 		{
 				error "logger IS NULL ";
 		}
 		dataWriter = load("DataWriter");
-		if( (((dataWriter == null))) )
+		if( (((((((((((((((((((((((((dataWriter == null))))))))))))))))))))))))) )
 		{
 				error "dataWriter IS NULL ";
 		}
 		booleanLogic = load("BooleanLogic");
-		if( (((booleanLogic == null))) )
+		if( (((((((((((((((((((((((((booleanLogic == null))))))))))))))))))))))))) )
 		{
 				error "booleanLogic IS NULL ";
 		}
 		rabbitmq = load("FMI2", "{cfc65592-ffff-4563-9705-1581b6e7071c}", "file:/home/santiago/Aarhus/ConfLiftingaaS/DTProject/fmus/rabbit2.1.5-16_SG.fmu");
-		if( (((rabbitmq == null))) )
+		if( (((((((((((((((((((((((((rabbitmq == null))))))))))))))))))))))))) )
 		{
 				error "rabbitmq IS NULL ";
 		}
 		kuka = load("FMI2", "77236337-210e-4e9c-8f2c-c1a0677db21b", "file:/home/santiago/Aarhus/ConfLiftingaaS/DTProject/fmus/kukalbriiwa_model.fmu");
-		if( (((kuka == null))) )
+		if( (((((((((((((((((((((((((kuka == null))))))))))))))))))))))))) )
 		{
 				error "kuka IS NULL ";
 		}
 		ur5e = load("FMI2", "77236337-210e-4e9c-8f2c-c1a0677db21b", "file:/home/santiago/Aarhus/ConfLiftingaaS/DTProject/fmus/ur5e_model.fmu");
-		if( (((ur5e == null))) )
+		if( (((((((((((((((((((((((((ur5e == null))))))))))))))))))))))))) )
 		{
 				error "ur5e IS NULL ";
 		}
 		kuka_1 = kuka.instantiate("kuka", false, false);
-		if( (((kuka_1 == null))) )
+		if( (((((((((((((((((((((((((kuka_1 == null))))))))))))))))))))))))) )
 		{
 				error "kuka_1 IS NULL ";
 		}
 		ur5e_1 = ur5e.instantiate("ur5e", false, false);
-		if( (((ur5e_1 == null))) )
+		if( (((((((((((((((((((((((((ur5e_1 == null))))))))))))))))))))))))) )
 		{
 				error "ur5e_1 IS NULL ";
 		}
 		rabbitmq_1 = rabbitmq.instantiate("rabbitmq", false, false);
-		if( (((rabbitmq_1 == null))) )
+		if( (((((((((((((((((((((((((rabbitmq_1 == null))))))))))))))))))))))))) )
 		{
 				error "rabbitmq_1 IS NULL ";
 		}
@@ -88,7 +88,7 @@ import SimulationControl;
 		try 
 		{
 			booleanLogic1 = load("BooleanLogic");
-			if( ((booleanLogic1 == null)) )
+			if( ((((((((((((((((((((((((booleanLogic1 == null)))))))))))))))))))))))) )
 			{
 					error "Failed load of: booleanLogic1";
 			}
@@ -108,39 +108,39 @@ import SimulationControl;
 			real fixed_end_time = 0.0;
 			fixed_end_time = END_TIME;
 			status = ur5e_1.setupExperiment(true, 0.1, START_TIME, true, END_TIME);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_ERROR", ur5e_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_FATAL", ur5e_1);
 					}
 					error "Failed to 'setupExperiment' on 'ur5e_1'";
 			}
 			status = kuka_1.setupExperiment(true, 0.1, START_TIME, true, END_TIME);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
 					error "Failed to 'setupExperiment' on 'kuka_1'";
 			}
 			status = rabbitmq_1.setupExperiment(true, 0.1, START_TIME, true, END_TIME);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetupExperiment failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -149,13 +149,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 0;
 			rabbitmq_1StringIo[0] = "localhost";
 			status = rabbitmq_1.setString(rabbitmq_1UintVref, 1, rabbitmq_1StringIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -164,13 +164,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 1;
 			rabbitmq_1IntIo[0] = 5672;
 			status = rabbitmq_1.setInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -179,13 +179,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 2;
 			rabbitmq_1StringIo[0] = "guest";
 			status = rabbitmq_1.setString(rabbitmq_1UintVref, 1, rabbitmq_1StringIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -194,13 +194,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 3;
 			rabbitmq_1StringIo[0] = "guest";
 			status = rabbitmq_1.setString(rabbitmq_1UintVref, 1, rabbitmq_1StringIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -209,13 +209,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 4;
 			rabbitmq_1StringIo[0] = "data.to_cosim";
 			status = rabbitmq_1.setString(rabbitmq_1UintVref, 1, rabbitmq_1StringIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -224,13 +224,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 5;
 			rabbitmq_1IntIo[0] = 60;
 			status = rabbitmq_1.setInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -239,13 +239,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 6;
 			rabbitmq_1IntIo[0] = 10;
 			status = rabbitmq_1.setInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -254,13 +254,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 7;
 			rabbitmq_1IntIo[0] = 1000;
 			status = rabbitmq_1.setInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -269,13 +269,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 8;
 			rabbitmq_1IntIo[0] = 1;
 			status = rabbitmq_1.setInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -284,13 +284,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 9;
 			rabbitmq_1StringIo[0] = "fmi_digital_twin";
 			status = rabbitmq_1.setString(rabbitmq_1UintVref, 1, rabbitmq_1StringIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -299,13 +299,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 10;
 			rabbitmq_1StringIo[0] = "direct";
 			status = rabbitmq_1.setString(rabbitmq_1UintVref, 1, rabbitmq_1StringIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -314,13 +314,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 11;
 			rabbitmq_1StringIo[0] = "fmi_digital_twin_sh";
 			status = rabbitmq_1.setString(rabbitmq_1UintVref, 1, rabbitmq_1StringIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -329,13 +329,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 12;
 			rabbitmq_1StringIo[0] = "direct";
 			status = rabbitmq_1.setString(rabbitmq_1UintVref, 1, rabbitmq_1StringIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -344,13 +344,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 13;
 			rabbitmq_1StringIo[0] = "data.from_cosim";
 			status = rabbitmq_1.setString(rabbitmq_1UintVref, 1, rabbitmq_1StringIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetString failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -359,13 +359,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 16;
 			rabbitmq_1BoolIo[0] = false;
 			status = rabbitmq_1.setBoolean(rabbitmq_1UintVref, 1, rabbitmq_1BoolIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetBoolean failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetBoolean failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -374,52 +374,52 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 17;
 			rabbitmq_1IntIo[0] = 100;
 			status = rabbitmq_1.setInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
 					error "Failed to 'setInteger' on 'rabbitmq_1'";
 			}
 			status = ur5e_1.enterInitializationMode();
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_ERROR", ur5e_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_FATAL", ur5e_1);
 					}
 					error "Failed to 'enterInitializationMode' on 'ur5e_1'";
 			}
 			status = kuka_1.enterInitializationMode();
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
 					error "Failed to 'enterInitializationMode' on 'kuka_1'";
 			}
 			status = rabbitmq_1.enterInitializationMode();
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "EnterInitializationMode failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -427,13 +427,13 @@ import SimulationControl;
 			}
 			rabbitmq_1UintVref[0] = 29;
 			status = rabbitmq_1.getReal(rabbitmq_1UintVref, 1, rabbitmq_1RealIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -443,13 +443,13 @@ import SimulationControl;
 			ur5e_1UintVref[0] = 18;
 			ur5e_1RealIo[0] = rabbitmq_1RealShare[0];
 			status = ur5e_1.setReal(ur5e_1UintVref, 1, ur5e_1RealIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", ur5e_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", ur5e_1);
 					}
@@ -457,13 +457,13 @@ import SimulationControl;
 			}
 			rabbitmq_1UintVref[0] = 22;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -473,13 +473,13 @@ import SimulationControl;
 			ur5e_1UintVref[0] = 20;
 			ur5e_1IntIo[0] = rabbitmq_1IntShare[0];
 			status = ur5e_1.setInteger(ur5e_1UintVref, 1, ur5e_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", ur5e_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", ur5e_1);
 					}
@@ -487,13 +487,13 @@ import SimulationControl;
 			}
 			rabbitmq_1UintVref[0] = 23;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -503,13 +503,13 @@ import SimulationControl;
 			ur5e_1UintVref[0] = 21;
 			ur5e_1IntIo[0] = rabbitmq_1IntShare[1];
 			status = ur5e_1.setInteger(ur5e_1UintVref, 1, ur5e_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", ur5e_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", ur5e_1);
 					}
@@ -517,13 +517,13 @@ import SimulationControl;
 			}
 			rabbitmq_1UintVref[0] = 21;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -533,13 +533,13 @@ import SimulationControl;
 			ur5e_1UintVref[0] = 19;
 			ur5e_1IntIo[0] = rabbitmq_1IntShare[2];
 			status = ur5e_1.setInteger(ur5e_1UintVref, 1, ur5e_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", ur5e_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", ur5e_1);
 					}
@@ -547,13 +547,13 @@ import SimulationControl;
 			}
 			rabbitmq_1UintVref[0] = 26;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -563,13 +563,13 @@ import SimulationControl;
 			kuka_1UintVref[0] = 24;
 			kuka_1IntIo[0] = rabbitmq_1IntShare[3];
 			status = kuka_1.setInteger(kuka_1UintVref, 1, kuka_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
@@ -577,13 +577,13 @@ import SimulationControl;
 			}
 			rabbitmq_1UintVref[0] = 25;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -593,13 +593,13 @@ import SimulationControl;
 			kuka_1UintVref[0] = 23;
 			kuka_1IntIo[0] = rabbitmq_1IntShare[4];
 			status = kuka_1.setInteger(kuka_1UintVref, 1, kuka_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
@@ -607,13 +607,13 @@ import SimulationControl;
 			}
 			rabbitmq_1UintVref[0] = 24;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 1, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -623,13 +623,13 @@ import SimulationControl;
 			kuka_1UintVref[0] = 22;
 			kuka_1IntIo[0] = rabbitmq_1IntShare[5];
 			status = kuka_1.setInteger(kuka_1UintVref, 1, kuka_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
@@ -637,13 +637,13 @@ import SimulationControl;
 			}
 			rabbitmq_1UintVref[0] = 30;
 			status = rabbitmq_1.getReal(rabbitmq_1UintVref, 1, rabbitmq_1RealIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -653,52 +653,52 @@ import SimulationControl;
 			kuka_1UintVref[0] = 21;
 			kuka_1RealIo[0] = rabbitmq_1RealShare[1];
 			status = kuka_1.setReal(kuka_1UintVref, 1, kuka_1RealIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
 					error "Failed to 'setReal' on 'kuka_1'";
 			}
 			status = ur5e_1.exitInitializationMode();
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_ERROR", ur5e_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_FATAL", ur5e_1);
 					}
 					error "Failed to 'exitInitializationMode' on 'ur5e_1'";
 			}
 			status = kuka_1.exitInitializationMode();
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
 					error "Failed to 'exitInitializationMode' on 'kuka_1'";
 			}
 			status = rabbitmq_1.exitInitializationMode();
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "ExitInitializationMode failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -706,7 +706,7 @@ import SimulationControl;
 			}
 		}		finally 
 		{
-			if( ((booleanLogic1 != null)) )
+			if( ((((((((((((((((((((((((booleanLogic1 != null)))))))))))))))))))))))) )
 			{
 					unload(booleanLogic1);
 					booleanLogic1 = null;
@@ -718,17 +718,17 @@ import SimulationControl;
 		try 
 		{
 			simulationControl = load("SimulationControl");
-			if( ((simulationControl == null)) )
+			if( ((((((((((((((((((((((((simulationControl == null)))))))))))))))))))))))) )
 			{
 					error "Failed load of: simulationControl";
 			}
 			dataWriter1 = load("DataWriter");
-			if( ((dataWriter1 == null)) )
+			if( ((((((((((((((((((((((((dataWriter1 == null)))))))))))))))))))))))) )
 			{
 					error "Failed load of: dataWriter1";
 			}
 			booleanLogic2 = load("BooleanLogic");
-			if( ((booleanLogic2 == null)) )
+			if( ((((((((((((((((((((((((booleanLogic2 == null)))))))))))))))))))))))) )
 			{
 					error "Failed load of: booleanLogic2";
 			}
@@ -774,13 +774,13 @@ import SimulationControl;
 			ur5e_1UintVref[7] = 32;
 			ur5e_1UintVref[8] = 33;
 			status = ur5e_1.getReal(ur5e_1UintVref, 9, ur5e_1RealIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", ur5e_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", ur5e_1);
 					}
@@ -790,13 +790,13 @@ import SimulationControl;
 			ur5e_1UintVref[1] = 29;
 			ur5e_1UintVref[2] = 30;
 			status = ur5e_1.getInteger(ur5e_1UintVref, 3, ur5e_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", ur5e_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", ur5e_1);
 					}
@@ -806,13 +806,13 @@ import SimulationControl;
 			kuka_1UintVref[1] = 32;
 			kuka_1UintVref[2] = 33;
 			status = kuka_1.getInteger(kuka_1UintVref, 3, kuka_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
@@ -829,13 +829,13 @@ import SimulationControl;
 			kuka_1UintVref[8] = 35;
 			kuka_1UintVref[9] = 36;
 			status = kuka_1.getReal(kuka_1UintVref, 10, kuka_1RealIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", kuka_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", kuka_1);
 					}
@@ -848,13 +848,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[4] = 25;
 			rabbitmq_1UintVref[5] = 26;
 			status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 6, rabbitmq_1IntIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -863,13 +863,13 @@ import SimulationControl;
 			rabbitmq_1UintVref[0] = 29;
 			rabbitmq_1UintVref[1] = 30;
 			status = rabbitmq_1.getReal(rabbitmq_1UintVref, 2, rabbitmq_1RealIo);
-			if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+			if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 			{
-					if( ((status == FMI_ERROR)) )
+					if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 					}
-					if( ((status == FMI_FATAL)) )
+					if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 					{
 							logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 					}
@@ -911,10 +911,10 @@ import SimulationControl;
 			real fmu_communicationpoints[3];
 			dataWriter1.writeDataPoint(datawriter_configuration, jac_current_communication_point, ur5e_1RealShare[0], ur5e_1RealShare[1], ur5e_1RealShare[2], ur5e_1RealShare[3], ur5e_1RealShare[4], ur5e_1RealShare[5], ur5e_1IntShare[0], ur5e_1IntShare[1], ur5e_1IntShare[2], ur5e_1RealShare[6], ur5e_1RealShare[7], ur5e_1RealShare[8], kuka_1RealShare[0], kuka_1RealShare[1], kuka_1RealShare[2], kuka_1RealShare[3], kuka_1RealShare[4], kuka_1RealShare[5], kuka_1RealShare[6], kuka_1IntShare[0], kuka_1IntShare[1], kuka_1IntShare[2], kuka_1RealShare[7], kuka_1RealShare[8], kuka_1RealShare[9], rabbitmq_1IntShare[0], rabbitmq_1IntShare[1], rabbitmq_1IntShare[2], rabbitmq_1IntShare[3], rabbitmq_1IntShare[4], rabbitmq_1IntShare[5], rabbitmq_1RealShare[0], rabbitmq_1RealShare[1]);
 			bool any_discards = false;
-			while( (((jac_current_communication_point + jac_current_step_size) < jac_end_time)) )
+			while( (((((((((((((((((((((((((jac_current_communication_point + jac_current_step_size) < jac_end_time)))))))))))))))))))))))) )
 			{
 				bool tmp = simulationControl.stopRequested();
-				if( ((tmp)) )
+				if( ((((((((((((((((((((((((tmp)))))))))))))))))))))))) )
 				{
 						error "Simulation stopped by user";
 				}
@@ -922,13 +922,13 @@ import SimulationControl;
 				ur5e_1UintVref[0] = 18;
 				ur5e_1RealIo[0] = rabbitmq_1RealShare[0];
 				status = ur5e_1.setReal(ur5e_1UintVref, 1, ur5e_1RealIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", ur5e_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", ur5e_1);
 						}
@@ -941,13 +941,13 @@ import SimulationControl;
 				ur5e_1IntIo[1] = rabbitmq_1IntShare[1];
 				ur5e_1IntIo[2] = rabbitmq_1IntShare[2];
 				status = ur5e_1.setInteger(ur5e_1UintVref, 3, ur5e_1IntIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", ur5e_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", ur5e_1);
 						}
@@ -956,13 +956,13 @@ import SimulationControl;
 				kuka_1UintVref[0] = 21;
 				kuka_1RealIo[0] = rabbitmq_1RealShare[1];
 				status = kuka_1.setReal(kuka_1UintVref, 1, kuka_1RealIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", kuka_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", kuka_1);
 						}
@@ -975,13 +975,13 @@ import SimulationControl;
 				kuka_1IntIo[1] = rabbitmq_1IntShare[4];
 				kuka_1IntIo[2] = rabbitmq_1IntShare[5];
 				status = kuka_1.setInteger(kuka_1UintVref, 3, kuka_1IntIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "SetReal failed on '%s' with status: FMI_ERROR", kuka_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "SetReal failed on '%s' with status: FMI_FATAL", kuka_1);
 						}
@@ -989,21 +989,21 @@ import SimulationControl;
 				}
 				any_discards = false;
 				status = ur5e_1.doStep(jac_current_communication_point, jac_current_step_size, false);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "DoStep failed on '%s' with status: FMI_ERROR", ur5e_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "DoStep failed on '%s' with status: FMI_FATAL", ur5e_1);
 						}
 						error "Failed to 'doStep' on 'ur5e_1'";
 				}
-				if( ((status != FMI_OK)) )
+				if( ((((((((((((((((((((((((status != FMI_OK)))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_DISCARD)) )
+						if( ((((((((((((((((((((((((status == FMI_DISCARD)))))))))))))))))))))))) )
 						{
 								status = ur5e_1.getRealStatus(2, ref ur5e_1CurrentTime);
 								ur5e_1CurrentTimeFullStep = false;
@@ -1015,27 +1015,27 @@ import SimulationControl;
 						ur5e_1CurrentTimeFullStep = true;
 				}
 				fmu_communicationpoints[0] = ur5e_1CurrentTime;
-				if( ((!ur5e_1CurrentTimeFullStep)) )
+				if( ((((((((((((((((((((((((!ur5e_1CurrentTimeFullStep)))))))))))))))))))))))) )
 				{
 						logger.log(1, "## FMU: '%s' DISCARDED step at sim-time: %f for step-size: %f and proposed sim-time: %.15f", "ur5e_1", jac_current_communication_point, jac_current_step_size, ur5e_1CurrentTime);
 						any_discards = any_discards || !ur5e_1CurrentTimeFullStep;
 				}
 				status = kuka_1.doStep(jac_current_communication_point, jac_current_step_size, false);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "DoStep failed on '%s' with status: FMI_ERROR", kuka_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "DoStep failed on '%s' with status: FMI_FATAL", kuka_1);
 						}
 						error "Failed to 'doStep' on 'kuka_1'";
 				}
-				if( ((status != FMI_OK)) )
+				if( ((((((((((((((((((((((((status != FMI_OK)))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_DISCARD)) )
+						if( ((((((((((((((((((((((((status == FMI_DISCARD)))))))))))))))))))))))) )
 						{
 								status = kuka_1.getRealStatus(2, ref kuka_1CurrentTime);
 								kuka_1CurrentTimeFullStep = false;
@@ -1047,27 +1047,27 @@ import SimulationControl;
 						kuka_1CurrentTimeFullStep = true;
 				}
 				fmu_communicationpoints[1] = kuka_1CurrentTime;
-				if( ((!kuka_1CurrentTimeFullStep)) )
+				if( ((((((((((((((((((((((((!kuka_1CurrentTimeFullStep)))))))))))))))))))))))) )
 				{
 						logger.log(1, "## FMU: '%s' DISCARDED step at sim-time: %f for step-size: %f and proposed sim-time: %.15f", "kuka_1", jac_current_communication_point, jac_current_step_size, kuka_1CurrentTime);
 						any_discards = any_discards || !kuka_1CurrentTimeFullStep;
 				}
 				status = rabbitmq_1.doStep(jac_current_communication_point, jac_current_step_size, false);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "DoStep failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "DoStep failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 						}
 						error "Failed to 'doStep' on 'rabbitmq_1'";
 				}
-				if( ((status != FMI_OK)) )
+				if( ((((((((((((((((((((((((status != FMI_OK)))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_DISCARD)) )
+						if( ((((((((((((((((((((((((status == FMI_DISCARD)))))))))))))))))))))))) )
 						{
 								status = rabbitmq_1.getRealStatus(2, ref rabbitmq_1CurrentTime);
 								rabbitmq_1CurrentTimeFullStep = false;
@@ -1079,7 +1079,7 @@ import SimulationControl;
 						rabbitmq_1CurrentTimeFullStep = true;
 				}
 				fmu_communicationpoints[2] = rabbitmq_1CurrentTime;
-				if( ((!rabbitmq_1CurrentTimeFullStep)) )
+				if( ((((((((((((((((((((((((!rabbitmq_1CurrentTimeFullStep)))))))))))))))))))))))) )
 				{
 						logger.log(1, "## FMU: '%s' DISCARDED step at sim-time: %f for step-size: %f and proposed sim-time: %.15f", "rabbitmq_1", jac_current_communication_point, jac_current_step_size, rabbitmq_1CurrentTime);
 						any_discards = any_discards || !rabbitmq_1CurrentTimeFullStep;
@@ -1094,13 +1094,13 @@ import SimulationControl;
 				ur5e_1UintVref[7] = 32;
 				ur5e_1UintVref[8] = 33;
 				status = ur5e_1.getReal(ur5e_1UintVref, 9, ur5e_1RealIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", ur5e_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", ur5e_1);
 						}
@@ -1110,13 +1110,13 @@ import SimulationControl;
 				ur5e_1UintVref[1] = 29;
 				ur5e_1UintVref[2] = 30;
 				status = ur5e_1.getInteger(ur5e_1UintVref, 3, ur5e_1IntIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", ur5e_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", ur5e_1);
 						}
@@ -1129,13 +1129,13 @@ import SimulationControl;
 				rabbitmq_1UintVref[4] = 25;
 				rabbitmq_1UintVref[5] = 26;
 				status = rabbitmq_1.getInteger(rabbitmq_1UintVref, 6, rabbitmq_1IntIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 						}
@@ -1144,13 +1144,13 @@ import SimulationControl;
 				rabbitmq_1UintVref[0] = 29;
 				rabbitmq_1UintVref[1] = 30;
 				status = rabbitmq_1.getReal(rabbitmq_1UintVref, 2, rabbitmq_1RealIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", rabbitmq_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", rabbitmq_1);
 						}
@@ -1160,13 +1160,13 @@ import SimulationControl;
 				kuka_1UintVref[1] = 32;
 				kuka_1UintVref[2] = 33;
 				status = kuka_1.getInteger(kuka_1UintVref, 3, kuka_1IntIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetInteger failed on '%s' with status: FMI_ERROR", kuka_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetInteger failed on '%s' with status: FMI_FATAL", kuka_1);
 						}
@@ -1183,13 +1183,13 @@ import SimulationControl;
 				kuka_1UintVref[8] = 35;
 				kuka_1UintVref[9] = 36;
 				status = kuka_1.getReal(kuka_1UintVref, 10, kuka_1RealIo);
-				if( (((status == FMI_ERROR) || (status == FMI_FATAL))) )
+				if( (((((((((((((((((((((((((status == FMI_ERROR) || (status == FMI_FATAL))))))))))))))))))))))))) )
 				{
-						if( ((status == FMI_ERROR)) )
+						if( ((((((((((((((((((((((((status == FMI_ERROR)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetReal failed on '%s' with status: FMI_ERROR", kuka_1);
 						}
-						if( ((status == FMI_FATAL)) )
+						if( ((((((((((((((((((((((((status == FMI_FATAL)))))))))))))))))))))))) )
 						{
 								logger.log(4, "GetReal failed on '%s' with status: FMI_FATAL", kuka_1);
 						}
@@ -1228,7 +1228,7 @@ import SimulationControl;
 				kuka_1IntShare[0] = kuka_1IntIo[0];
 				kuka_1IntShare[1] = kuka_1IntIo[1];
 				kuka_1IntShare[2] = kuka_1IntIo[2];
-				if( ((!any_discards)) )
+				if( ((((((((((((((((((((((((!any_discards)))))))))))))))))))))))) )
 				{
 						jac_current_communication_point = jac_current_communication_point + jac_current_step_size;
 						dataWriter1.writeDataPoint(datawriter_configuration, jac_current_communication_point, ur5e_1RealShare[0], ur5e_1RealShare[1], ur5e_1RealShare[2], ur5e_1RealShare[3], ur5e_1RealShare[4], ur5e_1RealShare[5], ur5e_1IntShare[0], ur5e_1IntShare[1], ur5e_1IntShare[2], ur5e_1RealShare[6], ur5e_1RealShare[7], ur5e_1RealShare[8], kuka_1RealShare[0], kuka_1RealShare[1], kuka_1RealShare[2], kuka_1RealShare[3], kuka_1RealShare[4], kuka_1RealShare[5], kuka_1RealShare[6], kuka_1IntShare[0], kuka_1IntShare[1], kuka_1IntShare[2], kuka_1RealShare[7], kuka_1RealShare[8], kuka_1RealShare[9], rabbitmq_1IntShare[0], rabbitmq_1IntShare[1], rabbitmq_1IntShare[2], rabbitmq_1IntShare[3], rabbitmq_1IntShare[4], rabbitmq_1IntShare[5], rabbitmq_1RealShare[0], rabbitmq_1RealShare[1]);
@@ -1238,17 +1238,17 @@ import SimulationControl;
 			dataWriter1.close();
 		}		finally 
 		{
-			if( ((simulationControl != null)) )
+			if( ((((((((((((((((((((((((simulationControl != null)))))))))))))))))))))))) )
 			{
 					unload(simulationControl);
 					simulationControl = null;
 			}
-			if( ((dataWriter1 != null)) )
+			if( ((((((((((((((((((((((((dataWriter1 != null)))))))))))))))))))))))) )
 			{
 					unload(dataWriter1);
 					dataWriter1 = null;
 			}
-			if( ((booleanLogic2 != null)) )
+			if( ((((((((((((((((((((((((booleanLogic2 != null)))))))))))))))))))))))) )
 			{
 					unload(booleanLogic2);
 					booleanLogic2 = null;
@@ -1259,52 +1259,52 @@ import SimulationControl;
 		rabbitmq_1.terminate();
 	}	finally 
 	{
-		if( (((kuka_1 != null))) )
+		if( (((((((((((((((((((((((((kuka_1 != null))))))))))))))))))))))))) )
 		{
 				kuka.freeInstance(kuka_1);
 				kuka_1 = null;
 		}
-		if( (((ur5e_1 != null))) )
+		if( (((((((((((((((((((((((((ur5e_1 != null))))))))))))))))))))))))) )
 		{
 				ur5e.freeInstance(ur5e_1);
 				ur5e_1 = null;
 		}
-		if( (((rabbitmq_1 != null))) )
+		if( (((((((((((((((((((((((((rabbitmq_1 != null))))))))))))))))))))))))) )
 		{
 				rabbitmq.freeInstance(rabbitmq_1);
 				rabbitmq_1 = null;
 		}
-		if( (((rabbitmq != null))) )
+		if( (((((((((((((((((((((((((rabbitmq != null))))))))))))))))))))))))) )
 		{
 				unload(rabbitmq);
 				rabbitmq = null;
 		}
-		if( (((kuka != null))) )
+		if( (((((((((((((((((((((((((kuka != null))))))))))))))))))))))))) )
 		{
 				unload(kuka);
 				kuka = null;
 		}
-		if( (((ur5e != null))) )
+		if( (((((((((((((((((((((((((ur5e != null))))))))))))))))))))))))) )
 		{
 				unload(ur5e);
 				ur5e = null;
 		}
-		if( (((math != null))) )
+		if( (((((((((((((((((((((((((math != null))))))))))))))))))))))))) )
 		{
 				unload(math);
 				math = null;
 		}
-		if( (((logger != null))) )
+		if( (((((((((((((((((((((((((logger != null))))))))))))))))))))))))) )
 		{
 				unload(logger);
 				logger = null;
 		}
-		if( (((dataWriter != null))) )
+		if( (((((((((((((((((((((((((dataWriter != null))))))))))))))))))))))))) )
 		{
 				unload(dataWriter);
 				dataWriter = null;
 		}
-		if( (((booleanLogic != null))) )
+		if( (((((((((((((((((((((((((booleanLogic != null))))))))))))))))))))))))) )
 		{
 				unload(booleanLogic);
 				booleanLogic = null;

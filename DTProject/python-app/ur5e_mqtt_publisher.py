@@ -30,20 +30,23 @@ class UR5eMQTTPublisher():
         self.mqtt_client.publish(self.mqtt_topic + topic,msg_data)
 
     def publish_topics(self,scheduler):
-        scheduler.enter(1/self.frequency, 1, self.publish_topics, (scheduler,))
-        topic_list = []
-        with open(self.filename) as csv_file:
-            csv_reader = csv.DictReader(csv_file,delimiter=" ")
-            dict_from_csv = dict(list(csv_reader)[0])
-            topic_list = list(dict_from_csv.keys())
-        with open(self.filename) as csv_file:
-            final_line = csv_file.readlines()[-1].split(" ")
-        for i in range(len(topic_list)):
-            self.publish_on_topic(topic_list[i],final_line[i])
+        try:
+            scheduler.enter(1/self.frequency, 1, self.publish_topics, (scheduler,))
+            topic_list = []
+            with open(self.filename) as csv_file:
+                csv_reader = csv.DictReader(csv_file,delimiter=" ")
+                dict_from_csv = dict(list(csv_reader)[0])
+                topic_list = list(dict_from_csv.keys())
+            with open(self.filename) as csv_file:
+                final_line = csv_file.readlines()[-1].split(" ")
+            for i in range(len(topic_list)):
+                self.publish_on_topic(topic_list[i],final_line[i])
+        except:
+            pass
 
-if __name__ == '__main__':
+'''if __name__ == '__main__':
     f_name = "ur5e_actual.csv"
     filename = Path("test_results") / Path(f_name)
     config_file =  Path("resources") / Path("record_configuration.xml")
     ur5e_mqtt_pub = UR5eMQTTPublisher(filename)
-    ur5e_mqtt_pub.mqtt_client.loop_forever()
+    ur5e_mqtt_pub.mqtt_client.loop_forever()'''

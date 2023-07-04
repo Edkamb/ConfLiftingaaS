@@ -126,7 +126,7 @@ class KukaLBR_RL(KukaLBR):
     def compute_xyz_flexcell(self,X,Y,Z=0,rx=0,ry=0,rz=0):
         ## Inversed axis, (x->y,y->x)
         #Z_table_level = 0.20
-        Z_table_level = 0.30
+        Z_table_level = 0.25
         #Z_table_level = 0.05
         YMIN = 0
         YMAX = 23
@@ -140,7 +140,7 @@ class KukaLBR_RL(KukaLBR):
         #comp_x = x_max - ((X)*HOLE_DIST)
         #comp_y = y_min + ((Y)*HOLE_DIST)
         comp_x = (x_max - ((X)*HOLE_DIST))
-        comp_y = -(y_min + ((Y)*HOLE_DIST))
+        comp_y = (y_min + ((Y)*HOLE_DIST))
         comp_z = Z_table_level + Z * HOLE_DIST
         rx = rx
         ry = ry
@@ -151,7 +151,7 @@ class KukaLBR_RL(KukaLBR):
     def compute_inverse_xyz_flexcell(self,x,y,z,rx=0,ry=0,rz=0):
         ## Inversed axis, (x->y,y->x)
         #Z_table_level = 0.20
-        Z_table_level = 0.30
+        Z_table_level = 0.25
         #Z_table_level = 0.05
         YMIN = 0
         YMAX = 23
@@ -164,7 +164,7 @@ class KukaLBR_RL(KukaLBR):
         y_max = 1.055
 
         X = (x_max - x)/HOLE_DIST
-        Y = -(y + y_min)/HOLE_DIST
+        Y = (y - y_min)/HOLE_DIST
         Z = (z - Z_table_level)/HOLE_DIST
 
         return round(X),round(Y),round(Z)

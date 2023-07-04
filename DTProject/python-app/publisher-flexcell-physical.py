@@ -12,11 +12,12 @@ import pika
 import json
 from datetime import datetime
 import time
+from threading import Timer
 
 ur_robot_model = robots.UR5e_RL()
 kuka_robot_model = robots.KukaLBR_RL()
 use_real_robots = True
-mqtt_enabled = True
+mqtt_enabled = False
 
 #ur5e_mqtt_publisher.UR5eMQTTPublisher("test_results/ur5e_actual.csv")
 if use_real_robots:
@@ -33,8 +34,8 @@ if use_real_robots:
     filename = Path("test_results") / Path(f_name)
     config_file =  Path("resources") / Path("record_configuration.xml")
     ur5e_robot.start_recording(filename=filename, overwrite=True, frequency=50, config_file=config_file)
-    if mqtt_enabled:
-        ur5e_mqtt_pub = ur5e_mqtt_publisher.UR5eMQTTPublisher(filename)
+    #if mqtt_enabled:
+        #ur5e_mqtt_pub = ur5e_mqtt_publisher.UR5eMQTTPublisher(filename)
 
 #### Robots ####
 def compute_ur_q(X,Y,Z):
@@ -45,7 +46,7 @@ def compute_ur_q(X,Y,Z):
 
 def compute_kuka_q(X,Y,Z):
     comp_x,comp_y,comp_z = kuka_robot_model.compute_xyz_flexcell(X,Y,Z=Z)
-    target_position = kuka_robot_model.compute_q(comp_y,comp_x,comp_z)[0]
+    target_position = kuka_robot_model.compute_q(comp_x,comp_y,comp_z)[0]
     return target_position
 
 #target_X_kuka = 4
@@ -56,20 +57,19 @@ def compute_kuka_q(X,Y,Z):
 #print(q_kuka)
 
 def transmit_robot_motion(q,robot):
-    joint_pos = q
     if (robot == "UR5e"):
         if use_real_robots:
             ur5e_robot.movej(q=np.array(q))
-        for j in range(len(joint_pos)):
+        #for j in range(len(joint_pos)):
             #queue_server.send_string_ur(f"actual_q_{j} {joint_pos[j]}")
-            pass
+        #    pass
     elif (robot == "Kuka"):
         if use_real_robots:
             q_degrees = np.degrees(np.array(q))
             kuka_robot.move_ptp_rad(q=q_degrees)
-        for j in range(len(joint_pos)):
+        #for j in range(len(joint_pos)):
             #queue_server.send_string_kuka(f"actual_q_{j} {joint_pos[j]}")
-            pass
+        #    pass
 
 #### RabbitMQ ####
 #connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq-server-rabbitmq-1'))
@@ -101,12 +101,13 @@ def publish():
 #    channel.stop_consuming()
     dt=datetime.strptime('2019-01-04T16:41:24+0200', "%Y-%m-%dT%H:%M:%S%z")
 
-    target_X_ur5e = 0
-    target_Y_ur5e = 21
-    target_Z_ur5e = 4
-    target_X_kuka = 4
-    target_Y_kuka = 4
+    target_X_ur5e = 6
+    target_Y_ur5e = 16
+    target_Z_ur5e = 1
+    target_X_kuka = 8
+    target_Y_kuka = 11
     target_Z_kuka = 2
+
     msg = {}
     msg['time']= dt.isoformat()
     msg['target_X_ur5e'] = target_X_ur5e
@@ -121,18 +122,20 @@ def publish():
     msg['motion_time_kuka'] = 2.0
     q_ur5e = compute_ur_q(target_X_ur5e,target_Y_ur5e,target_Z_ur5e)
     q_kuka = compute_kuka_q(target_X_kuka,target_Y_kuka,target_Z_kuka)
-    transmit_robot_motion(q_ur5e,"UR5e")
-    transmit_robot_motion(q_kuka,"Kuka")
+    Timer(0.05, transmit_robot_motion, args=(q_ur5e,"UR5e",)).start()
+    Timer(0.05, transmit_robot_motion, args=(q_kuka,"Kuka",)).start()
+    #transmit_robot_motion(q_ur5e,"UR5e")
+    #transmit_robot_motion(q_kuka,"Kuka")
 
     for  i in range(1,20):
             msg['time']= datetime.now(tz = datetime.now().astimezone().tzinfo).isoformat(timespec='milliseconds')
             if (i==10):
-                target_X_ur5e = 3
-                target_Y_ur5e = 16
-                target_Z_ur5e = 3
-                target_X_kuka = 0
-                target_Y_kuka = 1
-                target_Z_kuka = 3
+                target_X_ur5e = 5
+                target_Y_ur5e = 22
+                target_Z_ur5e = 0
+                target_X_kuka = 7
+                target_Y_kuka = 14
+                target_Z_kuka = 1
                 msg['target_X_ur5e'] = target_X_ur5e
                 msg['target_Y_ur5e'] = target_Y_ur5e
                 msg['target_Z_ur5e'] = target_Z_ur5e
@@ -141,8 +144,10 @@ def publish():
                 msg['target_Z_kuka'] = target_Z_kuka
                 q_ur5e = compute_ur_q(target_X_ur5e,target_Y_ur5e,target_Z_ur5e)
                 q_kuka = compute_kuka_q(target_X_kuka,target_Y_kuka,target_Z_kuka)
-                transmit_robot_motion(q_ur5e,"UR5e")
-                transmit_robot_motion(q_kuka,"Kuka")
+                Timer(0.05, transmit_robot_motion, args=(q_ur5e,"UR5e",)).start()
+                Timer(0.05, transmit_robot_motion, args=(q_kuka,"Kuka",)).start()
+                #transmit_robot_motion(q_ur5e,"UR5e")
+                #transmit_robot_motion(q_kuka,"Kuka")
 
             if(i==25):
                 target_X_ur5e = 0
@@ -159,8 +164,10 @@ def publish():
                 msg['target_Z_kuka'] = target_Z_kuka
                 q_ur5e = compute_ur_q(target_X_ur5e,target_Y_ur5e,target_Z_ur5e)
                 q_kuka = compute_kuka_q(target_X_kuka,target_Y_kuka,target_Z_kuka)
-                transmit_robot_motion(q_ur5e,"UR5e")
-                transmit_robot_motion(q_kuka,"Kuka")
+                Timer(0.05, transmit_robot_motion, args=(q_ur5e,"UR5e",)).start()
+                Timer(0.05, transmit_robot_motion, args=(q_kuka,"Kuka",)).start()
+                #transmit_robot_motion(q_ur5e,"UR5e")
+                #transmit_robot_motion(q_kuka,"Kuka")
 
             ## Real robots
 

@@ -1,0 +1,69 @@
+# First experiment
+target_X_ur5e = 0
+    target_Y_ur5e = 21
+    target_Z_ur5e = 4
+    target_X_kuka = 4
+    target_Y_kuka = 4
+    target_Z_kuka = 2
+    
+if (i==10):
+target_X_ur5e = 3
+target_Y_ur5e = 16
+target_Z_ur5e = 3
+target_X_kuka = 0
+target_Y_kuka = 1
+target_Z_kuka = 3
+
+
+# Second experiment
+target_X_ur5e = 2
+target_Y_ur5e = 20
+target_Z_ur5e = 2
+target_X_kuka = 0
+target_Y_kuka = 0
+target_Z_kuka = 0
+
+
+if (i==10):
+target_X_ur5e = 3
+target_Y_ur5e = 18
+target_Z_ur5e = 1
+target_X_kuka = 3
+target_Y_kuka = 7
+target_Z_kuka = 2
+
+
+# Third experiment
+target_X_ur5e = 6
+target_Y_ur5e = 16
+target_Z_ur5e = 1
+target_X_kuka = 8
+target_Y_kuka = 11
+target_Z_kuka = 2
+
+
+if (i==10):
+target_X_ur5e = 5
+target_Y_ur5e = 22
+target_Z_ur5e = 0
+target_X_kuka = 7
+target_Y_kuka = 14
+target_Z_kuka = 1
+
+
+# Fourth experiment
+target_X_ur5e = 5
+target_Y_ur5e = 14
+target_Z_ur5e = 2
+target_X_kuka = 3
+target_Y_kuka = 10
+target_Z_kuka = 1
+
+
+if (i==10):
+target_X_ur5e = 4
+target_Y_ur5e = 18
+target_Z_ur5e = 1
+target_X_kuka = 4
+target_Y_kuka = 7
+target_Z_kuka = 2
