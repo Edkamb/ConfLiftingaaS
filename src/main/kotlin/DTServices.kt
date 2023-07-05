@@ -1,9 +1,12 @@
+import dtstructure.DTFMUConcreteObject
+import dtstructure.prefixes
 import org.apache.jena.query.QueryExecutionFactory
 import org.apache.jena.query.QueryFactory
 import org.apache.jena.query.ResultSet
 import org.apache.jena.rdf.model.Model
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.reasoner.ReasonerRegistry
+import org.apache.jena.riot.RDFDataMgr
 
 abstract class DTService
 
@@ -38,9 +41,12 @@ class DTReflectService(var dtm: DTManager) : DTService() {
     }
 }
 
-class DTLiftingService(val dtm : DTManager) : DTService(){
+class DTLiftingService(val dtm : DTManager, val path: String) : DTService(){
     fun getModel() : Model {
-        val m = ModelFactory.createDefaultModel()
+        val m =
+            if(path == "") ModelFactory.createDefaultModel()
+            else RDFDataMgr.loadModel(path)
+
         for( x in dtm.dts){
             x.liftInto(m)
         }
@@ -56,7 +62,8 @@ class DTQueryService(val dtm : DTManager) : DTService(){
         if(reason) model = ModelFactory.createInfModel(ReasonerRegistry.getOWLReasoner(), model)
 
         //run query
-        val queryWithPrefixes = "PREFIX my: <$prefix#>\n $sparql" ;
+        val prefixes = prefixes.map { "PREFIX ${it.key}: <${it.value}>" }.joinToString("\n")
+        val queryWithPrefixes = "$prefixes \n $sparql " ;
         val query = QueryFactory.create(queryWithPrefixes)
         val qexec = QueryExecutionFactory.create(query, model)
 

@@ -61,22 +61,22 @@ fun main(args: Array<String>) {
     println(Json.encodeToString(conf))
 */
     val dtm = DTManager()
-    dtm.registerAs("Lifting", DTLiftingService(dtm))
+    dtm.registerAs("Lifting", DTLiftingService(dtm, "examples/ontology.ttl"))
     dtm.registerAs("Query", DTQueryService(dtm))
     dtm.registerAs("Consistency", DTConsistencyChecking(dtm))
     dtm.registerAs("Retrieve", DTReflectService(dtm))
     // Three tank system
 	dtm.load("examples/three_tank_system.json") // Edit Santiago
-	val ontologyFilename = "three_tank_system_generated.ttl";
+	val ontologyFilename = "three_tank_system_generated${System.currentTimeMillis()}.ttl";
 	val graphModel = (dtm.getService("Lifting") as DTLiftingService).getModel()
-    graphModel.write(FileWriter("examples/" + ontologyFilename),"TTL")
+    graphModel.write(FileWriter("examples/" + ontologyFilename+""),"TTL")
     println((dtm.getService("Consistency") as DTConsistencyChecking).isValid())
     println((dtm.getService("Consistency") as DTConsistencyChecking).isInconsistent(ModelFactory.createDefaultModel()))
     println((dtm.getService("Retrieve") as DTReflectService).getAllLinears(ModelFactory.createDefaultModel().read("examples/domain_three_tank_system.ttl","TTL")).size) //Reflected against another model provided by the user
 	
 	// Flex-cell
 	val dtmFlexcell = DTManager()
-    dtmFlexcell.registerAs("Lifting", DTLiftingService(dtmFlexcell))
+    dtmFlexcell.registerAs("Lifting", DTLiftingService(dtmFlexcell, "examples/ontology.ttl"))
     dtmFlexcell.registerAs("Query", DTQueryService(dtmFlexcell))
     dtmFlexcell.registerAs("Consistency", DTConsistencyChecking(dtmFlexcell))
     dtmFlexcell.registerAs("Retrieve", DTReflectService(dtmFlexcell))
