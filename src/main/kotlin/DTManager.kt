@@ -4,7 +4,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.io.FileInputStream
 
-class DTManager() {
+class DTManager {
     fun getService(s: String): DTService {
         return services[s]!!
     }
@@ -19,7 +19,7 @@ class DTManager() {
     }
 
     fun registerAs(name : String, service: DTService){
-        services.put(name, service)
+        services[name] = service
     }
 
     fun getByUri(id: String): DTFMUConcreteObject? {

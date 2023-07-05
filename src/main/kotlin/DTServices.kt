@@ -63,10 +63,10 @@ class DTQueryService(val dtm : DTManager) : DTService(){
 
         //run query
         val prefixes = prefixes.map { "PREFIX ${it.key}: <${it.value}>" }.joinToString("\n")
-        val queryWithPrefixes = "$prefixes \n $sparql " ;
+        val queryWithPrefixes = "$prefixes \n $sparql "
         val query = QueryFactory.create(queryWithPrefixes)
         val qexec = QueryExecutionFactory.create(query, model)
 
-        return qexec.execSelect();
+        return qexec.execSelect()
     }
 }

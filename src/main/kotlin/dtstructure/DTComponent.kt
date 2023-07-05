@@ -25,37 +25,37 @@ data class DTComponent(var fmus : MutableMap<String, DTFMUObject>,
 
     override fun getURI() : Resource = uri
     override fun liftInto(m: Model) {
-        liftResource(prefixes.get("rdf")!!, "type", "ContainerComponent", m)
+        liftResource(prefixes["rdf"]!!, "type", "ContainerComponent", m)
         for(fmu in fmus){
-            liftResource(prefixes.get("domain")!!, "contains", fmu.value.getURI(), m)
+            liftResource(prefixes["domain"]!!, "contains", fmu.value.getURI(), m)
             (fmu.value as DTFMUConcreteObject).liftInto(m)
         }
 
         for(alias in aliases) {
-            liftResource(prefixes.get("rdf")!!, "type", "${prefixes["domain"]}Port", m, portUris[alias.key]!!)
-            liftResource(prefixes.get("rdf")!!, "type", "${prefixes["domain"]}Port", m, portUris[alias.value]!!)
-            liftResource(prefixes.get("domain")!!, "hasAlias", portUris[alias.key]!!, m, portUris[alias.value]!!)
-            liftLiteral(prefixes.get("domain")!!, "hasName", alias.key, m, portUris[alias.key]!!)
-            liftLiteral(prefixes.get("domain")!!, "hasName", alias.value, m, portUris[alias.value]!!)
-            liftResource(prefixes.get("domain")!!, "hasPort", portUris[alias.key]!!, m)
-            liftResource(prefixes.get("domain")!!, "hasPort", portUris[alias.value]!!, m)
+            liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}Port", m, portUris[alias.key]!!)
+            liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}Port", m, portUris[alias.value]!!)
+            liftResource(prefixes["domain"]!!, "hasAlias", portUris[alias.key]!!, m, portUris[alias.value]!!)
+            liftLiteral(prefixes["domain"]!!, "hasName", alias.key, m, portUris[alias.key]!!)
+            liftLiteral(prefixes["domain"]!!, "hasName", alias.value, m, portUris[alias.value]!!)
+            liftResource(prefixes["domain"]!!, "hasPort", portUris[alias.key]!!, m)
+            liftResource(prefixes["domain"]!!, "hasPort", portUris[alias.value]!!, m)
         }
 
         for(connection in connections){
             for (connectionVal in connection.value){
-                liftResource(prefixes.get("rdf")!!, "type", "${prefixes["domain"]}Connection", m, connectUris[connection.key+connectionVal]!!)
-                liftResource(prefixes.get("domain")!!, "hasConnection", connectUris[connection.key+connectionVal]!!, m)
+                liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}Connection", m, connectUris[connection.key+connectionVal]!!)
+                liftResource(prefixes["domain"]!!, "hasConnection", connectUris[connection.key+connectionVal]!!, m)
                 val fromUri = fmus[connection.key.split(".")[0]]!!.getPortUri(connection.key.split(".")[1])
                 val toUri = fmus[connectionVal.split(".")[0]]!!.getPortUri(connectionVal.split(".")[1])
-                liftResource(prefixes.get("domain")!!, "connectFrom", fromUri!!, m, connectUris[connection.key+connectionVal]!!)
-                liftResource(prefixes.get("domain")!!, "connectTo", toUri!!, m, connectUris[connection.key+connectionVal]!!)
+                liftResource(prefixes["domain"]!!, "connectFrom", fromUri!!, m, connectUris[connection.key+connectionVal]!!)
+                liftResource(prefixes["domain"]!!, "connectTo", toUri!!, m, connectUris[connection.key+connectionVal]!!)
             }
         }
     }
 
     @OptIn(ExperimentalSerializationApi::class)
     override fun instantiate(){
-        var list = listOf<Pair<String, DTFMUObject>>()
+        val list = mutableListOf<Pair<String, DTFMUObject>>()
         for (kv in fmus){
             if(kv.value is DTFMUReference){
                 val path = (kv.value as DTFMUReference).conf_path
@@ -63,7 +63,7 @@ data class DTComponent(var fmus : MutableMap<String, DTFMUObject>,
                 if(!f.exists()) throw Exception("File $path not found")
                 val next = Json.decodeFromStream<DTFMUObject>(FileInputStream(path))
                 next.instantiate()
-                list += Pair(kv.key,next)
+                list.add(Pair(kv.key,next) )
             } else {
                 kv.value.instantiate()
             }
@@ -75,10 +75,9 @@ data class DTComponent(var fmus : MutableMap<String, DTFMUObject>,
         connectUris = connections.map { itout -> itout.value.map { itin -> Pair(itout.key+itin, getFreshURI()) } }.flatten().toMap()
     }
     override fun validate() : Boolean {
-        for (kv in fmus) {
+        for (kv in fmus)
             kv.value.validate()
-        }
-        //Edit Santiago
+
         for( kv in aliases ){
             val split = kv.key.split(".")
             if(split.size != 2){

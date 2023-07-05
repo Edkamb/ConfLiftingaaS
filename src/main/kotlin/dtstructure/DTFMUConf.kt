@@ -24,27 +24,27 @@ data class DTFMUConf(var file_path: String,
 
     override fun getURI() : Resource = uri
     override fun liftInto(m: Model) {
-        liftResource(prefixes.get("rdf")!!, "type", "${prefixes.get("domain")}SimulationComponent", m)
-        liftLiteral(prefixes.get("domain")!!, "hasDescriptor", descriptor, m)
-        liftLiteral(prefixes.get("domain")!!, "hasFile", file_path, m)
-        liftLiteral(prefixes.get("domain")!!, "hasName", instance_name, m)
+        liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}SimulationComponent", m)
+        liftLiteral(prefixes["domain"]!!, "hasDescriptor", descriptor, m)
+        liftLiteral(prefixes["domain"]!!, "hasFile", file_path, m)
+        liftLiteral(prefixes["domain"]!!, "hasName", instance_name, m)
         for(p in sim!!.modelDescription.modelVariables){
             if(p.causality == "output")
-                liftResource(prefixes.get("rdf")!!, "type", "${prefixes.get("domain")}OutPort", m, portUris[p.name]!!)
+                liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}OutPort", m, portUris[p.name]!!)
             if(p.causality == "input")
-                liftResource(prefixes.get("rdf")!!, "type", "${prefixes.get("domain")}InPort", m, portUris[p.name]!!)
+                liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}InPort", m, portUris[p.name]!!)
 
-            liftLiteral(prefixes.get("domain")!!, "hasName", p.name, m, portUris[p.name]!!)
+            liftLiteral(prefixes["domain"]!!, "hasName", p.name, m, portUris[p.name]!!)
 
             if(aliases.containsKey(p.name) && p.causality == "input"){
-                liftResource(prefixes.get("rdf")!!, "type", "${prefixes.get("domain")}InPort", m, portUris[aliases[p.name]]!!)
-                liftResource(prefixes.get("domain")!!, "aliasOf", portUris[p.name]!!, m, portUris[aliases[p.name]]!!)
-                liftLiteral(prefixes.get("domain")!!, "hasName", aliases[p.name]!!, m, portUris[aliases[p.name]]!!)
+                liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}InPort", m, portUris[aliases[p.name]]!!)
+                liftResource(prefixes["domain"]!!, "aliasOf", portUris[p.name]!!, m, portUris[aliases[p.name]]!!)
+                liftLiteral(prefixes["domain"]!!, "hasName", aliases[p.name]!!, m, portUris[aliases[p.name]]!!)
             }
             if(aliases.containsKey(p.name) && p.causality == "out"){
-                liftResource(prefixes.get("rdf")!!, "type", "${prefixes.get("domain")}OutPort", m, portUris[aliases[p.name]]!!)
-                liftResource(prefixes.get("domain")!!, "aliasOf", portUris[p.name]!!, m, portUris[aliases[p.name]]!!)
-                liftLiteral(prefixes.get("domain")!!, "hasName", aliases[p.name]!!, m, portUris[aliases[p.name]]!!)
+                liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}OutPort", m, portUris[aliases[p.name]]!!)
+                liftResource(prefixes["domain"]!!, "aliasOf", portUris[p.name]!!, m, portUris[aliases[p.name]]!!)
+                liftLiteral(prefixes["domain"]!!, "hasName", aliases[p.name]!!, m, portUris[aliases[p.name]]!!)
             }
         }
     }

@@ -1,14 +1,5 @@
-import kotlinx.serialization.*
-import kotlinx.serialization.Transient
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
 import org.apache.jena.rdf.model.ModelFactory
-import org.apache.jena.rdf.model.*
-import org.javafmi.wrapper.Simulation
-import java.io.File
 import java.io.FileWriter
-import java.io.FileInputStream
-
 
 
 fun main(args: Array<String>) {
@@ -67,9 +58,9 @@ fun main(args: Array<String>) {
     dtm.registerAs("Retrieve", DTReflectService(dtm))
     // Three tank system
 	dtm.load("examples/three_tank_system.json") // Edit Santiago
-	val ontologyFilename = "three_tank_system_generated${System.currentTimeMillis()}.ttl";
-	val graphModel = (dtm.getService("Lifting") as DTLiftingService).getModel()
-    graphModel.write(FileWriter("examples/" + ontologyFilename+""),"TTL")
+	val ontologyFilename = "three_tank_system_generated${System.currentTimeMillis()}.ttl"
+    val graphModel = (dtm.getService("Lifting") as DTLiftingService).getModel()
+    graphModel.write(FileWriter("examples/$ontologyFilename"),"TTL")
     println((dtm.getService("Consistency") as DTConsistencyChecking).isValid())
     println((dtm.getService("Consistency") as DTConsistencyChecking).isInconsistent(ModelFactory.createDefaultModel()))
     println((dtm.getService("Retrieve") as DTReflectService).getAllLinears(ModelFactory.createDefaultModel().read("examples/domain_three_tank_system.ttl","TTL")).size) //Reflected against another model provided by the user
@@ -81,9 +72,9 @@ fun main(args: Array<String>) {
     dtmFlexcell.registerAs("Consistency", DTConsistencyChecking(dtmFlexcell))
     dtmFlexcell.registerAs("Retrieve", DTReflectService(dtmFlexcell))
 	dtmFlexcell.load("examples/flexcell_system.json") // Edit Santiago
-	val ontologyFilenameFlexcell = "flexcell_generated.ttl";
-	val graphModelFlexcell = (dtmFlexcell.getService("Lifting") as DTLiftingService).getModel()
-    graphModelFlexcell.write(FileWriter("examples/" + ontologyFilenameFlexcell),"TTL")
+	val ontologyFilenameFlexcell = "flexcell_generated.ttl"
+    val graphModelFlexcell = (dtmFlexcell.getService("Lifting") as DTLiftingService).getModel()
+    graphModelFlexcell.write(FileWriter("examples/$ontologyFilenameFlexcell"),"TTL")
     println((dtmFlexcell.getService("Consistency") as DTConsistencyChecking).isValid())
     println((dtmFlexcell.getService("Consistency") as DTConsistencyChecking).isInconsistent(ModelFactory.createDefaultModel()))
     println((dtmFlexcell.getService("Retrieve") as DTReflectService).getAllLinears(ModelFactory.createDefaultModel().read("examples/domain_flexcell_system.ttl","TTL")).size) //Reflected against another model provided by the user

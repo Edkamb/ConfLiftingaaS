@@ -1,18 +1,12 @@
 package dtstructure
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
 import org.apache.jena.rdf.model.Model
 import org.apache.jena.rdf.model.Property
 import org.apache.jena.rdf.model.Resource
 import org.apache.jena.rdf.model.ResourceFactory
-import org.javafmi.wrapper.Simulation
 import java.io.File
-import java.io.FileInputStream
 
 @Serializable
 sealed class DTFMUObject {
@@ -77,6 +71,6 @@ data class DTFMUReference(val conf_path : String) : DTFMUObject() {
 
 var RDFcounter = 0
 val prefixes =
-    mapOf<String, String>(Pair("domain", "http://www.smolang.org/dtlift#"),
+    mapOf(Pair("domain", "http://www.smolang.org/dtlift#"),
                           Pair("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#"))
 fun getFreshURI() : Resource = ResourceFactory.createResource ("${prefixes["domain"]}elem${RDFcounter++}")
