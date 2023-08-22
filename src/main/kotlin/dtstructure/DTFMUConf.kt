@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.apache.jena.rdf.model.Model
 import org.apache.jena.rdf.model.Resource
+import org.javafmi.modeldescription.v2.IntegerType
 import org.javafmi.wrapper.Simulation
 import java.io.File
 
@@ -29,6 +30,7 @@ data class DTFMUConf(var file_path: String,
         liftLiteral(prefixes["domain"]!!, "hasFile", file_path, m)
         liftLiteral(prefixes["domain"]!!, "hasName", instance_name, m)
         for(p in sim!!.modelDescription.modelVariables){
+            liftResource(prefixes["domain"]!!, "hasPort", portUris[p.name]!!, m )
             if(p.causality == "output")
                 liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}OutPort", m, portUris[p.name]!!)
             if(p.causality == "input")
@@ -36,16 +38,25 @@ data class DTFMUConf(var file_path: String,
 
             liftLiteral(prefixes["domain"]!!, "hasName", p.name, m, portUris[p.name]!!)
 
+            if(p.type is IntegerType)
+                liftIntLiteral(prefixes["domain"]!!,
+                    "hasValue",
+                    "${sim!!.read(p.name).asInteger()}",
+                    m,
+                    portUris[p.name]!!)
+
+
             if(aliases.containsKey(p.name) && p.causality == "input"){
                 liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}InPort", m, portUris[aliases[p.name]]!!)
                 liftResource(prefixes["domain"]!!, "aliasOf", portUris[p.name]!!, m, portUris[aliases[p.name]]!!)
                 liftLiteral(prefixes["domain"]!!, "hasName", aliases[p.name]!!, m, portUris[aliases[p.name]]!!)
             }
-            if(aliases.containsKey(p.name) && p.causality == "out"){
+            if(aliases.containsKey(p.name) && p.causality == "output"){
                 liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}OutPort", m, portUris[aliases[p.name]]!!)
                 liftResource(prefixes["domain"]!!, "aliasOf", portUris[p.name]!!, m, portUris[aliases[p.name]]!!)
                 liftLiteral(prefixes["domain"]!!, "hasName", aliases[p.name]!!, m, portUris[aliases[p.name]]!!)
             }
+
         }
     }
 

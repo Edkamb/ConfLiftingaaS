@@ -25,7 +25,7 @@ data class DTComponent(var fmus : MutableMap<String, DTFMUObject>,
 
     override fun getURI() : Resource = uri
     override fun liftInto(m: Model) {
-        liftResource(prefixes["rdf"]!!, "type", "ContainerComponent", m)
+        liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}ContainerComponent", m)
         for(fmu in fmus){
             liftResource(prefixes["domain"]!!, "contains", fmu.value.getURI(), m)
             (fmu.value as DTFMUConcreteObject).liftInto(m)

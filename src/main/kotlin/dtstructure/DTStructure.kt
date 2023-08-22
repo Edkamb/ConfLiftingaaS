@@ -2,6 +2,7 @@ package dtstructure
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.apache.jena.datatypes.xsd.XSDDatatype
 import org.apache.jena.rdf.model.Model
 import org.apache.jena.rdf.model.Property
 import org.apache.jena.rdf.model.Resource
@@ -26,6 +27,12 @@ sealed class DTFMUConcreteObject : DTFMUObject() {
         val trip = ResourceFactory.createStatement(target,
             ResourceFactory.createProperty("${prefix}${property}") as Property,
             ResourceFactory.createPlainLiteral(literal))
+        m.add(trip)
+    }
+    protected fun liftIntLiteral(prefix: String, property : String, literal : String, m : Model, target : Resource = getURI()){
+        val trip = ResourceFactory.createStatement(target,
+            ResourceFactory.createProperty("${prefix}${property}") as Property,
+            ResourceFactory.createTypedLiteral(literal, XSDDatatype.XSDint))
         m.add(trip)
     }
 
