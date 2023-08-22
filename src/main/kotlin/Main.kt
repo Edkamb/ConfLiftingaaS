@@ -24,7 +24,8 @@ fun main(args: Array<String>) {
     dtm.registerAs("Defect", DTDefectAnalysisService(dtm))
     dtm.registerAs("Monitor", DTMonitorService(dtm))
 
-    setupTanks(dtm)
+	
+    /*setupTanks(dtm)
     val valueReq = DefectHandler(
         Defect("""
             SELECT ?x ?out {?sim a domain:SimulationComponent; 
@@ -86,8 +87,12 @@ fun main(args: Array<String>) {
     val res = (dtm.getService("Defect") as DTDefectAnalysisService).getReports(assetTank)
     val post = System.currentTimeMillis()
     //println(res)
-    println(post-pre)
-    }
+    println(post-pre)*/
+		
+		
+	setupFlex(dtm)
+	//val assetFlexcell = ModelFactory.createDefaultModel().read("examples/domain_flexcell_system.ttl","TTL")
+	
     // Three tank system
     /*println((dtm.getService("Consistency") as DTConsistencyChecking).isValid())
     println((dtm.getService("Consistency") as DTConsistencyChecking).isInconsistent(ModelFactory.createDefaultModel()))

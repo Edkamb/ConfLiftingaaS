@@ -1,29 +1,835 @@
-<http://smolang.org/dtaas#elem5>
-        <http://smolang.org/dtaas#hasDescriptor>
-                "internal" ;
-        <http://smolang.org/dtaas#hasFile>
-                "DTProject/fmus/kukalbriiwa_model.fmu" .
+@prefix :      <http://www.smolang.org/dtlift#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:   <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 
-<http://smolang.org/dtaas#elem8>
-        <http://smolang.org/dtaas#hasAlias>
-                <{rabbitmq}.rabbitmq> , <{kuka}.kuka> , <{ur5e}.ur5e> ;
-        <http://smolang.org/dtaas#hasConnection>
-                <fmi2.target_Y> , <fmi2.target_X> , <fmi1.target_Y> , <fmi2.target_Z> , <fmi1.motion_time> , <fmi1.target_Z> , <fmi2.motion_time> , <fmi1.target_X> ;
-        <http://smolang.org/dtaas#hasFMU>
-                <http://smolang.org/dtaas#elem6> , <http://smolang.org/dtaas#elem7> , <http://smolang.org/dtaas#elem5> .
+:elem64  a         :OutPort ;
+        :hasName   "actual_Y_2" ;
+        :hasValue  "0"^^xsd:int .
 
-<http://smolang.org/dtaas#elem6>
-        <http://smolang.org/dtaas#hasDescriptor>
-                "internal" ;
-        <http://smolang.org/dtaas#hasFile>
-                "DTProject/fmus/ur5e_model.fmu" .
+:elem104  a       :OutPort ;
+        :hasName  "prev_q1" .
 
-<http://smolang.org/dtaas#elem9>
-        <http://smolang.org/dtaas#hasFMU>
-                <http://smolang.org/dtaas#elem8> .
+:elem43  a        :OutPort ;
+        :hasName  "actual_ry" .
 
-<http://smolang.org/dtaas#elem7>
-        <http://smolang.org/dtaas#hasDescriptor>
-                "internal" ;
-        <http://smolang.org/dtaas#hasFile>
-                "DTProject/fmus/rabbit2.1.5-16_SG.fmu" .
+:elem22  a        :InPort ;
+        :hasName  "target_q3" .
+
+:elem225  a       :Port ;
+        :hasName  "fmi2" .
+
+:elem204  :hasName  "config.communicationtimeout" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem196  a       :OutPort ;
+        :hasName  "command_move_kuka" .
+
+:elem175  a       :OutPort ;
+        :hasName  "actual_rz_3" .
+
+:elem154  a       :OutPort ;
+        :hasName  "actual_z_1" .
+
+:elem93  a        :OutPort ;
+        :hasName  "actual_x_5" .
+
+:elem133  a        :OutPort ;
+        :hasName   "actual_Z" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem72  a         :OutPort ;
+        :hasName   "actual_X_3" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem112  a       :OutPort ;
+        :hasName  "actual_q3" .
+
+:elem51  a        :OutPort ;
+        :hasName  "actual_rx_0" .
+
+:elem0  a               :SimulationComponent ;
+        :hasDescriptor  "internal" ;
+        :hasFile        "DTProject/fmus/kukalbriiwa_model.fmu" ;
+        :hasName        "{kuka}.kuka" ;
+        :hasPort        :elem74 , :elem53 , :elem12 , :elem100 , :elem20 , :elem77 , :elem36 , :elem90 , :elem44 , :elem11 , :elem21 , :elem72 , :elem99 , :elem71 , :elem34 , :elem81 , :elem30 , :elem6 , :elem16 , :elem68 , :elem80 , :elem7 , :elem64 , :elem92 , :elem59 , :elem101 , :elem69 , :elem88 , :elem55 , :elem65 , :elem14 , :elem49 , :elem39 , :elem102 , :elem22 , :elem50 , :elem75 , :elem85 , :elem13 , :elem78 , :elem82 , :elem37 , :elem9 , :elem91 , :elem73 , :elem83 , :elem32 , :elem96 , :elem35 , :elem45 , :elem8 , :elem18 , :elem31 , :elem41 , :elem66 , :elem94 , :elem17 , :elem86 , :elem63 , :elem24 , :elem93 , :elem56 , :elem87 , :elem60 , :elem52 , :elem48 , :elem15 , :elem25 , :elem76 , :elem84 , :elem51 , :elem61 , :elem79 , :elem89 , :elem10 , :elem46 , :elem23 , :elem42 , :elem98 , :elem70 , :elem47 , :elem33 , :elem43 , :elem97 , :elem40 , :elem19 , :elem95 , :elem58 , :elem54 , :elem5 , :elem62 , :elem38 , :elem57 , :elem67 .
+
+:elem30  a        :InPort ;
+        :hasName  "target_x" .
+
+:elem233  a       :Port ;
+        :hasName  "rabbitmq" .
+
+:elem212  :hasName  "config.routingkey.from_cosim" .
+
+:elem183  a       :OutPort ;
+        :hasName  "actual_ry_4" .
+
+:elem162  a       :OutPort ;
+        :hasName  "actual_y_2" .
+
+:elem141  a        :OutPort ;
+        :hasName   "actual_Y_0" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem80  a        :OutPort ;
+        :hasName  "actual_rz_3" .
+
+:elem120  a       :InPort ;
+        :hasName  "target_q5" .
+
+:elem59  a        :OutPort ;
+        :hasName  "actual_z_1" .
+
+:elem8  a         :OutPort ;
+        :hasName  "prev_q3" .
+
+:elem38  a         :OutPort ;
+        :hasName   "actual_Z" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem17  a        :OutPort ;
+        :hasName  "actual_q5" .
+
+:elem241  a           :Connection ;
+        :connectFrom  :elem218 ;
+        :connectTo    :elem188 .
+
+:elem220  a        :OutPort ;
+        :aliasOf   :elem220 ;
+        :hasName   "target_Y_kuka" ;
+        :hasValue  "0"^^xsd:int .
+
+:connectFrom  a             owl:FunctionalProperty , owl:ObjectProperty ;
+        rdfs:domain         :Connection ;
+        rdfs:range          :OutPort ;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:elem170  a       :OutPort ;
+        :hasName  "actual_x_3" .
+
+:elem149  a        :OutPort ;
+        :hasName   "actual_X_1" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem88  a        :OutPort ;
+        :hasName  "actual_ry_4" .
+
+:elem128  a       :InPort ;
+        :hasName  "target_rx" .
+
+:elem67  a        :OutPort ;
+        :hasName  "actual_y_2" .
+
+:elem107  a       :OutPort ;
+        :hasName  "prev_q4" .
+
+:elem46  a         :OutPort ;
+        :hasName   "actual_Y_0" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem25  a        :InPort ;
+        :hasName  "target_q6" .
+
+:connectTo  a               owl:FunctionalProperty , owl:ObjectProperty ;
+        rdfs:domain         :Connection ;
+        rdfs:range          :InPort ;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:elem207  :hasName  "config.lookahead" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem199  :hasName  "config.hostname" .
+
+:elem178  a        :OutPort ;
+        :hasName   "actual_Z_4" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem157  a       :OutPort ;
+        :hasName  "actual_rz_1" .
+
+:elem96  a        :OutPort ;
+        :hasName  "actual_rx_5" .
+
+:elem136  a       :OutPort ;
+        :hasName  "actual_z" .
+
+:elem75  a        :OutPort ;
+        :hasName  "actual_x_3" .
+
+:elem115  a       :InPort ;
+        :hasName  "target_q0" .
+
+:elem54  a         :OutPort ;
+        :hasName   "actual_X_1" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem3  a               :ContainerComponent ;
+        :contains       :elem2 , :elem1 , :elem0 ;
+        :hasConnection  :elem236 , :elem237 , :elem240 , :elem235 , :elem241 , :elem238 , :elem239 , :elem242 ;
+        :hasPort        :elem227 , :elem229 , :elem230 , :elem233 , :elem225 , :elem234 , :elem223 , :elem232 , :elem231 .
+
+:elem33  a        :InPort ;
+        :hasName  "target_rx" .
+
+:elem12  a        :OutPort ;
+        :hasName  "actual_q0" .
+
+:elem236  a           :Connection ;
+        :connectFrom  :elem215 ;
+        :connectTo    :elem185 .
+
+:elem215  a        :OutPort ;
+        :aliasOf   :elem215 ;
+        :hasName   "target_X_ur5e" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem186  a        :InPort ;
+        :aliasOf   :elem186 ;
+        :hasName   "target_Y" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem165  a       :OutPort ;
+        :hasName  "actual_ry_2" .
+
+:elem144  a       :OutPort ;
+        :hasName  "actual_y_0" .
+
+:elem83  a         :OutPort ;
+        :hasName   "actual_Z_4" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem62  a        :OutPort ;
+        :hasName  "actual_rz_1" .
+
+:elem102  a       :InPort ;
+        :aliasOf  :elem102 ;
+        :hasName  "motion_time" .
+
+:elem41  a        :OutPort ;
+        :hasName  "actual_z" .
+
+:elem20  a        :InPort ;
+        :hasName  "target_q1" .
+
+:elem223  a       :Port ;
+        :hasName  "fmi1" .
+
+:elem202  :hasName  "config.password" .
+
+:elem173  a       :OutPort ;
+        :hasName  "actual_rx_3" .
+
+:elem152  a       :OutPort ;
+        :hasName  "actual_x_1" .
+
+:elem91  a         :OutPort ;
+        :hasName   "actual_Y_5" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem131  a        :OutPort ;
+        :hasName   "actual_X" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem70  a        :OutPort ;
+        :hasName  "actual_ry_2" .
+
+:elem110  a       :OutPort ;
+        :hasName  "actual_q1" .
+
+:elem49  a        :OutPort ;
+        :hasName  "actual_y_0" .
+
+:DTObject  a                 owl:Class ;
+        owl:disjointUnionOf  ( :ContainerComponent :SimulationComponent ) .
+
+:elem231  a       :Port ;
+        :hasName  "ur5e" .
+
+:elem210  :hasName  "config.healthdata.exchangename" .
+
+:elem181  a       :OutPort ;
+        :hasName  "actual_z_4" .
+
+:elem160  a        :OutPort ;
+        :hasName   "actual_Z_2" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem99  a         :InPort ;
+        :aliasOf   :elem99 ;
+        :hasName   "target_X" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem139  a       :OutPort ;
+        :hasName  "actual_rz" .
+
+:elem78  a        :OutPort ;
+        :hasName  "actual_rx_3" .
+
+:elem118  a       :InPort ;
+        :hasName  "target_q3" .
+
+:elem57  a        :OutPort ;
+        :hasName  "actual_x_1" .
+
+:elem6  a         :OutPort ;
+        :hasName  "prev_q1" .
+
+:elem36  a         :OutPort ;
+        :hasName   "actual_X" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem15  a        :OutPort ;
+        :hasName  "actual_q3" .
+
+:elem239  a           :Connection ;
+        :connectFrom  :elem217 ;
+        :connectTo    :elem187 .
+
+:aliasOf  a                 owl:IrreflexiveProperty , owl:ObjectProperty ;
+        rdfs:domain         :Port ;
+        rdfs:range          :Port ;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:elem218  a       :OutPort ;
+        :aliasOf  :elem218 ;
+        :hasName  "motion_time_ur5e" .
+
+:elem168  a        :OutPort ;
+        :hasName   "actual_Y_3" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem147  a       :OutPort ;
+        :hasName  "actual_ry_0" .
+
+:Connection  a  owl:Class .
+
+:elem86  a        :OutPort ;
+        :hasName  "actual_z_4" .
+
+:elem126  a       :InPort ;
+        :hasName  "target_y" .
+
+:elem65  a         :OutPort ;
+        :hasName   "actual_Z_2" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem105  a       :OutPort ;
+        :hasName  "prev_q2" .
+
+:elem44  a        :OutPort ;
+        :hasName  "actual_rz" .
+
+:elem23  a        :InPort ;
+        :hasName  "target_q4" .
+
+:contains  a                owl:ObjectProperty ;
+        rdfs:domain         :ContainerComponent ;
+        rdfs:range          :DTObject ;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:elem205  :hasName  "config.precision" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem176  a        :OutPort ;
+        :hasName   "actual_X_4" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem155  a       :OutPort ;
+        :hasName  "actual_rx_1" .
+
+:elem134  a       :OutPort ;
+        :hasName  "actual_x" .
+
+:elem94  a        :OutPort ;
+        :hasName  "actual_y_5" .
+
+:elem73  a         :OutPort ;
+        :hasName   "actual_Y_3" ;
+        :hasValue  "0"^^xsd:int .
+
+:hasPort  a                 owl:InverseFunctionalProperty , owl:ObjectProperty ;
+        rdfs:domain         :DTObject ;
+        rdfs:range          :Port ;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:elem113  a       :OutPort ;
+        :hasName  "actual_q4" .
+
+:elem52  a        :OutPort ;
+        :hasName  "actual_ry_0" .
+
+:elem1  a               :SimulationComponent ;
+        :hasDescriptor  "internal" ;
+        :hasFile        "DTProject/fmus/ur5e_model.fmu" ;
+        :hasName        "{ur5e}.ur5e" ;
+        :hasPort        :elem138 , :elem176 , :elem150 , :elem105 , :elem106 , :elem143 , :elem112 , :elem110 , :elem144 , :elem131 , :elem174 , :elem129 , :elem167 , :elem168 , :elem161 , :elem162 , :elem117 , :elem155 , :elem130 , :elem107 , :elem108 , :elem149 , :elem116 , :elem187 , :elem154 , :elem188 , :elem181 , :elem182 , :elem137 , :elem175 , :elem111 , :elem136 , :elem134 , :elem173 , :elem103 , :elem104 , :elem141 , :elem142 , :elem158 , :elem185 , :elem186 , :elem172 , :elem127 , :elem128 , :elem179 , :elem165 , :elem166 , :elem160 , :elem115 , :elem153 , :elem178 , :elem147 , :elem145 , :elem114 , :elem148 , :elem146 , :elem152 , :elem180 , :elem135 , :elem133 , :elem120 , :elem169 , :elem159 , :elem157 , :elem132 , :elem171 , :elem140 , :elem118 , :elem119 , :elem156 , :elem183 , :elem184 , :elem170 , :elem139 , :elem125 , :elem126 , :elem177 , :elem163 , :elem164 , :elem109 , :elem113 , :elem151 .
+
+:elem31  a        :InPort ;
+        :hasName  "target_y" .
+
+:elem10  a        :OutPort ;
+        :hasName  "prev_q5" .
+
+:elem234  a        :Port ;
+        :hasAlias  :elem233 , :elem227 ;
+        :hasName   "{rabbitmq}.rabbitmq" .
+
+:elem213  :hasName  "config.ssl" .
+
+:elem184  a       :OutPort ;
+        :hasName  "actual_rz_4" .
+
+:elem163  a       :OutPort ;
+        :hasName  "actual_z_2" .
+
+:ContainerComponent  a   owl:Class ;
+        rdfs:subClassOf  :DTObject .
+
+<http://www.smolang.org/dtlift>
+        a       owl:Ontology .
+
+:elem142  a        :OutPort ;
+        :hasName   "actual_Z_0" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem81  a         :OutPort ;
+        :hasName   "actual_X_4" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem60  a        :OutPort ;
+        :hasName  "actual_rx_1" .
+
+:elem100  a        :InPort ;
+        :aliasOf   :elem100 ;
+        :hasName   "target_Y" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem9  a         :OutPort ;
+        :hasName  "prev_q4" .
+
+:elem39  a        :OutPort ;
+        :hasName  "actual_x" .
+
+:elem18  a        :OutPort ;
+        :hasName  "actual_q6" .
+
+:elem242  a           :Connection ;
+        :connectFrom  :elem222 ;
+        :connectTo    :elem102 .
+
+:elem221  a        :OutPort ;
+        :aliasOf   :elem221 ;
+        :hasName   "target_Z_kuka" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem200  :hasName  "config.port" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem171  a       :OutPort ;
+        :hasName  "actual_y_3" .
+
+:elem150  a        :OutPort ;
+        :hasName   "actual_Y_1" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem89  a        :OutPort ;
+        :hasName  "actual_rz_4" .
+
+:elem129  a       :InPort ;
+        :hasName  "target_ry" .
+
+:elem68  a        :OutPort ;
+        :hasName  "actual_z_2" .
+
+:elem108  a       :OutPort ;
+        :hasName  "prev_q5" .
+
+:elem47  a         :OutPort ;
+        :hasName   "actual_Z_0" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem229  a       :Port ;
+        :hasName  "kuka" .
+
+:elem208  :hasName  "config.exchangename" .
+
+:elem179  a       :OutPort ;
+        :hasName  "actual_x_4" .
+
+:elem158  a        :OutPort ;
+        :hasName   "actual_X_2" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem97  a        :OutPort ;
+        :hasName  "actual_ry_5" .
+
+:elem137  a       :OutPort ;
+        :hasName  "actual_rx" .
+
+:elem76  a        :OutPort ;
+        :hasName  "actual_y_3" .
+
+:elem116  a       :InPort ;
+        :hasName  "target_q1" .
+
+:elem55  a         :OutPort ;
+        :hasName   "actual_Y_1" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem4  a          :ContainerComponent ;
+        :contains  :elem3 .
+
+:elem34  a        :InPort ;
+        :hasName  "target_ry" .
+
+:elem13  a        :OutPort ;
+        :hasName  "actual_q1" .
+
+:elem237  a           :Connection ;
+        :connectFrom  :elem216 ;
+        :connectTo    :elem186 .
+
+:elem216  a        :OutPort ;
+        :aliasOf   :elem216 ;
+        :hasName   "target_Y_ur5e" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem187  a        :InPort ;
+        :aliasOf   :elem187 ;
+        :hasName   "target_Z" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem166  a       :OutPort ;
+        :hasName  "actual_rz_2" .
+
+:elem145  a       :OutPort ;
+        :hasName  "actual_z_0" .
+
+:elem84  a        :OutPort ;
+        :hasName  "actual_x_4" .
+
+:elem63  a         :OutPort ;
+        :hasName   "actual_X_2" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem103  a       :OutPort ;
+        :hasName  "prev_q0" .
+
+:elem42  a        :OutPort ;
+        :hasName  "actual_rx" .
+
+:hasName  a                 owl:DatatypeProperty ;
+        rdfs:domain         [ a            owl:Class ;
+                              owl:unionOf  ( :DTObject :Port )
+                            ] ;
+        rdfs:range          xsd:string ;
+        rdfs:subPropertyOf  owl:topDataProperty .
+
+:elem21  a        :InPort ;
+        :hasName  "target_q2" .
+
+:elem203  :hasName  "config.routingkey" .
+
+:elem195  a       :OutPort ;
+        :hasName  "command_move_ur5e" .
+
+:elem174  a       :OutPort ;
+        :hasName  "actual_ry_3" .
+
+:elem153  a       :OutPort ;
+        :hasName  "actual_y_1" .
+
+:elem92  a         :OutPort ;
+        :hasName   "actual_Z_5" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem132  a        :OutPort ;
+        :hasName   "actual_Y" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem71  a        :OutPort ;
+        :hasName  "actual_rz_2" .
+
+:elem111  a       :OutPort ;
+        :hasName  "actual_q2" .
+
+:elem50  a        :OutPort ;
+        :hasName  "actual_z_0" .
+
+:elem232  a        :Port ;
+        :hasAlias  :elem231 , :elem225 ;
+        :hasName   "{ur5e}.ur5e" .
+
+:elem211  :hasName  "config.healthdata.exchangetype" .
+
+:elem182  a       :OutPort ;
+        :hasName  "actual_rx_4" .
+
+:elem161  a       :OutPort ;
+        :hasName  "actual_x_2" .
+
+:elem140  a        :OutPort ;
+        :hasName   "actual_X_0" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem79  a        :OutPort ;
+        :hasName  "actual_ry_3" .
+
+:elem119  a       :InPort ;
+        :hasName  "target_q4" .
+
+:elem58  a        :OutPort ;
+        :hasName  "actual_y_1" .
+
+:elem7  a         :OutPort ;
+        :hasName  "prev_q2" .
+
+:elem37  a         :OutPort ;
+        :hasName   "actual_Y" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem16  a        :OutPort ;
+        :hasName  "actual_q4" .
+
+:elem240  a           :Connection ;
+        :connectFrom  :elem219 ;
+        :connectTo    :elem99 .
+
+:elem219  a        :OutPort ;
+        :aliasOf   :elem219 ;
+        :hasName   "target_X_kuka" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem169  a        :OutPort ;
+        :hasName   "actual_Z_3" ;
+        :hasValue  "0"^^xsd:int .
+
+:AliasingPort  a             owl:Class ;
+        rdfs:subClassOf      :Port ;
+        owl:equivalentClass  [ a                   owl:Restriction ;
+                               owl:onProperty      :aliasOf ;
+                               owl:someValuesFrom  owl:Thing
+                             ] .
+
+:elem148  a       :OutPort ;
+        :hasName  "actual_rz_0" .
+
+:elem87  a        :OutPort ;
+        :hasName  "actual_rx_4" .
+
+:elem127  a       :InPort ;
+        :hasName  "target_z" .
+
+:hasFile  a          owl:DatatypeProperty ;
+        rdfs:domain  :SimulationComponent ;
+        rdfs:range   xsd:string .
+
+:elem66  a        :OutPort ;
+        :hasName  "actual_x_2" .
+
+:elem106  a       :OutPort ;
+        :hasName  "prev_q3" .
+
+:elem45  a         :OutPort ;
+        :hasName   "actual_X_0" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem24  a        :InPort ;
+        :hasName  "target_q5" .
+
+:elem227  a       :Port ;
+        :hasName  "fmi3" .
+
+:InPort  a               owl:Class ;
+        rdfs:subClassOf  :Port .
+
+:elem206  :hasName  "config.maxage" ;
+        :hasValue  "0"^^xsd:int .
+
+:SimulationComponent  a  owl:Class ;
+        rdfs:subClassOf  :DTObject .
+
+:elem177  a        :OutPort ;
+        :hasName   "actual_Y_4" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem156  a       :OutPort ;
+        :hasName  "actual_ry_1" .
+
+:elem135  a       :OutPort ;
+        :hasName  "actual_y" .
+
+:elem95  a        :OutPort ;
+        :hasName  "actual_z_5" .
+
+:elem74  a         :OutPort ;
+        :hasName   "actual_Z_3" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem114  a       :OutPort ;
+        :hasName  "actual_q5" .
+
+:elem53  a        :OutPort ;
+        :hasName  "actual_rz_0" .
+
+:elem2  a               :SimulationComponent ;
+        :hasDescriptor  "internal" ;
+        :hasFile        "DTProject/fmus/rabbit2.1.5-16_SG.fmu" ;
+        :hasName        "{rabbitmq}.rabbitmq" ;
+        :hasPort        :elem211 , :elem206 , :elem222 , :elem212 , :elem207 , :elem210 , :elem201 , :elem217 , :elem204 , :elem215 , :elem218 , :elem202 , :elem196 , :elem219 , :elem199 , :elem216 , :elem214 , :elem213 , :elem208 , :elem200 , :elem195 , :elem220 , :elem209 , :elem205 , :elem221 , :elem203 .
+
+:elem32  a        :InPort ;
+        :hasName  "target_z" .
+
+:elem11  a        :OutPort ;
+        :hasName  "prev_q6" .
+
+:elem235  a           :Connection ;
+        :connectFrom  :elem221 ;
+        :connectTo    :elem101 .
+
+:elem214  :hasName  "config.queueupperbound" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem185  a        :InPort ;
+        :aliasOf   :elem185 ;
+        :hasName   "target_X" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem164  a       :OutPort ;
+        :hasName  "actual_rx_2" .
+
+:elem143  a       :OutPort ;
+        :hasName  "actual_x_0" .
+
+:elem82  a         :OutPort ;
+        :hasName   "actual_Y_4" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem61  a        :OutPort ;
+        :hasName  "actual_ry_1" .
+
+:elem101  a        :InPort ;
+        :aliasOf   :elem101 ;
+        :hasName   "target_Z" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem40  a        :OutPort ;
+        :hasName  "actual_y" .
+
+:AliasedPort  a              owl:Class ;
+        rdfs:subClassOf      :Port ;
+        owl:disjointWith     :AliasingPort ;
+        owl:equivalentClass  [ a                   owl:Restriction ;
+                               owl:onProperty      [ owl:inverseOf  :aliasOf ] ;
+                               owl:someValuesFrom  owl:Thing
+                             ] .
+
+:elem19  a        :InPort ;
+        :hasName  "target_q0" .
+
+:elem222  a       :OutPort ;
+        :aliasOf  :elem222 ;
+        :hasName  "motion_time_kuka" .
+
+:elem201  :hasName  "config.username" .
+
+:OutPort  a              owl:Class ;
+        rdfs:subClassOf  :Port .
+
+:elem172  a       :OutPort ;
+        :hasName  "actual_z_3" .
+
+:elem151  a        :OutPort ;
+        :hasName   "actual_Z_1" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem90  a         :OutPort ;
+        :hasName   "actual_X_5" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem130  a       :InPort ;
+        :hasName  "target_rz" .
+
+:elem69  a        :OutPort ;
+        :hasName  "actual_rx_2" .
+
+:elem109  a       :OutPort ;
+        :hasName  "actual_q0" .
+
+:elem48  a        :OutPort ;
+        :hasName  "actual_x_0" .
+
+:Port   a                    owl:Class ;
+        owl:disjointUnionOf  ( :InPort :OutPort ) .
+
+:elem230  a        :Port ;
+        :hasAlias  :elem229 , :elem223 ;
+        :hasName   "{kuka}.kuka" .
+
+:elem209  :hasName  "config.exchangetype" .
+
+:elem180  a       :OutPort ;
+        :hasName  "actual_y_4" .
+
+:elem159  a        :OutPort ;
+        :hasName   "actual_Y_2" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem98  a        :OutPort ;
+        :hasName  "actual_rz_5" .
+
+:elem138  a       :OutPort ;
+        :hasName  "actual_ry" .
+
+:elem77  a        :OutPort ;
+        :hasName  "actual_z_3" .
+
+:elem117  a       :InPort ;
+        :hasName  "target_q2" .
+
+:elem56  a         :OutPort ;
+        :hasName   "actual_Z_1" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem5  a         :OutPort ;
+        :hasName  "prev_q0" .
+
+:elem35  a        :InPort ;
+        :hasName  "target_rz" .
+
+:elem14  a        :OutPort ;
+        :hasName  "actual_q2" .
+
+:elem238  a           :Connection ;
+        :connectFrom  :elem220 ;
+        :connectTo    :elem100 .
+
+:elem217  a        :OutPort ;
+        :aliasOf   :elem217 ;
+        :hasName   "target_Z_ur5e" ;
+        :hasValue  "0"^^xsd:int .
+
+:hasDescriptor  a    owl:DatatypeProperty ;
+        rdfs:domain  :DTObject ;
+        rdfs:range   xsd:string .
+
+:elem188  a       :InPort ;
+        :aliasOf  :elem188 ;
+        :hasName  "motion_time" .
+
+:elem167  a        :OutPort ;
+        :hasName   "actual_X_3" ;
+        :hasValue  "0"^^xsd:int .
+
+:elem146  a       :OutPort ;
+        :hasName  "actual_rx_0" .
+
+:elem85  a        :OutPort ;
+        :hasName  "actual_y_4" .
+
+:elem125  a       :InPort ;
+        :hasName  "target_x" .
