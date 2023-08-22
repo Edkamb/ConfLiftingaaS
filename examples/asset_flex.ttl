@@ -1,0 +1,226 @@
+@prefix : <http://www.smolang.org/dtlift#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.smolang.org/dtlift> .
+
+<http://www.smolang.org/dtlift> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.smolang.org/dtlift#aliasOf
+:aliasOf rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdf:type owl:IrreflexiveProperty ;
+         rdfs:domain :Port ;
+         rdfs:range :Port .
+
+
+###  http://www.smolang.org/dtlift#connectFrom
+:connectFrom rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdf:type owl:FunctionalProperty ;
+             rdfs:domain :Connection ;
+             rdfs:range :OutPort .
+
+
+###  http://www.smolang.org/dtlift#connectTo
+:connectTo rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdf:type owl:FunctionalProperty ;
+           rdfs:domain :Connection ;
+           rdfs:range :InPort .
+
+
+###  http://www.smolang.org/dtlift#contains
+:contains rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          rdfs:domain :ContainerComponent ;
+          rdfs:range :DTObject .
+
+
+###  http://www.smolang.org/dtlift#hasPort
+:hasPort rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdf:type owl:InverseFunctionalProperty ;
+         rdfs:domain :DTObject ;
+         rdfs:range :Port .
+
+
+###  http://www.smolang.org/dtlift#inCellWith
+:inCellWith rdf:type owl:ObjectProperty ,
+                     owl:SymmetricProperty ;
+            rdfs:domain :RobotArm ;
+            rdfs:range :RobotArm .
+
+
+###  http://www.smolang.org/dtlift#specifiedBy
+:specifiedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Asset ;
+             rdfs:range :Requirement .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.smolang.org/dtlift#hasDescriptor
+:hasDescriptor rdf:type owl:DatatypeProperty ;
+               rdfs:domain :DTObject ;
+               rdfs:range xsd:string .
+
+
+###  http://www.smolang.org/dtlift#hasFile
+:hasFile rdf:type owl:DatatypeProperty ;
+         rdfs:domain :SimulationComponent ;
+         rdfs:range xsd:string .
+
+
+###  http://www.smolang.org/dtlift#hasName
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdfs:domain [ rdf:type owl:Class ;
+                       owl:unionOf ( :Asset
+                                     :DTObject
+                                     :Port
+                                   )
+                     ] ;
+         rdfs:range xsd:string .
+
+
+###  http://www.smolang.org/dtlift#minValue
+:minValue rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain :MinimalvalueRequirement ;
+          rdfs:range xsd:int .
+
+
+###  http://www.smolang.org/dtlift#twinnedWithName
+:twinnedWithName rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.smolang.org/dtlift#AliasedPort
+:AliasedPort rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty [ owl:inverseOf :aliasOf
+                                                  ] ;
+                                   owl:someValuesFrom owl:Thing
+                                 ] ;
+             rdfs:subClassOf :Port ;
+             owl:disjointWith :AliasingPort .
+
+
+###  http://www.smolang.org/dtlift#AliasingPort
+:AliasingPort rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                    owl:onProperty :aliasOf ;
+                                    owl:someValuesFrom owl:Thing
+                                  ] ;
+              rdfs:subClassOf :Port .
+
+
+###  http://www.smolang.org/dtlift#Asset
+:Asset rdf:type owl:Class .
+
+
+###  http://www.smolang.org/dtlift#Connection
+:Connection rdf:type owl:Class .
+
+
+###  http://www.smolang.org/dtlift#ContainerComponent
+:ContainerComponent rdf:type owl:Class ;
+                    rdfs:subClassOf :DTObject .
+
+
+###  http://www.smolang.org/dtlift#DTObject
+:DTObject rdf:type owl:Class ;
+          owl:disjointUnionOf ( :ContainerComponent
+                                :SimulationComponent
+                              ) .
+
+
+###  http://www.smolang.org/dtlift#InPort
+:InPort rdf:type owl:Class ;
+        rdfs:subClassOf :Port .
+
+
+###  http://www.smolang.org/dtlift#MinimalvalueRequirement
+:MinimalvalueRequirement rdf:type owl:Class ;
+                         rdfs:subClassOf :Requirement .
+
+
+###  http://www.smolang.org/dtlift#OutPort
+:OutPort rdf:type owl:Class ;
+         rdfs:subClassOf :Port .
+
+
+###  http://www.smolang.org/dtlift#Port
+:Port rdf:type owl:Class ;
+      owl:disjointUnionOf ( :InPort
+                            :OutPort
+                          ) .
+
+
+###  http://www.smolang.org/dtlift#Requirement
+:Requirement rdf:type owl:Class .
+
+
+###  http://www.smolang.org/dtlift#RobotArm
+:RobotArm rdf:type owl:Class ;
+          rdfs:subClassOf :Asset .
+
+
+###  http://www.smolang.org/dtlift#SimulationComponent
+:SimulationComponent rdf:type owl:Class ;
+                     rdfs:subClassOf :DTObject .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.smolang.org/dtlift#r1
+:r1 rdf:type owl:NamedIndividual ,
+             :MinimalvalueRequirement ;
+    :minValue "0"^^xsd:int .
+
+
+###  http://www.smolang.org/dtlift#t1
+:t1 rdf:type owl:NamedIndividual ,
+             :RobotArm ;
+    :inCellWith :t2 ;
+    :specifiedBy :r1 ;
+    :twinnedWithName "{kuk}.kuk"^^xsd:string .
+
+
+###  http://www.smolang.org/dtlift#t2
+:t2 rdf:type owl:NamedIndividual ,
+             :RobotArm ;
+    :specifiedBy :r1 ;
+    :twinnedWithName "{ur5e}.ur5e"^^xsd:string .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Asset
+                :Connection
+                :DTObject
+                :Port
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

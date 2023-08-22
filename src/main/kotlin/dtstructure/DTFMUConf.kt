@@ -42,7 +42,7 @@ data class DTFMUConf(var file_path: String,
                 liftIntLiteral(prefixes["domain"]!!,
                     "hasValue",
                     //"${sim!!.read(p.name).asInteger()}",
-					"0",
+					"0", //Error injection: this is always violating the requirements
                     m,
                     portUris[p.name]!!)
 
