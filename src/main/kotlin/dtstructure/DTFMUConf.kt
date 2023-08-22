@@ -41,10 +41,10 @@ data class DTFMUConf(var file_path: String,
             if(p.type is IntegerType)
                 liftIntLiteral(prefixes["domain"]!!,
                     "hasValue",
-                    "${sim!!.read(p.name).asInteger()}",
+                    //"${sim!!.read(p.name).asInteger()}",
+					"0",
                     m,
                     portUris[p.name]!!)
-
 
             if(aliases.containsKey(p.name) && p.causality == "input"){
                 liftResource(prefixes["rdf"]!!, "type", "${prefixes["domain"]}InPort", m, portUris[aliases[p.name]]!!)

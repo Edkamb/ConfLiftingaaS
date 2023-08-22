@@ -7,14 +7,27 @@ fun setupTanks(dtm : DTManager){
     dtm.load("examples/three_tank_system.json")
     val ontologyFilename = "three_tank_system_generated${System.currentTimeMillis()}.ttl"
     val graphModel = (dtm.getService("Lifting") as DTLiftingService).getModel()
-    graphModel.write(FileWriter("examples/$ontologyFilename"),"TTL")
+    graphModel.write(FileWriter("examples/$ontologyFilename"),"TTL")*/
 }
 
-fun evaluateTanks(dtm: DTManager) {
+fun setupFlex(dtm : DTManager) {
+    dtm.load("examples/flexcell_system.json") // Edit Santiago
+    val ontologyFilenameFlexcell = "flexcell_generated.ttl"
+    val graphModelFlexcell = (dtm.getService("Lifting") as DTLiftingService).getModel()
+    graphModelFlexcell.write(FileWriter("examples/$ontologyFilenameFlexcell"), "TTL")
+}
+fun main(args: Array<String>) {
 
+    val dtm = DTManager()
+    dtm.registerAs("Lifting", DTLiftingService(dtm, "examples/ontology.ttl"))
+    dtm.registerAs("Query", DTQueryService(dtm))
+    dtm.registerAs("Defect", DTDefectAnalysisService(dtm))
+    dtm.registerAs("Monitor", DTMonitorService(dtm))
+
+
+    /*setupTanks(dtm)
     val valueReq = DefectHandler(
-        Defect(
-            """
+        Defect("""
             SELECT ?x ?out {?sim a domain:SimulationComponent; 
                                domain:hasFile "DTProject/fmus/Linear.fmu"; 
                                domain:hasPort ?p;
@@ -27,11 +40,10 @@ fun evaluateTanks(dtm: DTManager) {
                                domain:hasValue ?out.
                                FILTER ( ?out >= ?lim )
                                }
-            """, listOf("?x", "?out")
-        ),
-        handler = fun(rs: ResultSet): String {
+            """, listOf("?x", "?out")),
+        handler = fun (rs:ResultSet):String {
             var res = "Error Report, the following simulators fail their outPort requirement:\n"
-            while (rs.hasNext()) {
+            while(rs.hasNext()){
                 val qs = rs.next()
                 res += "\t simulator ${qs.get("?x")} has value ${qs.get("?out")} >= 0!\n"
             }
@@ -39,8 +51,7 @@ fun evaluateTanks(dtm: DTManager) {
         }
     )
     val structReq = DefectHandler(
-        Defect(
-            """
+        Defect("""
             SELECT ?id ?idNext {?x a domain:SimulationComponent; 
                                domain:hasFile "DTProject/fmus/Linear.fmu"; 
                                domain:hasName ?id.
@@ -94,6 +105,21 @@ fun main(args: Array<String>) {
     dtm.registerAs("Query", DTQueryService(dtm))
     dtm.registerAs("Defect", DTDefectAnalysisService(dtm))
     dtm.registerAs("Monitor", DTMonitorService(dtm))
+    for( i in 1..20){
+    val pre = System.currentTimeMillis()
+    val res = (dtm.getService("Defect") as DTDefectAnalysisService).getReports(assetTank)
+    val post = System.currentTimeMillis()
+    //println(res)
+    println(post-pre)*/
+
+
+	setupFlex(dtm)
+	//val assetFlexcell = ModelFactory.createDefaultModel().read("examples/domain_flexcell_system.ttl","TTL")
+
+    // Three tank system
+    /*println((dtm.getService("Consistency") as DTConsistencyChecking).isValid())
+    println((dtm.getService("Consistency") as DTConsistencyChecking).isInconsistent(ModelFactory.createDefaultModel()))
+    println((dtm.getService("Retrieve") as DTReflectService).getAllLinears(ModelFactory.createDefaultModel().read("examples/domain_three_tank_system.ttl","TTL")).size) //Reflected against another model provided by the user
 
     //setupTanks(dtm)
     //evaluateTanks(dtm)

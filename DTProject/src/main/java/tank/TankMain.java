@@ -78,6 +78,32 @@ public class TankMain {
 		Object tank2Level = dtManager.getSystemAttributeValue("Level", "TankSystem","tank2"); //This is the right method
 		System.out.println(tank2Level.toString());
 		
+		/***** Collecting metrics *****/
+		/*
+		// doStep individual
+		long start = System.nanoTime();
+		dtManager.executeOperation("doStep", null, "tank1");
+		long end = System.nanoTime();
+		System.out.println("Elapsed Time doStep individual: "+ (end-start)); 
+		// doStep System
+		start = System.nanoTime();
+		dtManager.executeOperationOnSystem("doStep", null, "TankSystem");
+		end = System.nanoTime();
+		System.out.println("Elapsed Time doStep system: "+ (end-start));
+		// simulate System
+		start = System.nanoTime();
+		dtManager.executeOperationOnSystem("simulate", null, "TankSystem");
+		end = System.nanoTime();
+		System.out.println("Elapsed Time doStep system: "+ (end-start)); 
+		
+		start = System.nanoTime();
+		for (int k=0;k<20;k++) {
+			dtManager.executeOperationOnSystem("doStep", null, "TankSystem");
+			k++;
+		}
+		end = System.nanoTime();
+		System.out.println("Elapsed Time full simulation by doStep system: "+ (end-start));
+		*/
 		
 		Thread eventThread = new Thread(() -> {
 			new Timer().scheduleAtFixedRate(new TimerTask() {
@@ -105,24 +131,6 @@ public class TankMain {
 		}
 	}*/
 	//eventThread.start();
-		
-		/*dtManager.registerAttributes("tank1",
-				schema.getAttributesAASX());
-		
-		dtManager.registerAttributes("tank2",
-				schema.getAttributesAASX());
-		
-		dtManager.registerAttributes("tank3",
-				schema.getAttributesAASX());
-		
-		dtManager.registerOperations("tank1",
-				schema.getOperationsAASX());
-		
-		dtManager.registerOperations("tank2",
-				schema.getOperationsAASX());
-		
-		dtManager.registerOperations("tank3",
-				schema.getOperationsAASX());*/
 	}
 
 }
