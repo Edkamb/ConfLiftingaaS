@@ -4,9 +4,9 @@
         "ur5e_experimental": "{ur5e}.ur5e"
     },
     "fmus": {
-        "{rabbitmq}": "fmus/rabbit2.1.5-16_SG.fmu",
-        "{kuka}": "fmus/kukalbriiwa_model.fmu",
-        "{ur5e}": "fmus/ur5e_model.fmu"
+      "{rabbitmq}": "models/rmqfmu_flexcell.fmu",
+      "{kuka}": "models/kukalbriiwa_model.fmu",
+      "{ur5e}": "models/ur5e_model.fmu"
     },
     "logVariables": {
         "{kuka}.kuka": [

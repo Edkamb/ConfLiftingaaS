@@ -40,3 +40,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+## Jar files (TwinManager)
+DTProject/target/
+DTProject/tools/TwinManagerFramework-0.0.3.jar
+DTProject/tools/TwinManager/target
+*.jar

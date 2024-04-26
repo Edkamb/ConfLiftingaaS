@@ -4,9 +4,9 @@
         "ur5e_experimental": "{ur5e}.ur5e"
     },
     "fmus": {
-        "{rabbitmq}": "fmus/rabbit2.1.5-16_SG.fmu",
-        "{kuka}": "fmus/kukalbriiwa_model.fmu",
-        "{ur5e}": "fmus/ur5e_model.fmu"
+        "{rabbitmq}": "models/rmqfmu_flexcell.fmu",
+        "{kuka}": "models/kukalbriiwa_model.fmu",
+        "{ur5e}": "models/ur5e_model.fmu"
     },
     "logVariables": {
         "{kuka}.kuka": [
@@ -40,6 +40,19 @@
         ]
     },
     "parameters": {
+        "{kuka}.kuka.prev_q4_param": -0.073072,
+        "{ur5e}.ur5e.prev_q2_param": 2.315173,
+        "{ur5e}.ur5e.prev_q3_param": -2.248468,
+        "{kuka}.kuka.prev_q3_param": -1.851805,
+        "{kuka}.kuka.prev_q1_param": 0.287188,
+        "{kuka}.kuka.prev_q0_param": 0.285609,
+        "{kuka}.kuka.prev_q2_param": 0.220264,
+        "{ur5e}.ur5e.prev_q4_param": -0.890721,
+        "{ur5e}.ur5e.prev_q0_param": -2.666677,
+        "{kuka}.kuka.prev_q6_param": 0.536052,
+        "{kuka}.kuka.prev_q5_param": 1.010198,
+        "{ur5e}.ur5e.prev_q1_param": -2.06638,
+        "{ur5e}.ur5e.prev_q5_param": -0.942086
     },
     "connections": {
         "{rabbitmq}.rabbitmq.target_Z_kuka": ["{kuka}.kuka.target_Z"],
@@ -52,7 +65,7 @@
         "{rabbitmq}.rabbitmq.motion_time_kuka": ["{kuka}.kuka.motion_time"]
     },
     "algorithm": {
-        "size": 0.5,
+        "size": 0.2,
         "type": "fixed-step"
     }
 }
