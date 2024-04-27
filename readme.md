@@ -2,7 +2,7 @@
 This repository contains the source code for the architectural approach to realize Digital Twin systems with coupled behavior and semantic services.
 
 ## Architecture
-The architecture is an extension of a previous work, the *TwinManager* (formerly [DT Manager](https://github.com/cdl-mint/DTManagementFramework)) to easily integrate black-box simulation in Digital Twin platforms.  
+The architecture is an extension of a previous work, the *TwinManager* (originally [DT Manager](https://github.com/cdl-mint/DTManagementFramework)) to easily integrate black-box simulation in Digital Twin platforms.  
 This extension now integrates a co-simulation engine, [Maestro](https://github.com/INTO-CPS-Association/maestro), to enable the composition of Digital Twins with coupled behavior.  
 The source code for the prototypical Java implementation of the architecture is in the folder ```DTProject/tools/TwinManager```.
 
@@ -40,7 +40,7 @@ This script takes the TwinManager and the Three-Tank java script in ```DTProject
 The output of experiments is generated to the folder ```DTProject/data_three_tank/output```.
 
 ## Additional resources 
-More information about the TwinManager (formerly DT Manager) and SMOLang is available in:
+More information about the TwinManager (originally DT Manager) and SMOLang is available in:
 
 1. D. Lehner, S. Gil, P. H. Mikkelsen, P. G. Larsen and M. Wimmer,
    "An Architectural Extension for Digital Twin Platforms to Leverage
