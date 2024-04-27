@@ -6,6 +6,8 @@ The architecture is an extension of a previous work, the *TwinManager* (formerly
 This extension now integrates a co-simulation engine, [Maestro](https://github.com/INTO-CPS-Association/maestro), to enable the composition of Digital Twins with coupled behavior.  
 The source code for the prototypical Java implementation of the architecture is in the folder ```DTProject/tools/TwinManager```.
 
+### Build the implementation
+Use the script ```DTProject/build_TwinManager.sh``` to build the JAR that is used as part of the examples. The resulting JAR will be copied to the tools folder, where it is taken by the programs to run the examples. The installation requires Maven 3.9+.
 
 
 ## Semantic services

@@ -564,6 +564,18 @@ public class MaestroEndpoint implements AggregateEndpoint {
 		
 	}
 
+	@Override
+	public boolean executeOperation(String opName, List<?> arguments, String twinName) {
+		// Not Applicable
+		return false;
+	}
+
+	@Override
+	public boolean executeOperation(String opName, List<?> arguments, String twinName, Clock clock) {
+		// Not Applicable
+		return false;
+	}
+
 	
 
 }
