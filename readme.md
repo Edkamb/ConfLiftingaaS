@@ -46,10 +46,10 @@ More information about the TwinManager (formerly DT Manager) and SMOLang is avai
    "An Architectural Extension for Digital Twin Platforms to Leverage
    Behavioral Models," 2023 IEEE 19th International Conference on
    Automation Science and Engineering (CASE), Auckland, New Zealand,
-   2023, pp. 1-8, doi: 10.1109/CASE56687.2023.10260417.
+   2023, pp. 1-8, doi: 10.1109/CASE56687.2023.10260417. https://ieeexplore.ieee.org/abstract/document/10260417
 2. S. Gil, P. H. Mikkelsen, D. Tola, C. Schou and P. G. Larsen,
    "A Modeling Approach for Composed Digital Twins in Cooperative Systems,"
    2023 IEEE 28th International Conference on Emerging Technologies
    and Factory Automation (ETFA), Sinaia, Romania, 2023, pp. 1-8,
-   doi: 10.1109/ETFA54631.2023.10275601.
+   doi: 10.1109/ETFA54631.2023.10275601. https://ieeexplore.ieee.org/abstract/document/10275601
 3. Kamburjan, E., Klungre, V.N., Schlatte, R., Johnsen, E.B., Giese, M. (2021). "Programming and Debugging with Semantically Lifted States." In: Verborgh, R., et al. The Semantic Web. ESWC 2021. Lecture Notes in Computer Science(), vol 12731. Springer, Cham. https://doi.org/10.1007/978-3-030-77385-4_8
