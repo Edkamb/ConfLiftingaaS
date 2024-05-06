@@ -32,7 +32,7 @@ This script takes the TwinManager, the Flex-cell java script in ```DTProject/too
 The output of experiments is generated to the folder ```DTProject/data_flexcell/output```.
 
 ### Three-Tank System
-The configuration files (Twin Configurations and Twin System Configurations) for the Flex-cell example are in the folder ```DTProject/config_files_three_tank```.  
+The configuration files (Twin Configurations and Twin System Configurations) for the Three-Tank System example are in the folder ```DTProject/config_files_three_tank```.  
 
 To run the Three-Tank System case study, use the script ```DTProject/execution_three_tank.sh``` to run the example. This is a simulation-only example where all the dependencies are already included.  
 This script takes the TwinManager and the Three-Tank java script in ```DTProject/tools/ThreeTankSystemExample.java``` to execute the experiments of a prototypical three-tank system where each tank is defined by an FMU of the same class, but parameterized with different values.
