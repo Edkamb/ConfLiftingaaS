@@ -2,7 +2,7 @@ import org.apache.jena.query.ResultSet
 import org.apache.jena.rdf.model.ModelFactory
 import java.io.FileWriter
 
-
+/** This is, in a non-OO way, ModelParser, ModelReader and ModelDataProcessor in one **/
 fun setupTanks(dtm : DTManager){
     dtm.load("examples/three_tank_system.json")
     val ontologyFilename = "three_tank_system_generated${System.currentTimeMillis()}.ttl"

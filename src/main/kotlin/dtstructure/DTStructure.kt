@@ -9,6 +9,7 @@ import org.apache.jena.rdf.model.Resource
 import org.apache.jena.rdf.model.ResourceFactory
 import java.io.File
 
+
 @Serializable
 sealed class DTFMUObject {
     abstract fun instantiate()
@@ -20,8 +21,9 @@ sealed class DTFMUObject {
     abstract fun getPortUri(s: String): Resource?
 }
 
+typealias DTFMUConcreteObject = CommonModelStructure
 @Serializable
-sealed class DTFMUConcreteObject : DTFMUObject() {
+sealed class CommonModelStructure : DTFMUObject() {
     abstract fun liftInto(m: Model)
     protected fun liftLiteral(prefix: String, property : String, literal : String, m : Model, target : Resource = getURI()){
         val trip = ResourceFactory.createStatement(target,

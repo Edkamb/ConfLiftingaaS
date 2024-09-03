@@ -1,4 +1,3 @@
-import dtstructure.DTFMUConcreteObject
 import dtstructure.prefixes
 import org.apache.jena.query.QueryExecutionFactory
 import org.apache.jena.query.QueryFactory
@@ -17,6 +16,7 @@ val DEFAULT_HANDLER : (ResultSet) -> ConsistencyReport = { ConsistencyReport(tru
 data class ConsistencyRule(val relation: ModelRelation, var handler : (ResultSet) -> ConsistencyReport = DEFAULT_HANDLER, val name : String)
 data class ConsistencyReport(val consistent : Boolean, val rule : ConsistencyRule?, val report : String )
 
+// Old name
 typealias DTDefectAnalysisService = ConsistencyManagement
 /** This, together with the other services is an asynchronous ConsistencyManagement class **/
 class ConsistencyManagement (private var dtm: DTManager) : DTService(){
@@ -29,7 +29,7 @@ class ConsistencyManagement (private var dtm: DTManager) : DTService(){
 
     fun eval_system_consistent(external: Model) : List<ConsistencyReport> {
         val monitorService = dtm.getService("Monitor") as DTMonitorService
-        val rt = monitorService.getViolations(external, false)
+        val rt = monitorService.check_consistency(external, false)
         val res = mutableListOf<ConsistencyReport>()
         for( (df, rs) in rt ){
             val my = defectHandlers.firstOrNull {it.relation == df }
@@ -39,7 +39,11 @@ class ConsistencyManagement (private var dtm: DTManager) : DTService(){
         return res
     }
 }
-class DTMonitorService(private var dtm: DTManager) : DTService() {
+
+typealias EvaluationReport = List<Pair<ModelRelation, ResultSet>>
+//oldName
+typealias DTMonitorService = ConsistencyRuleEvaluator
+class ConsistencyRuleEvaluator(private var dtm: DTManager) : DTService() {
     private val defects = mutableListOf<ModelRelation>()
     private val callBacks : MutableMap<ModelRelation, (ResultSet) -> ConsistencyReport> = mutableMapOf()
     fun addDefectQuery(defect : ModelRelation, handler: ((ResultSet) -> ConsistencyReport)? = null){
@@ -47,7 +51,7 @@ class DTMonitorService(private var dtm: DTManager) : DTService() {
         if (handler != null) callBacks[defect] = handler
     }
 
-    fun getViolations(external: Model, useCallBack: Boolean) : List<Pair<ModelRelation, ResultSet>> {
+    fun check_consistency(external: Model, useCallBack: Boolean) : EvaluationReport {
         val res = mutableListOf<Pair<ModelRelation, ResultSet>>()
         val queryService = dtm.getService("Query") as DTQueryService
         for(defect in defects){
@@ -61,6 +65,12 @@ class DTMonitorService(private var dtm: DTManager) : DTService() {
     }
 
 }
+
+
+/** This is mapped as follows: The query function of the MSM is the DTQueryService,
+ *  while the the store and update ones are *implicit* in the DTLiftingService
+ *  The getModel() function, which fulfills he lifting, is instead the MDP
+ */
 class DTLiftingService(val dtm : DTManager, val path: String) : DTService(){
     fun getModel() : Model {
         val m =

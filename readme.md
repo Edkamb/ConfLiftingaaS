@@ -1,6 +1,23 @@
 # Digital Twin Systems with coupled behavior and semantic services
 This repository contains the source code for the architectural approach to realize Digital Twin systems with coupled behavior and semantic services.
 
+## On-going: Mapping to the consistency managing framework
+This repository is in progress of being aligned with the consistency management from SEAA'24 (Fig.1):
+ * `Defect`, `DefectHandler` and their `String` return value became `ModelRelation`, `ConsistencyRule` and `ConsistencyReport`
+ * The `DTDefectAnalysisService` service became `ConsistencyManagement`
+ * `Model` and `ModelBasedSystem` are implicit, as our queries operate on the lifted state
+ * Change: instead of `rule_name`, our `ConsistencyReport` refers to the rule directly
+ * Change: As we have a 1-1 relation between `ModelRelation` and `ConsistencyRule`, `ConsistencyReport` does not have `model_relation`
+
+Regarding the framework (Fig. 2)
+ * `ModelParser`, `ModelReader`, and `ModelDataProcessor` are just a single function `setupX`
+ * `DTFMConcreteObject` became `CommonModelStructure` (CMS)
+ * Change: Some operations moved from the `ModelStorageManager` (operating on a single CMS) to the `CommonModelStructure` itself
+ * The `ModelStorageManager` is mapped to two services: The `DTQueryService` (for `query`) and the `DTLiftingService` (for `store` and `update` calls)
+ * The `ConsistencyRuleEvaluator` is mapped to the `DTMonitorService` service
+ * The `EvaluationReport` is just `List<Pair<ModelRelation, ResultSet>>`
+
+
 ## Architecture
 The architecture is an extension of a previous work, the *TwinManager* (originally [DT Manager](https://github.com/cdl-mint/DTManagementFramework)) to easily integrate black-box simulation in Digital Twin platforms.  
 This extension now integrates a co-simulation engine, [Maestro](https://github.com/INTO-CPS-Association/maestro), to enable the composition of Digital Twins with coupled behavior.  
