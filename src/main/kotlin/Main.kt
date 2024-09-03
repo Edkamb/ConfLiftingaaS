@@ -17,11 +17,13 @@ fun setupFlex(dtm : DTManager) {
     graphModelFlexcell.write(FileWriter("examples/$ontologyFilenameFlexcell"), "TTL")
 }
 
+
+
 fun evaluateTanks(dtm: DTManager){
-    val valueReq = DefectHandler(
-        Defect("""
+    val valueReq = ConsistencyRule(
+        ModelRelation("""
             SELECT ?x ?out {?sim a domain:SimulationComponent; 
-                               domain:hasFile "DTProject/fmus/Linear.fmu"; 
+                               domain:hasFile "DTProject/models/Linear.fmu"; 
                                domain:hasPort ?p;
                                domain:hasName ?x.
                             ?asset domain:twinnedWithName ?x;
@@ -33,19 +35,21 @@ fun evaluateTanks(dtm: DTManager){
                                FILTER ( ?out >= ?lim )
                                }
             """, listOf("?x", "?out")),
-        handler = fun (rs:ResultSet):String {
-            var res = "Error Report, the following simulators fail their outPort requirement:\n"
-            while(rs.hasNext()){
-                val qs = rs.next()
-                res += "\t simulator ${qs.get("?x")} has value ${qs.get("?out")} >= 0!\n"
-            }
-            return res
-        }
+        name = "valueReq"
     )
-    val structReq = DefectHandler(
-        Defect("""
+    valueReq.handler = fun (rs:ResultSet):ConsistencyReport {
+        if(!rs.hasNext()) return ConsistencyReport(true, valueReq, "no violation")
+        var res = "Error Report on the \"outPortLimit\" defect. The following simulators exhibit defects:\n"
+        while(rs.hasNext()){
+            val qs = rs.next()
+            res += "\t simulator ${qs.get("?x")} has value ${qs.get("?out")} >= 0\n"
+        }
+        return ConsistencyReport(false, valueReq, res)
+    }
+    val structReq = ConsistencyRule(
+        ModelRelation("""
             SELECT ?id ?idNext {?x a domain:SimulationComponent; 
-                               domain:hasFile "DTProject/fmus/Linear.fmu"; 
+                               domain:hasFile "DTProject/models/Linear.fmu"; 
                                domain:hasName ?id.
                             ?asset domain:twinnedWithName ?id.
                             ?asset domain:flowsInto ?next.
@@ -63,30 +67,33 @@ fun evaluateTanks(dtm: DTManager){
                              }  }
             """, listOf("?id", "?idNext")
         ),
-        handler = fun(rs: ResultSet): String {
+        name = "structReq"
+    )
+    structReq.handler = fun(rs: ResultSet): ConsistencyReport {
+            if(!rs.hasNext()) return ConsistencyReport(true, structReq, "no violation")
             var res = "Error Report, the following simulators fail their flowsInto requirement:\n"
             while (rs.hasNext()) {
                 val qs = rs.next()
                 res += "\t simulator ${qs.get("?id")} has value ${qs.get("?idNext")}!\n"
             }
-            return res
+            return ConsistencyReport(false, structReq, res)
         }
-    )
+
     val assetTank = ModelFactory.createDefaultModel().read("examples/asset_tank.ttl", "TTL")
     (dtm.getService("Defect") as DTDefectAnalysisService).addDefectHandler(valueReq)
     (dtm.getService("Defect") as DTDefectAnalysisService).addDefectHandler(structReq)
     for (i in 1..20) {
         val pre = System.currentTimeMillis()
-        val res = (dtm.getService("Defect") as DTDefectAnalysisService).getReports(assetTank)
+        val res = (dtm.getService("Defect") as DTDefectAnalysisService).eval_system_consistent(assetTank)
         val post = System.currentTimeMillis()
-        if(i == 20) println(res)
+        if(i == 20) res.forEach { println(""+ it.consistent + " " + it.report) }
         println(post - pre)
     }
 }
 
 fun evaluateFlex(dtm: DTManager){
-    val valueReq = DefectHandler(
-        Defect("""
+    val valueReq = ConsistencyRule(
+        ModelRelation("""
 SELECT ?x ?out {?sim a domain:SimulationComponent; 
                      domain:hasFile "DTProject/fmus/kukalbriiwa_model.fmu"; 
                      domain:hasPort ?p;
@@ -100,17 +107,19 @@ SELECT ?x ?out {?sim a domain:SimulationComponent;
                    FILTER ( ?out >= ?lim )
 }
             """, listOf("?x", "?out")),
-        handler = fun (rs:ResultSet):String {
+        name = "valueReq"
+    )
+        valueReq.handler = fun (rs:ResultSet):ConsistencyReport {
+            if(!rs.hasNext()) return ConsistencyReport(true, valueReq, "no violation")
             var res = "Error Report, the following simulators fail their target_X requirement:\n"
             while(rs.hasNext()){
                 val qs = rs.next()
                 res += "\t simulator ${qs.get("?x")} has value ${qs.get("?out")} >= 0!\n"
             }
-            return res
+            return ConsistencyReport(false, valueReq, res)
         }
-    )
-    val structReq = DefectHandler(
-        Defect("""
+    val structReq = ConsistencyRule(
+        ModelRelation("""
 SELECT ?id {
   ?cont a domain:ContainerComponent;
         domain:contains ?x;
@@ -147,21 +156,24 @@ SELECT ?id {
 }
             """, listOf("?id")
         ),
-        handler = fun(rs: ResultSet): String {
+        name = "structReq"
+    )
+    structReq.handler = fun(rs: ResultSet): ConsistencyReport {
+            if(!rs.hasNext()) return ConsistencyReport(true, structReq, "no violation")
             var res = "Error Report, the following components fail their connection requirement:\n"
             while (rs.hasNext()) {
                 val qs = rs.next()
                 res += "\t simulator ${qs.get("?id")}\n"
             }
-            return res
+            return ConsistencyReport(false,structReq,res)
         }
-    )
+
     val assetFlex = ModelFactory.createDefaultModel().read("examples/asset_flex.ttl", "TTL")
     (dtm.getService("Defect") as DTDefectAnalysisService).addDefectHandler(valueReq)
     (dtm.getService("Defect") as DTDefectAnalysisService).addDefectHandler(structReq)
     for (i in 1..20) {
         val pre = System.currentTimeMillis()
-        val res = (dtm.getService("Defect") as DTDefectAnalysisService).getReports(assetFlex)
+        val res = (dtm.getService("Defect") as DTDefectAnalysisService).eval_system_consistent(assetFlex)
         val post = System.currentTimeMillis()
         if(i == 20) println(res)
         println(post - pre)

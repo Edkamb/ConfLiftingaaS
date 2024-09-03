@@ -5,7 +5,7 @@
       "fmus": {
         "fmi1": {
           "type": "configuration",
-          "file_path": "DTProject/fmus/Linear.fmu",
+          "file_path": "DTProject/models/Linear.fmu",
           "descriptor": "internal",
           "instance_name": "{tank}.tank1",
           "aliases": {
@@ -15,7 +15,7 @@
         },
         "fmi2": {
           "type": "configuration",
-          "file_path": "DTProject/fmus/Linear.fmu",
+          "file_path": "DTProject/models/Linear.fmu",
           "descriptor": "internal",
           "instance_name": "{tank}.tank2",
           "aliases": {
@@ -25,7 +25,7 @@
         },
         "fmi3": {
           "type": "configuration",
-          "file_path": "DTProject/fmus/Linear.fmu",
+          "file_path": "DTProject/models/Linear.fmu",
           "descriptor": "internal",
           "instance_name": "{tank}.tank3",
           "aliases": {
