@@ -1,4 +1,8 @@
+import dtstructure.DTComponent
+import dtstructure.DTFMUConcreteObject
 import dtstructure.prefixes
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import org.apache.jena.query.QueryExecutionFactory
 import org.apache.jena.query.QueryFactory
 import org.apache.jena.query.ResultSet
@@ -6,6 +10,7 @@ import org.apache.jena.rdf.model.Model
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.reasoner.ReasonerRegistry
 import org.apache.jena.riot.RDFDataMgr
+import java.io.FileInputStream
 
 abstract class DTService
 
@@ -68,16 +73,26 @@ class ConsistencyRuleEvaluator(private var dtm: DTManager) : DTService() {
 
 
 /** This is mapped as follows: The query function of the MSM is the DTQueryService,
- *  while the the store and update ones are *implicit* in the DTLiftingService
+ *  while the store and update ones are *implicit* in the DTLiftingService
  *  The getModel() function, which fulfills he lifting, is instead the MDP
  */
+class ModelStorageManager(val lifting : DTLiftingService, val querying : DTQueryService) : DTService() {
+
+    fun load(s: String) {
+        val conf = Json.decodeFromStream<DTComponent>(FileInputStream(s))// Edit Santiago
+        conf.instantiate()
+        dts.add(conf)
+    }
+    var dts = mutableListOf<DTFMUConcreteObject>()
+}
+
 class DTLiftingService(val dtm : DTManager, val path: String) : DTService(){
     fun getModel() : Model {
         val m =
             if(path == "") ModelFactory.createDefaultModel()
             else RDFDataMgr.loadModel(path)
-
-        for( x in dtm.dts){
+        val msm = dtm.getService("MSM") as ModelStorageManager
+        for( x in msm.dts){
             x.liftInto(m)
         }
         return m

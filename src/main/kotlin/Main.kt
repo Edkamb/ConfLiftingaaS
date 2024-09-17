@@ -4,14 +4,16 @@ import java.io.FileWriter
 
 /** This is, in a non-OO way, ModelParser, ModelReader and ModelDataProcessor in one **/
 fun setupTanks(dtm : DTManager){
-    dtm.load("examples/three_tank_system.json")
+    val msm = dtm.getService("MSM") as ModelStorageManager
+    msm.load("examples/three_tank_system.json")
     val ontologyFilename = "three_tank_system_generated${System.currentTimeMillis()}.ttl"
     val graphModel = (dtm.getService("Lifting") as DTLiftingService).getModel()
     graphModel.write(FileWriter("examples/$ontologyFilename"),"TTL")
 }
 
 fun setupFlex(dtm : DTManager) {
-    dtm.load("examples/flexcell_system.json")
+    val msm = dtm.getService("MSM") as ModelStorageManager
+    msm.load("examples/flexcell_system.json")
     val ontologyFilenameFlexcell = "flexcell_generated.ttl"
     val graphModelFlexcell = (dtm.getService("Lifting") as DTLiftingService).getModel()
     graphModelFlexcell.write(FileWriter("examples/$ontologyFilenameFlexcell"), "TTL")
@@ -186,6 +188,9 @@ fun main(args: Array<String>) {
     dtm.registerAs("Query", DTQueryService(dtm))
     dtm.registerAs("Defect", DTDefectAnalysisService(dtm))
     dtm.registerAs("Monitor", DTMonitorService(dtm))
+    dtm.registerAs("MSM", ModelStorageManager(dtm.getService("Lifting") as DTLiftingService,
+        dtm.getService("Query") as DTQueryService
+    ))
 
     setupTanks(dtm)
     evaluateTanks(dtm)
