@@ -11,7 +11,7 @@ import java.io.File
 
 
 @Serializable
-sealed class DTFMUObject {
+sealed class CommonModelStructure {
     abstract fun instantiate()
     abstract fun validate() : Boolean
     abstract fun hasAlias(inName: String) : Boolean
@@ -21,9 +21,9 @@ sealed class DTFMUObject {
     abstract fun getPortUri(s: String): Resource?
 }
 
-typealias DTFMUConcreteObject = CommonModelStructure
+typealias DTFMUConcreteObject = FMUEndpoint
 @Serializable
-sealed class CommonModelStructure : DTFMUObject() {
+sealed class FMUEndpoint : CommonModelStructure() {
     abstract fun liftInto(m: Model)
     protected fun liftLiteral(prefix: String, property : String, literal : String, m : Model, target : Resource = getURI()){
         val trip = ResourceFactory.createStatement(target,
@@ -54,7 +54,7 @@ sealed class CommonModelStructure : DTFMUObject() {
 
 @Serializable
 @SerialName("reference")
-data class DTFMUReference(val conf_path : String) : DTFMUObject() {
+data class DTFMUReference(val conf_path : String) : CommonModelStructure() {
     override fun instantiate() {
         throw Exception("A DTFMUReference instance cannot instantiate itself")
     }

@@ -7,7 +7,7 @@ fun setupTanks(dtm : DTManager){
     val msm = dtm.getService("MSM") as ModelStorageManager
     msm.load("examples/three_tank_system.json")
     val ontologyFilename = "three_tank_system_generated${System.currentTimeMillis()}.ttl"
-    val graphModel = (dtm.getService("Lifting") as DTLiftingService).getModel()
+    val graphModel = (dtm.getService("Lifting") as LiftingService).getModel()
     graphModel.write(FileWriter("examples/$ontologyFilename"),"TTL")
 }
 
@@ -15,7 +15,7 @@ fun setupFlex(dtm : DTManager) {
     val msm = dtm.getService("MSM") as ModelStorageManager
     msm.load("examples/flexcell_system.json")
     val ontologyFilenameFlexcell = "flexcell_generated.ttl"
-    val graphModelFlexcell = (dtm.getService("Lifting") as DTLiftingService).getModel()
+    val graphModelFlexcell = (dtm.getService("Lifting") as LiftingService).getModel()
     graphModelFlexcell.write(FileWriter("examples/$ontologyFilenameFlexcell"), "TTL")
 }
 
@@ -24,6 +24,8 @@ fun setupFlex(dtm : DTManager) {
 fun evaluateTanks(dtm: DTManager){
     val valueReq = ConsistencyRule(
         ModelRelation("""
+            PREFIX domain: <http://www.smolang.org/dtlift#>
+            
             SELECT ?x ?out {?sim a domain:SimulationComponent; 
                                domain:hasFile "DTProject/models/Linear.fmu"; 
                                domain:hasPort ?p;
@@ -50,6 +52,8 @@ fun evaluateTanks(dtm: DTManager){
     }
     val structReq = ConsistencyRule(
         ModelRelation("""
+            PREFIX domain: <http://www.smolang.org/dtlift#>
+            
             SELECT ?id ?idNext {?x a domain:SimulationComponent; 
                                domain:hasFile "DTProject/models/Linear.fmu"; 
                                domain:hasName ?id.
@@ -81,9 +85,57 @@ fun evaluateTanks(dtm: DTManager){
             return ConsistencyReport(false, structReq, res)
         }
 
+
+
+
+
+    val conreq = ConsistencyRule(
+        ModelRelation("""
+            PREFIX domain: <http://www.smolang.org/dtlift#>
+            
+            SELECT ?id ?idNext {
+                ?x a domain:SimulationComponent; domain:hasName ?id.
+                ?asset domain:twinnedWithName ?id.
+                ?assetN domain:twinnedWithName ?idNext.
+                ?cont1 a domain:ContainerComponent;
+                       domain:contains ?asset; 
+                       domain:contains [domain:twinnedWithName ?idNext];
+                       domain:hasConnection [ domain:connectFrom [domain:partOf ?asset];
+                       domain:connectTo [domain:partOf ?assetN]].
+                FILTER NOT EXISTS {
+                ?y a domain:SimulationComponent; domain:hasName ?id.
+                ?cont a domain:ContainerComponent;
+                      domain:contains ?x; 
+                      domain:contains ?y;
+                domain:hasConnection [ domain:connectFrom [domain:partOf ?x];
+                                domain:connectTo [domain:partOf ?y] ] } }
+            
+            """, listOf("?id", "?idNext")
+        ),
+        name = "conreq"
+    )
+    conreq.handler = fun(rs: ResultSet): ConsistencyReport {
+        if(!rs.hasNext()) return ConsistencyReport(true, structReq, "no violation")
+        var res = "Error Report, the following simulators are not connected properly:\n"
+        while (rs.hasNext()) {
+            val qs = rs.next()
+            res += "\t simulator ${qs.get("?id")} is not correctly connected to ${qs.get("?idNext")}!\n"
+        }
+        return ConsistencyReport(false, conreq, res)
+    }
+
+
+
+
+
+
+
+
+
     val assetTank = ModelFactory.createDefaultModel().read("examples/asset_tank.ttl", "TTL")
     (dtm.getService("Defect") as DTDefectAnalysisService).addDefectHandler(valueReq)
     (dtm.getService("Defect") as DTDefectAnalysisService).addDefectHandler(structReq)
+    //(dtm.getService("Defect") as DTDefectAnalysisService).addDefectHandler(conreq) //uncomment to get irrelevancy
     for (i in 1..20) {
         val pre = System.currentTimeMillis()
         val res = (dtm.getService("Defect") as DTDefectAnalysisService).eval_system_consistent(assetTank)
@@ -184,13 +236,14 @@ SELECT ?id {
 fun main(args: Array<String>) {
 
     val dtm = DTManager()
-    dtm.registerAs("Lifting", DTLiftingService(dtm, "examples/ontology.ttl"))
-    dtm.registerAs("Query", DTQueryService(dtm))
+    dtm.registerAs("Lifting", LiftingService(dtm, "examples/ontology.ttl"))
+    dtm.registerAs("Query", QueryService(dtm))
     dtm.registerAs("Defect", DTDefectAnalysisService(dtm))
     dtm.registerAs("Monitor", DTMonitorService(dtm))
-    dtm.registerAs("MSM", ModelStorageManager(dtm.getService("Lifting") as DTLiftingService,
-        dtm.getService("Query") as DTQueryService
+    dtm.registerAs("MSM", ModelStorageManager(dtm.getService("Lifting") as LiftingService,
+        dtm.getService("Query") as QueryService
     ))
+    dtm.registerAs("Relevance", RelevancyService(dtm))
 
     setupTanks(dtm)
     evaluateTanks(dtm)

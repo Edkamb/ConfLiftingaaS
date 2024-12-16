@@ -12,6 +12,13 @@
 #    Object Properties
 #################################################################
 
+:hasFile rdf:type owl:DataProperty.
+:hasName rdf:type owl:DataProperty.
+:twinnedWithName rdf:type owl:DataProperty.
+:minValue rdf:type owl:DataProperty.
+:hasValue rdf:type owl:DataProperty.
+:maxValue rdf:type owl:DataProperty.
+
 ###  http://www.smolang.org/dtlift#aliasOf
 :aliasOf rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf owl:topObjectProperty ;

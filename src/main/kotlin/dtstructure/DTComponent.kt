@@ -13,7 +13,7 @@ import java.io.FileInputStream
 
 @Serializable
 @SerialName("component")
-data class DTComponent(var fmus : MutableMap<String, DTFMUObject>,
+data class DTComponent(var fmus : MutableMap<String, CommonModelStructure>,
                        var connections: Map<String, Array<String>>,
                        var aliases : MutableMap<String, String>): DTFMUConcreteObject() {
     @Transient
@@ -55,13 +55,13 @@ data class DTComponent(var fmus : MutableMap<String, DTFMUObject>,
 
     @OptIn(ExperimentalSerializationApi::class)
     override fun instantiate(){
-        val list = mutableListOf<Pair<String, DTFMUObject>>()
+        val list = mutableListOf<Pair<String, CommonModelStructure>>()
         for (kv in fmus){
             if(kv.value is DTFMUReference){
                 val path = (kv.value as DTFMUReference).conf_path
                 val f = File(path)
                 if(!f.exists()) throw Exception("File $path not found")
-                val next = Json.decodeFromStream<DTFMUObject>(FileInputStream(path))
+                val next = Json.decodeFromStream<CommonModelStructure>(FileInputStream(path))
                 next.instantiate()
                 list.add(Pair(kv.key,next) )
             } else {
